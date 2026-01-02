@@ -40,7 +40,8 @@ Then apply `supabase/migrations/0002_storage_policies.sql`.
 Important:
 
 - Run it in the **Supabase Dashboard → SQL Editor** while connected as **`postgres`** (DB owner), or via **Supabase CLI** using the project’s DB password.
-- Do **not** run it via the Supabase MCP `execute_sql` tool — that runner is not the owner of `storage.objects` and will fail with `ERROR: 42501: must be owner of table objects`.
+- If you see `permission denied to set role "supabase_storage_admin"` or `must be owner of table objects`, use **Supabase Dashboard → Storage → Policies** to create the policies instead (recommended).
+- Do **not** run it via the Supabase MCP `execute_sql` tool — it’s not the owner of `storage.objects` and will fail with `ERROR: 42501: must be owner of table objects`.
 
 Those policies allow read/write based on org membership, assuming paths are shaped like:
 

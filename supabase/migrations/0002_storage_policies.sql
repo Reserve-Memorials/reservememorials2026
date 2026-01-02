@@ -1,6 +1,8 @@
 -- Storage RLS (design-exports bucket)
--- Run this as the database owner (e.g. via Supabase SQL editor as `postgres`,
--- or via Supabase CLI configured with the database password).
+-- NOTE: `storage.objects` is owned by `supabase_storage_admin` in Supabase-managed Postgres.
+-- In many projects, you cannot `SET ROLE supabase_storage_admin`, and `postgres` is not allowed
+-- to CREATE POLICY/ALTER TABLE on `storage.objects`. If you hit permissions errors, use the
+-- Supabase Dashboard UI: Storage → Policies.
 --
 -- IMPORTANT:
 -- - Do NOT run this via the Supabase MCP `execute_sql` tool.
@@ -9,7 +11,10 @@
 --
 -- Prereq: create a private bucket named `design-exports`.
 
-alter table storage.objects enable row level security;
+-- RLS is typically already enabled on storage.objects in new Supabase projects.
+-- If you are able to run this migration with sufficient privileges, you can keep this line;
+-- otherwise remove it.
+-- alter table storage.objects enable row level security;
 
 drop policy if exists "design_exports_read" on storage.objects;
 create policy "design_exports_read"
