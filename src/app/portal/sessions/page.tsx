@@ -1,5 +1,16 @@
 import Link from "next/link";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { LayoutDashboard } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
@@ -13,47 +24,61 @@ export default async function SessionsPage() {
 
   return (
     <div className="space-y-4">
-      <h1 className="text-xl font-semibold tracking-tight">Design sessions</h1>
-      {error ? (
-        <div className="rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-800">
-          {error.message}
-        </div>
-      ) : null}
-      <div className="rounded-lg border border-black/10">
-        <table className="w-full text-sm">
-          <thead className="border-b border-black/10 text-left text-zinc-600">
-            <tr>
-              <th className="p-3">Session</th>
-              <th className="p-3">Status</th>
-              <th className="p-3">Exports</th>
-              <th className="p-3">Created</th>
-            </tr>
-          </thead>
-          <tbody>
-            {(data ?? []).map((s) => (
-              <tr key={s.id} className="border-b border-black/5">
-                <td className="p-3 font-mono">
-                  <Link className="underline" href={`/design/session/${s.id}`}>
-                    {s.id.slice(0, 8)}…
-                  </Link>
-                </td>
-                <td className="p-3 font-mono">{s.status}</td>
-                <td className="p-3 font-mono">{s.export_count ?? 0}</td>
-                <td className="p-3 text-zinc-600">
-                  {new Date(s.created_at).toLocaleString()}
-                </td>
-              </tr>
-            ))}
-            {!data?.length ? (
-              <tr>
-                <td className="p-3 text-zinc-600" colSpan={4}>
-                  No sessions yet.
-                </td>
-              </tr>
-            ) : null}
-          </tbody>
-        </table>
-      </div>
+      <Card>
+        <CardHeader className="space-y-2">
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <LayoutDashboard className="h-4 w-4 text-primary" />
+            Sessions
+          </div>
+          <CardTitle className="text-xl">Design sessions</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          {error ? (
+            <div className="rounded-md border border-destructive/20 bg-destructive/10 p-3 text-sm text-destructive">
+              {error.message}
+            </div>
+          ) : null}
+          <div className="rounded-lg border border-border/60">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Session</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead>Exports</TableHead>
+                  <TableHead className="text-right">Created</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {(data ?? []).map((s) => (
+                  <TableRow key={s.id} className="hover:bg-muted/40">
+                    <TableCell className="font-mono">
+                      <Link className="underline underline-offset-4" href={`/design/session/${s.id}`}>
+                        {s.id.slice(0, 8)}…
+                      </Link>
+                    </TableCell>
+                    <TableCell>
+                      <Badge variant="secondary" className="font-mono">
+                        {s.status}
+                      </Badge>
+                    </TableCell>
+                    <TableCell className="font-mono">{s.export_count ?? 0}</TableCell>
+                    <TableCell className="text-right text-muted-foreground">
+                      {new Date(s.created_at).toLocaleString()}
+                    </TableCell>
+                  </TableRow>
+                ))}
+                {!data?.length ? (
+                  <TableRow>
+                    <TableCell className="py-6 text-muted-foreground" colSpan={4}>
+                      No sessions yet.
+                    </TableCell>
+                  </TableRow>
+                ) : null}
+              </TableBody>
+            </Table>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }

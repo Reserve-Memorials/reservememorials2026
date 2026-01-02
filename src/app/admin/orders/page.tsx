@@ -1,4 +1,15 @@
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { ClipboardList } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
@@ -12,47 +23,61 @@ export default async function OrdersAdminPage() {
 
   return (
     <div className="space-y-4">
-      <h1 className="text-xl font-semibold tracking-tight">Orders</h1>
-      {error ? (
-        <div className="rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-800">
-          {error.message}
-        </div>
-      ) : null}
-      <div className="rounded-lg border border-black/10">
-        <table className="w-full text-sm">
-          <thead className="border-b border-black/10 text-left text-zinc-600">
-            <tr>
-              <th className="p-3">Org</th>
-              <th className="p-3">Type</th>
-              <th className="p-3">Status</th>
-              <th className="p-3">Total</th>
-              <th className="p-3">Created</th>
-            </tr>
-          </thead>
-          <tbody>
-            {(data ?? []).map((o) => (
-              <tr key={o.id} className="border-b border-black/5">
-                <td className="p-3 font-mono">{o.org_id}</td>
-                <td className="p-3 font-mono">{o.type}</td>
-                <td className="p-3 font-mono">{o.status}</td>
-                <td className="p-3 font-mono">
-                  ${(o.total_cents / 100).toFixed(2)} {o.currency.toUpperCase()}
-                </td>
-                <td className="p-3 text-zinc-600">
-                  {new Date(o.created_at).toLocaleString()}
-                </td>
-              </tr>
-            ))}
-            {!data?.length ? (
-              <tr>
-                <td className="p-3 text-zinc-600" colSpan={5}>
-                  No orders found.
-                </td>
-              </tr>
-            ) : null}
-          </tbody>
-        </table>
-      </div>
+      <Card>
+        <CardHeader className="space-y-2">
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <ClipboardList className="h-4 w-4 text-primary" />
+            Orders
+          </div>
+          <CardTitle className="text-xl">Orders</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          {error ? (
+            <div className="rounded-md border border-destructive/20 bg-destructive/10 p-3 text-sm text-destructive">
+              {error.message}
+            </div>
+          ) : null}
+          <div className="rounded-lg border border-border/60">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Org</TableHead>
+                  <TableHead>Type</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead>Total</TableHead>
+                  <TableHead className="text-right">Created</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {(data ?? []).map((o) => (
+                  <TableRow key={o.id} className="hover:bg-muted/40">
+                    <TableCell className="font-mono">{o.org_id}</TableCell>
+                    <TableCell className="font-mono">{o.type}</TableCell>
+                    <TableCell>
+                      <Badge variant="secondary" className="font-mono">
+                        {o.status}
+                      </Badge>
+                    </TableCell>
+                    <TableCell className="font-mono">
+                      ${(o.total_cents / 100).toFixed(2)} {o.currency.toUpperCase()}
+                    </TableCell>
+                    <TableCell className="text-right text-muted-foreground">
+                      {new Date(o.created_at).toLocaleString()}
+                    </TableCell>
+                  </TableRow>
+                ))}
+                {!data?.length ? (
+                  <TableRow>
+                    <TableCell className="py-6 text-muted-foreground" colSpan={5}>
+                      No orders found.
+                    </TableCell>
+                  </TableRow>
+                ) : null}
+              </TableBody>
+            </Table>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }

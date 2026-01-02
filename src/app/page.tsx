@@ -1,42 +1,122 @@
 import Link from "next/link";
+import {
+  ArrowRight,
+  LayoutDashboard,
+  ShoppingBag,
+  Sparkles,
+} from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function Home() {
   return (
-    <div className="space-y-6">
-      <h1 className="text-3xl font-semibold tracking-tight">
-        Reserve Memorials MVP
-      </h1>
-      <p className="max-w-2xl text-zinc-700">
-        Start a design, capture a lead by ZIP (territory routing), take a deposit
-        or sell merchandise, and give licensees/corporate a simple portal for
-        leads and orders.
-      </p>
-      <div className="flex flex-wrap gap-3">
-        <Link
-          className="rounded-md bg-black px-4 py-2 text-sm font-medium text-white"
+    <div className="space-y-10">
+      <section className="relative overflow-hidden rounded-3xl border border-border/60 bg-card/60 p-8 shadow-sm backdrop-blur sm:p-12">
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top_right,theme(colors.primary/18),transparent_60%)]" />
+
+        <div className="space-y-5 animate-in fade-in slide-in-from-bottom-2 duration-500">
+          <Badge className="w-fit" variant="secondary">
+            Production-scalable MVP
+          </Badge>
+          <h1 className="max-w-3xl text-balance text-4xl font-semibold tracking-tight sm:text-5xl">
+            Territory-based lead routing + deposits + merch — in one clean
+            portal.
+          </h1>
+          <p className="max-w-2xl text-pretty text-base text-muted-foreground sm:text-lg">
+            Prospects start a design, we route by ZIP to the correct licensee
+            (or corporate unassigned), capture sessions, and reconcile payments
+            via Stripe webhooks.
+          </p>
+
+          <div className="flex flex-wrap items-center gap-3">
+            <Button asChild size="lg" className="group">
+              <Link href="/design">
+                Start Design
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              </Link>
+            </Button>
+            <Button asChild size="lg" variant="secondary" className="group">
+              <Link href="/shop">
+                <ShoppingBag className="mr-2 h-4 w-4" />
+                Shop Merch
+              </Link>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="group">
+              <Link href="/portal">
+                <LayoutDashboard className="mr-2 h-4 w-4" />
+                Go to Portal
+              </Link>
+            </Button>
+          </div>
+
+          <div className="pt-2 text-sm text-muted-foreground">
+            Setup: copy{" "}
+            <code className="rounded bg-muted px-1 py-0.5 font-mono">
+              env.example
+            </code>{" "}
+            to{" "}
+            <code className="rounded bg-muted px-1 py-0.5 font-mono">
+              .env.local
+            </code>
+            .
+          </div>
+        </div>
+      </section>
+
+      <section className="grid gap-4 md:grid-cols-3">
+        <FeatureCard
+          icon={<Sparkles className="h-4 w-4" />}
+          title="Design intake"
+          description="Capture ZIP + contact, create a session, upload exports, and move to deposit checkout."
           href="/design"
-        >
-          Start Design
-        </Link>
-        <Link
-          className="rounded-md border border-black/15 px-4 py-2 text-sm font-medium"
+        />
+        <FeatureCard
+          icon={<LayoutDashboard className="h-4 w-4" />}
+          title="Licensee portal"
+          description="Leads, sessions, and orders scoped by org (RLS). Built for speed and clarity."
+          href="/portal"
+        />
+        <FeatureCard
+          icon={<ShoppingBag className="h-4 w-4" />}
+          title="Merch store"
+          description="DB-backed catalog + cart checkout. Totals validated server-side before Stripe."
           href="/shop"
-        >
-          Shop Merch
-        </Link>
-        <Link
-          className="rounded-md border border-black/15 px-4 py-2 text-sm font-medium"
-          href="/login"
-        >
-          Login
-        </Link>
-      </div>
-      <div className="rounded-lg border border-black/10 p-4 text-sm text-zinc-700">
-        Setup docs are in <code className="font-mono">docs/PRD.md</code>. Copy{" "}
-        <code className="font-mono">env.example</code> to{" "}
-        <code className="font-mono">.env.local</code> and fill in Supabase +
-        Stripe keys.
-      </div>
+        />
+      </section>
     </div>
+  );
+}
+
+function FeatureCard({
+  icon,
+  title,
+  description,
+  href,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+  href: string;
+}) {
+  return (
+    <Card className="group relative overflow-hidden transition hover:-translate-y-0.5 hover:shadow-md">
+      <CardHeader className="space-y-2">
+        <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary/10 text-primary ring-1 ring-border/50 transition group-hover:bg-primary/15">
+          {icon}
+        </div>
+        <CardTitle className="text-lg">{title}</CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-3">
+        <p className="text-sm text-muted-foreground">{description}</p>
+        <Button asChild variant="ghost" className="px-0">
+          <Link href={href} className="group/link">
+            Explore
+            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover/link:translate-x-0.5" />
+          </Link>
+        </Button>
+      </CardContent>
+      <div className="pointer-events-none absolute inset-0 -z-10 opacity-0 transition group-hover:opacity-100 bg-[radial-gradient(ellipse_at_top,theme(colors.primary/12),transparent_60%)]" />
+    </Card>
   );
 }

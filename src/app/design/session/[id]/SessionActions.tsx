@@ -1,35 +1,50 @@
 "use client";
 
 import { useState } from "react";
+import { DownloadCloud, Loader2, Lock, UploadCloud } from "lucide-react";
 
-export default function SessionActions({ designSessionId }: { designSessionId: string }) {
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { toast } from "sonner";
+
+export default function SessionActions({
+  designSessionId,
+}: {
+  designSessionId: string;
+}) {
   const [file, setFile] = useState<File | null>(null);
   const [exporting, setExporting] = useState(false);
   const [checkingOut, setCheckingOut] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   async function uploadExport() {
     if (!file) return;
-    setError(null);
     setExporting(true);
     try {
       const form = new FormData();
       form.append("file", file);
-      const res = await fetch(`/api/design-sessions/${designSessionId}/export`, {
-        method: "POST",
-        body: form,
-      });
+      const res = await fetch(
+        `/api/design-sessions/${designSessionId}/export`,
+        {
+          method: "POST",
+          body: form,
+        }
+      );
       if (!res.ok) throw new Error(await res.text());
+      toast.success("Export saved", {
+        description: "Your file is now secured in storage.",
+      });
       window.location.reload();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Export failed");
+      toast.error("Export failed", {
+        description: err instanceof Error ? err.message : "Unknown error",
+      });
     } finally {
       setExporting(false);
     }
   }
 
   async function checkoutDeposit() {
-    setError(null);
     setCheckingOut(true);
     try {
       const res = await fetch("/api/stripe/checkout/deposit", {
@@ -39,9 +54,14 @@ export default function SessionActions({ designSessionId }: { designSessionId: s
       });
       if (!res.ok) throw new Error(await res.text());
       const { url } = (await res.json()) as { url: string };
+      toast.message("Redirecting to checkout…", {
+        description: "Stripe Checkout will open in a moment.",
+      });
       window.location.href = url;
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Checkout failed");
+      toast.error("Checkout failed", {
+        description: err instanceof Error ? err.message : "Unknown error",
+      });
     } finally {
       setCheckingOut(false);
     }
@@ -49,40 +69,61 @@ export default function SessionActions({ designSessionId }: { designSessionId: s
 
   return (
     <div className="space-y-4">
-      <div className="rounded-lg border border-black/10 p-4">
-        <div className="mb-2 text-sm font-medium">Upload design export (MVP)</div>
-        <div className="flex flex-wrap items-center gap-3">
-          <input
+      <Card>
+        <CardHeader className="space-y-1">
+          <CardTitle className="text-base">Export your design</CardTitle>
+          <p className="text-sm text-muted-foreground">
+            Upload an image or PDF. Assets are stored privately and scoped by
+            org.
+          </p>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          <Input
             type="file"
             onChange={(e) => setFile(e.target.files?.[0] ?? null)}
           />
-          <button
+          <Button
             type="button"
             onClick={uploadExport}
             disabled={!file || exporting}
-            className="rounded-md border border-black/15 px-3 py-2 text-sm font-medium disabled:opacity-60"
+            variant="secondary"
+            className="w-full"
           >
-            {exporting ? "Uploading..." : "Save / Export"}
-          </button>
-        </div>
-      </div>
+            {exporting ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Uploading…
+              </>
+            ) : (
+              <>
+                <UploadCloud className="mr-2 h-4 w-4" />
+                Save export
+              </>
+            )}
+          </Button>
+        </CardContent>
+      </Card>
 
-      <button
+      <Button
         type="button"
         onClick={checkoutDeposit}
         disabled={checkingOut}
-        className="rounded-md bg-black px-4 py-2 text-sm font-medium text-white disabled:opacity-60"
+        className="w-full group"
+        size="lg"
       >
-        {checkingOut ? "Redirecting..." : "Continue to Deposit"}
-      </button>
-
-      {error ? (
-        <div className="rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-800">
-          {error}
-        </div>
-      ) : null}
+        {checkingOut ? (
+          <>
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            Redirecting…
+          </>
+        ) : (
+          <>
+            <Lock className="mr-2 h-4 w-4" />
+            Continue to deposit
+            <DownloadCloud className="ml-2 h-4 w-4 transition-transform group-hover:translate-y-[-1px]" />
+          </>
+        )}
+      </Button>
     </div>
   );
 }
-
-

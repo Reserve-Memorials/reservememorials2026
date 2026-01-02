@@ -1,6 +1,12 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { Minus, Plus, ShoppingCart, Loader2 } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { toast } from "sonner";
 
 type Product = {
   id: string;
@@ -13,7 +19,6 @@ type Product = {
 export default function ShopClient({ products }: { products: Product[] }) {
   const [cart, setCart] = useState<Record<string, number>>({});
   const [checkingOut, setCheckingOut] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   const items = useMemo(
     () =>
@@ -29,7 +34,6 @@ export default function ShopClient({ products }: { products: Product[] }) {
   }, [items, products]);
 
   async function checkout() {
-    setError(null);
     setCheckingOut(true);
     try {
       const res = await fetch("/api/stripe/checkout/cart", {
@@ -39,9 +43,14 @@ export default function ShopClient({ products }: { products: Product[] }) {
       });
       if (!res.ok) throw new Error(await res.text());
       const { url } = (await res.json()) as { url: string };
+      toast.message("Redirecting to checkout…", {
+        description: "Stripe Checkout will open in a moment.",
+      });
       window.location.href = url;
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Checkout failed");
+      toast.error("Checkout failed", {
+        description: err instanceof Error ? err.message : "Unknown error",
+      });
     } finally {
       setCheckingOut(false);
     }
@@ -53,58 +62,90 @@ export default function ShopClient({ products }: { products: Product[] }) {
         {products.map((p) => {
           const qty = cart[p.id] ?? 0;
           return (
-            <div key={p.id} className="rounded-lg border border-black/10 p-4">
-              <div className="font-medium">{p.name}</div>
-              {p.description ? (
-                <div className="mt-1 text-sm text-zinc-600">{p.description}</div>
-              ) : null}
-              <div className="mt-3 text-sm font-medium">
-                ${(p.price_cents / 100).toFixed(2)} {p.currency.toUpperCase()}
-              </div>
-              <div className="mt-4 flex items-center gap-2">
-                <button
-                  type="button"
-                  className="rounded-md border border-black/15 px-2 py-1 text-sm"
-                  onClick={() =>
-                    setCart((c) => ({ ...c, [p.id]: Math.max(0, (c[p.id] ?? 0) - 1) }))
-                  }
-                >
-                  -
-                </button>
-                <div className="w-10 text-center text-sm">{qty}</div>
-                <button
-                  type="button"
-                  className="rounded-md border border-black/15 px-2 py-1 text-sm"
-                  onClick={() => setCart((c) => ({ ...c, [p.id]: (c[p.id] ?? 0) + 1 }))}
-                >
-                  +
-                </button>
-              </div>
-            </div>
+            <Card
+              key={p.id}
+              className="group relative overflow-hidden transition hover:-translate-y-0.5 hover:shadow-md"
+            >
+              <CardHeader className="space-y-2">
+                <div className="flex items-start justify-between gap-2">
+                  <CardTitle className="text-base">{p.name}</CardTitle>
+                  <Badge variant="secondary">
+                    ${(p.price_cents / 100).toFixed(2)}
+                  </Badge>
+                </div>
+                {p.description ? (
+                  <p className="text-sm text-muted-foreground">{p.description}</p>
+                ) : null}
+              </CardHeader>
+              <CardContent className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="text-xs text-muted-foreground">
+                    {p.currency.toUpperCase()}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Button
+                      type="button"
+                      size="icon"
+                      variant="outline"
+                      onClick={() =>
+                        setCart((c) => ({
+                          ...c,
+                          [p.id]: Math.max(0, (c[p.id] ?? 0) - 1),
+                        }))
+                      }
+                    >
+                      <Minus className="h-4 w-4" />
+                    </Button>
+                    <div className="w-10 text-center text-sm font-medium tabular-nums">
+                      {qty}
+                    </div>
+                    <Button
+                      type="button"
+                      size="icon"
+                      variant="outline"
+                      onClick={() =>
+                        setCart((c) => ({ ...c, [p.id]: (c[p.id] ?? 0) + 1 }))
+                      }
+                    >
+                      <Plus className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+              <div className="pointer-events-none absolute inset-0 -z-10 opacity-0 transition group-hover:opacity-100 bg-[radial-gradient(ellipse_at_top,theme(colors.primary/10),transparent_60%)]" />
+            </Card>
           );
         })}
       </div>
 
-      <div className="rounded-lg border border-black/10 p-4">
-        <div className="flex flex-wrap items-center justify-between gap-3">
+      <Card>
+        <CardContent className="flex flex-wrap items-center justify-between gap-3 pt-6">
           <div className="text-sm">
-            <span className="font-medium">Cart total:</span>{" "}
-            <span className="font-mono">${(total / 100).toFixed(2)}</span>
+            <div className="text-muted-foreground">Cart total</div>
+            <div className="text-2xl font-semibold tabular-nums">
+              ${(total / 100).toFixed(2)}
+            </div>
           </div>
-          <button
+          <Button
             disabled={!items.length || checkingOut}
             onClick={checkout}
-            className="rounded-md bg-black px-4 py-2 text-sm font-medium text-white disabled:opacity-60"
+            size="lg"
+            className="group"
           >
-            {checkingOut ? "Redirecting..." : "Checkout"}
-          </button>
-        </div>
-        {error ? (
-          <div className="mt-3 rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-800">
-            {error}
-          </div>
-        ) : null}
-      </div>
+            {checkingOut ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Redirecting…
+              </>
+            ) : (
+              <>
+                <ShoppingCart className="mr-2 h-4 w-4" />
+                Checkout
+              </>
+            )}
+          </Button>
+        </CardContent>
+      </Card>
     </div>
   );
 }

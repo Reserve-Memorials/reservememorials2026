@@ -1,4 +1,15 @@
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
+import { Map } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
@@ -12,46 +23,60 @@ export default async function TerritoriesAdminPage() {
 
   return (
     <div className="space-y-4">
-      <h1 className="text-xl font-semibold tracking-tight">Territories</h1>
-      <p className="text-sm text-zinc-600">
-        MVP viewer. CRUD + bulk upload comes next.
-      </p>
-      {error ? (
-        <div className="rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-800">
-          {error.message}
-        </div>
-      ) : null}
-      <div className="rounded-lg border border-black/10">
-        <table className="w-full text-sm">
-          <thead className="border-b border-black/10 text-left text-zinc-600">
-            <tr>
-              <th className="p-3">ZIP</th>
-              <th className="p-3">Org</th>
-              <th className="p-3">Active</th>
-              <th className="p-3">Priority</th>
-            </tr>
-          </thead>
-          <tbody>
-            {(data ?? []).map((t) => (
-              <tr key={t.id} className="border-b border-black/5">
-                <td className="p-3 font-mono">{t.zip}</td>
-                <td className="p-3 font-mono">{t.org_id}</td>
-                <td className="p-3 font-mono">
-                  {t.active_from} → {t.active_to ?? "∞"}
-                </td>
-                <td className="p-3 font-mono">{t.priority}</td>
-              </tr>
-            ))}
-            {!data?.length ? (
-              <tr>
-                <td className="p-3 text-zinc-600" colSpan={4}>
-                  No territories found.
-                </td>
-              </tr>
-            ) : null}
-          </tbody>
-        </table>
-      </div>
+      <Card>
+        <CardHeader className="space-y-2">
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <Map className="h-4 w-4 text-primary" />
+            Territories
+          </div>
+          <CardTitle className="text-xl">Territories</CardTitle>
+          <p className="text-sm text-muted-foreground">
+            MVP viewer. CRUD + bulk upload comes next.
+          </p>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          {error ? (
+            <div className="rounded-md border border-destructive/20 bg-destructive/10 p-3 text-sm text-destructive">
+              {error.message}
+            </div>
+          ) : null}
+          <div className="rounded-lg border border-border/60">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>ZIP</TableHead>
+                  <TableHead>Org</TableHead>
+                  <TableHead>Active</TableHead>
+                  <TableHead>Priority</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {(data ?? []).map((t) => (
+                  <TableRow key={t.id} className="hover:bg-muted/40">
+                    <TableCell className="font-mono">{t.zip}</TableCell>
+                    <TableCell className="font-mono">{t.org_id}</TableCell>
+                    <TableCell className="font-mono text-xs text-muted-foreground">
+                      {t.active_from} → {t.active_to ?? "∞"}
+                    </TableCell>
+                    <TableCell>
+                      <Badge variant="secondary" className="font-mono">
+                        {t.priority}
+                      </Badge>
+                    </TableCell>
+                  </TableRow>
+                ))}
+                {!data?.length ? (
+                  <TableRow>
+                    <TableCell className="py-6 text-muted-foreground" colSpan={4}>
+                      No territories found.
+                    </TableCell>
+                  </TableRow>
+                ) : null}
+              </TableBody>
+            </Table>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }

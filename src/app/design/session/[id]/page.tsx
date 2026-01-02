@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import SessionActions from "./SessionActions";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 export const dynamic = "force-dynamic";
 
@@ -41,63 +43,76 @@ export default async function DesignSessionPage({
 
   return (
     <div className="mx-auto max-w-3xl space-y-6">
-      <div className="space-y-2">
-        <div className="text-sm text-zinc-600">
-          <Link className="underline" href="/design">
-            ← Back
-          </Link>
-        </div>
-        <h1 className="text-2xl font-semibold tracking-tight">Design session</h1>
-        <p className="text-sm text-zinc-600">
-          Session ID: <span className="font-mono">{id}</span>
-        </p>
-      </div>
+      <Card className="overflow-hidden">
+        <CardHeader className="space-y-3">
+          <div className="text-sm text-muted-foreground">
+            <Link className="underline" href="/design">
+              ← Back
+            </Link>
+          </div>
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div className="space-y-1">
+              <CardTitle className="text-2xl">Design session</CardTitle>
+              <div className="text-sm text-muted-foreground">
+                Session: <span className="font-mono">{id}</span>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <Badge variant="secondary" className="font-mono">
+                {session?.status ?? "unknown"}
+              </Badge>
+              <Badge variant="outline" className="font-mono">
+                exports: {session?.export_count ?? 0}
+              </Badge>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          {error ? (
+            <div className="rounded-md border border-destructive/20 bg-destructive/10 p-4 text-sm text-destructive">
+              {error}
+              <div className="mt-2 text-muted-foreground">
+                This usually means env vars aren’t configured yet, or DB migrations haven’t been applied.
+              </div>
+            </div>
+          ) : null}
 
-      {error ? (
-        <div className="rounded-md border border-red-200 bg-red-50 p-4 text-sm text-red-800">
-          {error}
-          <div className="mt-2 text-zinc-700">
-            This typically means Supabase env vars aren’t configured yet, or the
-            database migrations haven’t been applied.
-          </div>
-        </div>
-      ) : null}
-
-      <div className="rounded-lg border border-black/10 p-5">
-        <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
-          <div className="text-sm">
-            <span className="font-medium">Status:</span>{" "}
-            <span className="font-mono">{session?.status ?? "unknown"}</span>
-          </div>
-          <div className="text-sm">
-            <span className="font-medium">Exports:</span>{" "}
-            <span className="font-mono">{session?.export_count ?? 0}</span>
-          </div>
-        </div>
-        <SessionActions designSessionId={id} />
-      </div>
+          <SessionActions designSessionId={id} />
+        </CardContent>
+      </Card>
 
       <div className="space-y-2">
         <h2 className="text-lg font-semibold tracking-tight">Exports</h2>
-        <div className="rounded-lg border border-black/10 p-4">
-          {assets && assets.length ? (
-            <ul className="space-y-2 text-sm">
-              {assets.map((a) =>
-                !a ? null : (
-                  <li key={a.id} className="flex flex-wrap items-center justify-between gap-2">
-                    <div>
-                      <span className="font-medium">{a.type}</span>{" "}
-                      <span className="font-mono text-zinc-600">{a.path}</span>
+        <Card>
+          <CardContent className="pt-6">
+            {assets && assets.length ? (
+              <ul className="space-y-2 text-sm">
+                {assets.map((a) => (
+                  <li
+                    key={a.id}
+                    className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-border/60 bg-muted/30 px-3 py-2"
+                  >
+                    <div className="min-w-0">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <Badge variant="secondary" className="font-mono">
+                          {a.type}
+                        </Badge>
+                        <span className="truncate font-mono text-xs text-muted-foreground">
+                          {a.path}
+                        </span>
+                      </div>
                     </div>
-                    <span className="text-zinc-500">{new Date(a.created_at).toLocaleString()}</span>
+                    <span className="text-xs text-muted-foreground">
+                      {new Date(a.created_at).toLocaleString()}
+                    </span>
                   </li>
-                )
-              )}
-            </ul>
-          ) : (
-            <div className="text-sm text-zinc-600">No exports yet.</div>
-          )}
-        </div>
+                ))}
+              </ul>
+            ) : (
+              <div className="text-sm text-muted-foreground">No exports yet.</div>
+            )}
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
