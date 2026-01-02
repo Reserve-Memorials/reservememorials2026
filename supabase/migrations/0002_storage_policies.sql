@@ -2,6 +2,11 @@
 -- Run this as the database owner (e.g. via Supabase SQL editor as `postgres`,
 -- or via Supabase CLI configured with the database password).
 --
+-- IMPORTANT:
+-- - Do NOT run this via the Supabase MCP `execute_sql` tool.
+--   That runner is not the table owner for `storage.objects` and will fail with:
+--   ERROR: 42501: must be owner of table objects
+--
 -- Prereq: create a private bucket named `design-exports`.
 
 alter table storage.objects enable row level security;
