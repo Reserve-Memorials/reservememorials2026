@@ -5,6 +5,7 @@
 This repo includes:
 
 - `supabase/migrations/0001_init.sql`
+- `supabase/migrations/0002_storage_policies.sql` (Storage RLS policies)
 
 Apply it via Supabase CLI migrations (recommended) or by running the SQL in the Supabase SQL editor.
 
@@ -34,7 +35,9 @@ Create a **private** bucket named:
 
 - `design-exports`
 
-The migration adds RLS policies on `storage.objects` that allow read/write based on org membership, assuming paths are shaped like:
+Then apply `supabase/migrations/0002_storage_policies.sql` (must be run as the owner of `storage.objects`).
+
+Those policies allow read/write based on org membership, assuming paths are shaped like:
 
 - `<org_id>/<design_session_id>/...`
 

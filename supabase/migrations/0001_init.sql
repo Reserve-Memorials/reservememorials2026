@@ -309,7 +309,7 @@ returns boolean
 language sql
 stable
 as $$
-  public.is_corporate_admin() or target_org_id = any(public.user_org_ids())
+  select public.is_corporate_admin() or target_org_id = any(public.user_org_ids())
 $$;
 
 -- prospects
@@ -415,49 +415,8 @@ create policy stripe_events_write on public.stripe_events
 for insert to authenticated
 with check (public.is_corporate_admin());
 
--- Storage RLS (design-exports bucket)
--- NOTE: You still need to create the bucket "design-exports" in the Supabase dashboard (private).
-do $$ begin
-  alter table storage.objects enable row level security;
-exception when undefined_table then null; end $$;
-
-drop policy if exists "design_exports_read" on storage.objects;
-create policy "design_exports_read"
-on storage.objects
-for select
-to authenticated
-using (
-  bucket_id = 'design-exports'
-  and (
-    public.is_corporate_admin()
-    or (split_part(name, '/', 1))::uuid = any(public.user_org_ids())
-  )
-);
-
-drop policy if exists "design_exports_write" on storage.objects;
-create policy "design_exports_write"
-on storage.objects
-for insert
-to authenticated
-with check (
-  bucket_id = 'design-exports'
-  and (
-    public.is_corporate_admin()
-    or (split_part(name, '/', 1))::uuid = any(public.user_org_ids())
-  )
-);
-
-drop policy if exists "design_exports_delete" on storage.objects;
-create policy "design_exports_delete"
-on storage.objects
-for delete
-to authenticated
-using (
-  bucket_id = 'design-exports'
-  and (
-    public.is_corporate_admin()
-    or (split_part(name, '/', 1))::uuid = any(public.user_org_ids())
-  )
-);
+-- Storage policies are split into 0002_storage_policies.sql because some runners
+-- (including Supabase Management/MCP migration runner) are not the owner of
+-- `storage.objects` and cannot ALTER/CREATE POLICY on it.
 
 
