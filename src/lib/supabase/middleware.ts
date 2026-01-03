@@ -19,10 +19,15 @@ export async function updateSession(request: NextRequest) {
           return request.cookies.getAll();
         },
         setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value, options }) => {
-            request.cookies.set(name, value);
-            response.cookies.set(name, value, options);
-          });
+          // In Next.js Middleware, you can only write cookies to the *response*.
+          // Attempting to mutate request.cookies can break auth persistence in production.
+          try {
+            cookiesToSet.forEach(({ name, value, options }) => {
+              response.cookies.set(name, value, options);
+            });
+          } catch {
+            // ignore
+          }
         },
       },
     }
