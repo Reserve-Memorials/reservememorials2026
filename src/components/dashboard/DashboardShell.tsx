@@ -109,9 +109,11 @@ export function DashboardShell({
       </nav>
 
       <div className="p-3">
-        <Button asChild variant="outline" className="w-full justify-start">
-          <Link href="/logout">Logout</Link>
-        </Button>
+        <form action="/logout" method="post">
+          <Button variant="outline" className="w-full justify-start" type="submit">
+            Logout
+          </Button>
+        </form>
       </div>
     </aside>
   );
