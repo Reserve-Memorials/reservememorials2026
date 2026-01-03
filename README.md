@@ -34,6 +34,15 @@ RBAC is modeled via `public.org_members.role` with roles:
 For a brand-new project, the app will **auto-assign the first logged-in user** as a `corporate_admin`
 for `CORPORATE_ORG_ID` (requires `SUPABASE_SERVICE_ROLE_KEY`). After a corporate admin exists, this becomes a no-op.
 
+## Corporate admin features (MVP)
+
+Corporate admins can manage:
+
+- Licensee organizations (create)
+- Users (invite by email, assign/update roles, remove users from orgs)
+
+Entry point: `/admin/licensees`
+
 ## Demo / seed data (tagged)
 
 We tag demo rows with `seed_tag = 'demo_2026_01_03'` so it’s easy to flush before production.
