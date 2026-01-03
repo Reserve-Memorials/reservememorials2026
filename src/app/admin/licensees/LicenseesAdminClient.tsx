@@ -68,6 +68,7 @@ export default function LicenseesAdminClient({
   const [inviteEmail, setInviteEmail] = useState<Record<string, string>>({});
   const [inviteRole, setInviteRole] = useState<Record<string, MemberRole>>({});
   const [invitingOrgId, setInvitingOrgId] = useState<string | null>(null);
+  const [inviteLink, setInviteLink] = useState<Record<string, string>>({});
 
   const corporateOrg = useMemo(
     () => organizations.find((o) => o.type === "corporate") ?? null,
@@ -162,6 +163,12 @@ export default function LicenseesAdminClient({
           : "Existing user now has access.",
       });
       setInviteEmail((s) => ({ ...s, [org.id]: "" }));
+      if (json.actionLink) {
+        setInviteLink((s) => ({ ...s, [org.id]: String(json.actionLink) }));
+        toast.message("Invite link generated", {
+          description: "If email doesn’t arrive, copy the invite link from this card.",
+        });
+      }
       await load();
     } catch (e) {
       toast.error("Could not invite user", {
@@ -276,6 +283,8 @@ export default function LicenseesAdminClient({
           onInviteEmail={(v) => setInviteEmail((s) => ({ ...s, [corporateOrg.id]: v }))}
           inviteRole={inviteRole[corporateOrg.id] ?? "corporate_admin"}
           onInviteRole={(v) => setInviteRole((s) => ({ ...s, [corporateOrg.id]: v }))}
+          inviteLink={inviteLink[corporateOrg.id] ?? ""}
+          onInviteLinkClear={() => setInviteLink((s) => ({ ...s, [corporateOrg.id]: "" }))}
           inviting={invitingOrgId === corporateOrg.id}
           roleOptions={roleOptionsForOrg(corporateOrg)}
           onInvite={() => invite(corporateOrg)}
@@ -294,6 +303,8 @@ export default function LicenseesAdminClient({
             onInviteEmail={(v) => setInviteEmail((s) => ({ ...s, [org.id]: v }))}
             inviteRole={inviteRole[org.id] ?? "licensee_owner"}
             onInviteRole={(v) => setInviteRole((s) => ({ ...s, [org.id]: v }))}
+            inviteLink={inviteLink[org.id] ?? ""}
+            onInviteLinkClear={() => setInviteLink((s) => ({ ...s, [org.id]: "" }))}
             inviting={invitingOrgId === org.id}
             roleOptions={roleOptionsForOrg(org)}
             onInvite={() => invite(org)}
@@ -313,6 +324,8 @@ function OrgCard({
   onInviteEmail,
   inviteRole,
   onInviteRole,
+  inviteLink,
+  onInviteLinkClear,
   inviting,
   roleOptions,
   onInvite,
@@ -325,6 +338,8 @@ function OrgCard({
   onInviteEmail: (v: string) => void;
   inviteRole: MemberRole;
   onInviteRole: (v: MemberRole) => void;
+  inviteLink: string;
+  onInviteLinkClear: () => void;
   inviting: boolean;
   roleOptions: MemberRole[];
   onInvite: () => void;
@@ -391,6 +406,37 @@ function OrgCard({
           <p className="mt-2 text-xs text-muted-foreground">
             If the email already exists, we’ll just grant access + set role.
           </p>
+          {inviteLink ? (
+            <div className="mt-3 rounded-lg border border-border/60 bg-background/50 p-3">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <div className="text-xs font-medium">Invite link (fallback)</div>
+                <div className="flex gap-2">
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="secondary"
+                    onClick={async () => {
+                      try {
+                        await navigator.clipboard.writeText(inviteLink);
+                        toast.success("Invite link copied");
+                      } catch {
+                        toast.error("Could not copy invite link");
+                      }
+                    }}
+                  >
+                    Copy
+                  </Button>
+                  <Button type="button" size="sm" variant="ghost" onClick={onInviteLinkClear}>
+                    Clear
+                  </Button>
+                </div>
+              </div>
+              <Input className="mt-2 font-mono text-xs" value={inviteLink} readOnly />
+              <p className="mt-2 text-xs text-muted-foreground">
+                Use this if the email is delayed or ends up in spam.
+              </p>
+            </div>
+          ) : null}
         </div>
 
         <div className="rounded-lg border border-border/60">

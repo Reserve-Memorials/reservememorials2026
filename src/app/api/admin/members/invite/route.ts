@@ -33,6 +33,7 @@ export async function POST(req: Request) {
   }
 
   let invited = false;
+  let actionLink: string | null = null;
   if (!userId) {
     const redirectTo = env.NEXT_PUBLIC_APP_URL
       ? `${env.NEXT_PUBLIC_APP_URL}/auth/callback?next=/portal`
@@ -44,6 +45,18 @@ export async function POST(req: Request) {
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });
     userId = data.user?.id ?? null;
     invited = true;
+
+    // Email delivery can be delayed/blocked in some inboxes. Generate a shareable link as fallback.
+    try {
+      const { data: linkData, error: linkErr } = await admin.auth.admin.generateLink({
+        type: "invite",
+        email,
+        options: redirectTo ? { redirectTo } : undefined,
+      });
+      if (!linkErr) actionLink = linkData.properties?.action_link ?? null;
+    } catch {
+      // ignore
+    }
   }
 
   if (!userId) return NextResponse.json({ error: "Could not resolve user id" }, { status: 500 });
@@ -69,7 +82,7 @@ export async function POST(req: Request) {
     seed_tag: null,
   });
 
-  return NextResponse.json({ ok: true, userId, invited });
+  return NextResponse.json({ ok: true, userId, invited, actionLink });
 }
 
 
