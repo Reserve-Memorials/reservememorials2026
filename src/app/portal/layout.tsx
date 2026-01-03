@@ -1,9 +1,7 @@
-import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getMyOrgMembership, isCorporateAdmin } from "@/lib/auth/roles";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { LayoutDashboard, LogOut, Ticket, ShoppingBag } from "lucide-react";
+import { LayoutDashboard, Ticket, ShoppingBag } from "lucide-react";
+import { DashboardShell } from "@/components/dashboard/DashboardShell";
 
 export const dynamic = "force-dynamic";
 
@@ -21,46 +19,49 @@ export default async function PortalLayout({
   }
 
   return (
-    <div className="space-y-6">
-      <Card className="overflow-hidden">
-        <CardContent className="flex flex-wrap items-center justify-between gap-3 py-5">
-          <div className="min-w-0">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <LayoutDashboard className="h-4 w-4 text-primary" />
-              Licensee Portal
-            </div>
-            <div className="mt-1 truncate text-sm font-medium">{user.email}</div>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            <Button asChild variant="secondary" size="sm">
-              <Link href="/portal/leads">
-                <Ticket className="mr-2 h-4 w-4" />
-                Leads
-              </Link>
-            </Button>
-            <Button asChild variant="secondary" size="sm">
-              <Link href="/portal/sessions">
-                <LayoutDashboard className="mr-2 h-4 w-4" />
-                Sessions
-              </Link>
-            </Button>
-            <Button asChild variant="secondary" size="sm">
-              <Link href="/portal/orders">
-                <ShoppingBag className="mr-2 h-4 w-4" />
-                Orders
-              </Link>
-            </Button>
-            <Button asChild variant="outline" size="sm">
-              <Link href="/logout">
-                <LogOut className="mr-2 h-4 w-4" />
-                Logout
-              </Link>
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
+    <DashboardShell
+      variant="portal"
+      title="Licensee Portal"
+      userEmail={user.email ?? "—"}
+      sections={[
+        {
+          items: [
+            {
+              href: "/portal",
+              label: "Overview",
+              icon: <LayoutDashboard className="h-4 w-4" />,
+            },
+          ],
+        },
+        {
+          title: "Pipeline",
+          items: [
+            {
+              href: "/portal/leads",
+              label: "Leads",
+              icon: <Ticket className="h-4 w-4" />,
+            },
+            {
+              href: "/portal/sessions",
+              label: "Sessions",
+              icon: <LayoutDashboard className="h-4 w-4" />,
+            },
+          ],
+        },
+        {
+          title: "Commerce",
+          items: [
+            {
+              href: "/portal/orders",
+              label: "Orders",
+              icon: <ShoppingBag className="h-4 w-4" />,
+            },
+          ],
+        },
+      ]}
+    >
       {children}
-    </div>
+    </DashboardShell>
   );
 }
 
