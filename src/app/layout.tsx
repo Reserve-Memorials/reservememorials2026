@@ -37,9 +37,11 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <div className="min-h-dvh bg-background text-foreground">
-            <div className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,theme(colors.primary/15),transparent_55%)]" />
+            <div className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,var(--color-primary),transparent_55%)]/[15]" />
             <SiteNav />
-            <main className="mx-auto max-w-6xl px-6 py-10">{children}</main>
+            <main className="w-full px-4 py-8 sm:px-6 lg:px-10 lg:py-10">
+              {children}
+            </main>
           </div>
           <Toaster richColors position="top-right" />
         </ThemeProvider>

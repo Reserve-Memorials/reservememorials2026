@@ -11,10 +11,10 @@ import { cn } from "@/lib/utils";
 
 export function SiteNav() {
   return (
-    <header className="sticky top-0 z-50 border-b border-border/50 bg-background/70 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
+    <header className="sticky top-0 z-50 border-b border-border/50 bg-background/70 backdrop-blur supports-backdrop-filter:bg-background/60">
+      <div className="flex w-full items-center justify-between px-4 py-3 sm:px-6 lg:px-10">
         <Link href="/" className="group flex items-center gap-2">
-          <span className="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br from-primary/90 to-primary text-primary-foreground shadow-sm ring-1 ring-border/50 transition-transform group-hover:-translate-y-0.5">
+          <span className="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-linear-to-br from-primary/90 to-primary text-primary-foreground shadow-sm ring-1 ring-border/50 transition-transform group-hover:-translate-y-0.5">
             <Sparkles className="h-4 w-4" />
           </span>
           <div className="leading-tight">

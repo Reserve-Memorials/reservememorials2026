@@ -37,7 +37,8 @@ export default async function AuditAdminPage() {
             </div>
           ) : null}
           <div className="rounded-lg border border-border/60">
-            <Table>
+            <div className="max-w-full overflow-x-auto">
+              <Table className="min-w-[900px]">
               <TableHeader>
                 <TableRow>
                   <TableHead>When</TableHead>
@@ -50,17 +51,17 @@ export default async function AuditAdminPage() {
               <TableBody>
                 {(data ?? []).map((e) => (
                   <TableRow key={e.id} className="hover:bg-muted/40">
-                    <TableCell className="text-muted-foreground">
+                    <TableCell className="whitespace-nowrap text-muted-foreground">
                       {new Date(e.created_at).toLocaleString()}
                     </TableCell>
                     <TableCell className="font-mono">{e.event_type}</TableCell>
-                    <TableCell className="font-mono text-xs text-muted-foreground">
+                    <TableCell className="max-w-[320px] truncate font-mono text-xs text-muted-foreground">
                       {e.entity_type}:{e.entity_id ?? "—"}
                     </TableCell>
-                    <TableCell className="font-mono text-xs text-muted-foreground">
+                    <TableCell className="max-w-[260px] truncate font-mono text-xs text-muted-foreground">
                       {e.org_id ?? "—"}
                     </TableCell>
-                    <TableCell className="font-mono text-xs text-muted-foreground">
+                    <TableCell className="max-w-[260px] truncate font-mono text-xs text-muted-foreground">
                       {e.actor_user_id ?? "system"}
                     </TableCell>
                   </TableRow>
@@ -73,7 +74,8 @@ export default async function AuditAdminPage() {
                   </TableRow>
                 ) : null}
               </TableBody>
-            </Table>
+              </Table>
+            </div>
           </div>
         </CardContent>
       </Card>

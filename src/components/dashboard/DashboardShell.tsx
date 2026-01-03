@@ -118,7 +118,7 @@ export function DashboardShell({
 
   return (
     <div className="min-h-[calc(100vh-4rem)]">
-      <div className="mx-auto grid max-w-6xl gap-6 px-4 py-6 md:grid-cols-[260px_1fr] md:px-6">
+      <div className="grid w-full gap-6 px-4 py-6 md:grid-cols-[260px_1fr] md:px-6 lg:px-10">
         {/* Desktop sidebar */}
         <div className="hidden md:block">
           <div className="sticky top-[5.25rem] h-[calc(100vh-6.5rem)] overflow-hidden rounded-2xl border border-border/60 bg-background/60 backdrop-blur">
