@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { getEnv } from "@/lib/env";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 const BodySchema = z.object({
   zip: z.string().min(3).max(10),
@@ -11,6 +12,13 @@ const BodySchema = z.object({
 });
 
 export async function POST(req: Request) {
+  // Require auth (design intake now lives inside the logged-in portal).
+  const authed = await createSupabaseServerClient();
+  const { data: userData } = await authed.auth.getUser();
+  if (!userData.user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   const json = await req.json().catch(() => null);
   const parsed = BodySchema.safeParse(json);
   if (!parsed.success) {
@@ -77,7 +85,7 @@ export async function POST(req: Request) {
   }
 
   await supabase.from("audit_events").insert({
-    actor_user_id: null,
+    actor_user_id: userData.user.id,
     org_id: assignedOrgId,
     event_type: "PROSPECT_CREATED",
     entity_type: "prospect",

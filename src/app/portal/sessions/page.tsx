@@ -52,7 +52,10 @@ export default async function SessionsPage() {
                 {(data ?? []).map((s) => (
                   <TableRow key={s.id} className="hover:bg-muted/40">
                     <TableCell className="font-mono">
-                      <Link className="underline underline-offset-4" href={`/design/session/${s.id}`}>
+                      <Link
+                        className="underline underline-offset-4"
+                        href={`/portal/design/session/${s.id}`}
+                      >
                         {s.id.slice(0, 8)}…
                       </Link>
                     </TableCell>

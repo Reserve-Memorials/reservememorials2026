@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { getMyOrgMembership, isCorporateAdmin } from "@/lib/auth/roles";
-import { LayoutDashboard, Ticket, ShoppingBag } from "lucide-react";
+import { LayoutDashboard, Sparkles, Ticket, ShoppingBag } from "lucide-react";
 import { DashboardShell } from "@/components/dashboard/DashboardShell";
 
 export const dynamic = "force-dynamic";
@@ -45,6 +45,21 @@ export default async function PortalLayout({
               href: "/portal/sessions",
               label: "Sessions",
               icon: <LayoutDashboard className="h-4 w-4" />,
+            },
+          ],
+        },
+        {
+          title: "Tools",
+          items: [
+            {
+              href: "/portal/design",
+              label: "Design",
+              icon: <Sparkles className="h-4 w-4" />,
+            },
+            {
+              href: "/portal/shop",
+              label: "Shop",
+              icon: <ShoppingBag className="h-4 w-4" />,
             },
           ],
         },

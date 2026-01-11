@@ -2,7 +2,6 @@ import Link from "next/link";
 import {
   ArrowRight,
   LayoutDashboard,
-  ShoppingBag,
   Sparkles,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -24,28 +23,21 @@ export default function Home() {
             portal.
           </h1>
           <p className="max-w-2xl text-pretty text-base text-muted-foreground sm:text-lg">
-            Prospects start a design, we route by ZIP to the correct licensee
-            (or corporate unassigned), capture sessions, and reconcile payments
-            via Stripe webhooks.
+            Secure, role-based dashboards for corporate admins and licensees.
+            Territory routing, design sessions, and Stripe payments are available after sign-in.
           </p>
 
           <div className="flex flex-wrap items-center gap-3">
             <Button asChild size="lg" className="group">
-              <Link href="/design">
-                Start Design
+              <Link href="/login">
+                Sign in
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-              </Link>
-            </Button>
-            <Button asChild size="lg" variant="secondary" className="group">
-              <Link href="/shop">
-                <ShoppingBag className="mr-2 h-4 w-4" />
-                Shop Merch
               </Link>
             </Button>
             <Button asChild size="lg" variant="outline" className="group">
               <Link href="/portal">
                 <LayoutDashboard className="mr-2 h-4 w-4" />
-                Go to Portal
+                Go to dashboard
               </Link>
             </Button>
           </div>
@@ -68,8 +60,8 @@ export default function Home() {
         <FeatureCard
           icon={<Sparkles className="h-4 w-4" />}
           title="Design intake"
-          description="Capture ZIP + contact, create a session, upload exports, and move to deposit checkout."
-          href="/design"
+          description="Capture ZIP + contact, create a session, upload exports, and move to deposit checkout (logged in)."
+          href="/portal/design"
         />
         <FeatureCard
           icon={<LayoutDashboard className="h-4 w-4" />}
@@ -78,10 +70,10 @@ export default function Home() {
           href="/portal"
         />
         <FeatureCard
-          icon={<ShoppingBag className="h-4 w-4" />}
+          icon={<LayoutDashboard className="h-4 w-4" />}
           title="Merch store"
-          description="DB-backed catalog + cart checkout. Totals validated server-side before Stripe."
-          href="/shop"
+          description="DB-backed catalog + cart checkout. Totals validated server-side before Stripe (logged in)."
+          href="/portal/shop"
         />
       </section>
     </div>

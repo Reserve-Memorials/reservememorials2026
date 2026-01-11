@@ -41,7 +41,7 @@ export default function DesignStartForm() {
       toast.success("Design session started", {
         description: "Routing you to your session…",
       });
-      router.push(`/design/session/${data.designSessionId}`);
+      router.push(`/portal/design/session/${data.designSessionId}`);
     } catch (err) {
       toast.error("Could not start design", {
         description: err instanceof Error ? err.message : "Unknown error",

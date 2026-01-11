@@ -3,12 +3,20 @@ import { z } from "zod";
 import { getEnv } from "@/lib/env";
 import { getStripe } from "@/lib/stripe";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 const BodySchema = z.object({
   designSessionId: z.string().uuid(),
 });
 
 export async function POST(req: Request) {
+  // Require auth (checkout is part of logged-in portal now).
+  const authed = await createSupabaseServerClient();
+  const { data: userData } = await authed.auth.getUser();
+  if (!userData.user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   const json = await req.json().catch(() => null);
   const parsed = BodySchema.safeParse(json);
   if (!parsed.success) {
@@ -50,8 +58,8 @@ export async function POST(req: Request) {
   const appUrl = env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
   const checkoutSession = await stripe.checkout.sessions.create({
     mode: "payment",
-    success_url: `${appUrl}/payment/success?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${appUrl}/payment/cancel`,
+    success_url: `${appUrl}/portal/payment/success?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${appUrl}/portal/payment/cancel`,
     line_items: [
       {
         quantity: 1,
@@ -77,7 +85,7 @@ export async function POST(req: Request) {
     .eq("id", order.id);
 
   await supabase.from("audit_events").insert({
-    actor_user_id: null,
+    actor_user_id: userData.user.id,
     org_id: session.org_id,
     event_type: "CHECKOUT_SESSION_CREATED",
     entity_type: "order",

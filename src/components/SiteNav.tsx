@@ -2,7 +2,6 @@ import Link from "next/link";
 import {
   ArrowRight,
   LayoutDashboard,
-  ShoppingBag,
   Sparkles,
 } from "lucide-react";
 import { ModeToggle } from "@/components/mode-toggle";
@@ -28,17 +27,11 @@ export function SiteNav() {
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex">
-          <NavLink href="/design" icon={<Sparkles className="h-4 w-4" />}>
-            Design
-          </NavLink>
-          <NavLink href="/shop" icon={<ShoppingBag className="h-4 w-4" />}>
-            Shop
-          </NavLink>
           <NavLink
             href="/portal"
             icon={<LayoutDashboard className="h-4 w-4" />}
           >
-            Portal
+            Dashboard
           </NavLink>
         </nav>
 

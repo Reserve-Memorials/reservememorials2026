@@ -140,13 +140,7 @@ Authorization enforced primarily by **Postgres RLS** (defense-in-depth). ([Supab
 
 ### 5.1 Public
 
-- `GET /design` (ZIP + contact capture + start session)
-- `GET /design/session/[id]` (design flow UI)
-- `GET /shop` (merch listing)
-- `GET /checkout/deposit` (starts deposit)
-- `GET /checkout/cart` (starts cart checkout)
-- `GET /payment/success?session_id=...`
-- `GET /payment/cancel`
+- `GET /` (high-level landing page)
 
 ### 5.2 Auth
 
@@ -157,6 +151,11 @@ Authorization enforced primarily by **Postgres RLS** (defense-in-depth). ([Supab
 ### 5.3 Licensee portal
 
 - `GET /portal` (dashboard)
+- `GET /portal/design` (ZIP + contact capture + start session)
+- `GET /portal/design/session/[id]` (design flow UI)
+- `GET /portal/shop` (merch listing)
+- `GET /portal/payment/success?session_id=...`
+- `GET /portal/payment/cancel`
 - `GET /portal/leads`
 - `GET /portal/leads/[id]`
 - `GET /portal/sessions`
