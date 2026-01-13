@@ -6,6 +6,14 @@ const nextConfig: NextConfig = {
     // Pin the root so module/CSS resolution stays within this project.
     root: __dirname,
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "anandi14.sg-host.com",
+      },
+    ],
+  },
 };
 
 export default nextConfig;

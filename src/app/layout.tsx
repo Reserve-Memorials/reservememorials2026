@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { SiteNav } from "@/components/SiteNav";
+import { AppHeader } from "@/components/AppHeader";
+import { AppFooter } from "@/components/AppFooter";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 
@@ -38,10 +39,11 @@ export default function RootLayout({
         >
           <div className="min-h-dvh bg-background text-foreground">
             <div className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,var(--color-primary),transparent_55%)]/[15]" />
-            <SiteNav />
+            <AppHeader />
             <main className="w-full px-4 py-8 sm:px-6 lg:px-10 lg:py-10">
               {children}
             </main>
+            <AppFooter />
           </div>
           <Toaster richColors position="top-right" />
         </ThemeProvider>
