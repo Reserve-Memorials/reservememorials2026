@@ -19,4 +19,3 @@ export function AppHeader() {
   const pathname = usePathname() ?? "/";
   return isPortalPath(pathname) ? <SiteNav /> : <MarketingNav />;
 }
-

@@ -19,4 +19,3 @@ export function AppFooter() {
   if (isPortalPath(pathname)) return null;
   return <MarketingFooter />;
 }
-

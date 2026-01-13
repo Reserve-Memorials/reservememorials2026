@@ -20,7 +20,10 @@ export default async function BlogPostPage({
   return (
     <div className="mx-auto max-w-3xl space-y-6">
       <div className="text-sm">
-        <Link className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition" href="/blog">
+        <Link
+          className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition"
+          href="/blog"
+        >
           <ArrowLeft className="h-4 w-4" />
           Back to blog
         </Link>
@@ -61,4 +64,3 @@ export default async function BlogPostPage({
     </div>
   );
 }
-

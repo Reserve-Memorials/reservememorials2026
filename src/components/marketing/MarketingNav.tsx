@@ -1,7 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, BookOpen, ImageIcon, Info, Phone, Sparkles } from "lucide-react";
+import {
+  ArrowRight,
+  BookOpen,
+  ImageIcon,
+  Info,
+  Phone,
+  Sparkles,
+} from "lucide-react";
 import { ModeToggle } from "@/components/mode-toggle";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -17,8 +24,12 @@ export function MarketingNav() {
             <Sparkles className="h-4 w-4" />
           </span>
           <div className="leading-tight">
-            <div className="font-semibold tracking-tight">Reserve Memorials</div>
-            <div className="text-xs text-muted-foreground">Premium memorials • Crafted with care</div>
+            <div className="font-semibold tracking-tight">
+              Reserve Memorials
+            </div>
+            <div className="text-xs text-muted-foreground">
+              Premium memorials • Crafted with care
+            </div>
           </div>
         </Link>
 
@@ -42,7 +53,12 @@ export function MarketingNav() {
 
         <div className="flex items-center gap-2">
           <ModeToggle />
-          <Button asChild variant="outline" size="sm" className="hidden sm:inline-flex">
+          <Button
+            asChild
+            variant="outline"
+            size="sm"
+            className="hidden sm:inline-flex"
+          >
             <Link href="/login">Portal login</Link>
           </Button>
           <Button asChild size="sm" className="group">
@@ -79,4 +95,3 @@ function NavLink({
     </Link>
   );
 }
-

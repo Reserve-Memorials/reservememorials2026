@@ -21,10 +21,13 @@ type WPMedia = {
 };
 
 const WP_BASE =
-  (process.env.WORDPRESS_URL?.replace(/\/+$/, "") || "https://anandi14.sg-host.com") +
-  "/wp-json/wp/v2";
+  (process.env.WORDPRESS_URL?.replace(/\/+$/, "") ||
+    "https://anandi14.sg-host.com") + "/wp-json/wp/v2";
 
-async function wpFetch<T>(path: string, init?: RequestInit & { next?: { revalidate?: number; tags?: string[] } }) {
+async function wpFetch<T>(
+  path: string,
+  init?: RequestInit & { next?: { revalidate?: number; tags?: string[] } }
+) {
   const url = `${WP_BASE}${path.startsWith("/") ? "" : "/"}${path}`;
   const res = await fetch(url, {
     ...init,
@@ -57,7 +60,9 @@ export async function getWpPostBySlug(slug: string) {
   return posts[0] ?? null;
 }
 
-export function wpGetFeaturedImage(post: any): { url: string; alt: string; width?: number; height?: number } | null {
+export function wpGetFeaturedImage(
+  post: any
+): { url: string; alt: string; width?: number; height?: number } | null {
   const media: WPMedia | undefined = post?._embedded?.["wp:featuredmedia"]?.[0];
   if (!media?.source_url) return null;
   return {
@@ -69,6 +74,8 @@ export function wpGetFeaturedImage(post: any): { url: string; alt: string; width
 }
 
 export function stripHtml(html: string) {
-  return html.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
+  return html
+    .replace(/<[^>]*>/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
 }
-

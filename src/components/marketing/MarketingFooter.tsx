@@ -10,10 +10,13 @@ export function MarketingFooter() {
       <div className="mx-auto w-full px-4 py-10 sm:px-6 lg:px-10">
         <div className="grid gap-8 md:grid-cols-4">
           <div className="space-y-3 md:col-span-2">
-            <div className="text-lg font-semibold tracking-tight">Reserve Memorials</div>
+            <div className="text-lg font-semibold tracking-tight">
+              Reserve Memorials
+            </div>
             <p className="max-w-xl text-sm text-muted-foreground">
-              A modern memorial company built for families, churches, and communities—pairing timeless
-              craftsmanship with clear, guided design and ordering.
+              A modern memorial company built for families, churches, and
+              communities—pairing timeless craftsmanship with clear, guided
+              design and ordering.
             </p>
             <div className="flex flex-wrap gap-2">
               <Button asChild size="sm" className="group">
@@ -32,12 +35,18 @@ export function MarketingFooter() {
             <div className="text-sm font-semibold">Explore</div>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
-                <Link className="hover:text-foreground transition" href="/services">
+                <Link
+                  className="hover:text-foreground transition"
+                  href="/services"
+                >
                   Services
                 </Link>
               </li>
               <li>
-                <Link className="hover:text-foreground transition" href="/gallery">
+                <Link
+                  className="hover:text-foreground transition"
+                  href="/gallery"
+                >
                   Gallery
                 </Link>
               </li>
@@ -77,7 +86,9 @@ export function MarketingFooter() {
         </div>
 
         <div className="mt-10 flex flex-col gap-2 border-t border-border/60 pt-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-          <div>© {new Date().getFullYear()} Reserve Memorials. All rights reserved.</div>
+          <div>
+            © {new Date().getFullYear()} Reserve Memorials. All rights reserved.
+          </div>
           <div className="flex gap-4">
             <Link className="hover:text-foreground transition" href="/privacy">
               Privacy
@@ -91,4 +102,3 @@ export function MarketingFooter() {
     </footer>
   );
 }
-
