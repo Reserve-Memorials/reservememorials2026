@@ -22,7 +22,9 @@ export default function Home() {
       {/* Hero */}
       <section className="relative overflow-hidden rounded-3xl border border-border/60 bg-card/60 p-8 shadow-sm backdrop-blur sm:p-12">
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top_right,var(--color-primary),transparent_60%)]/[16]" />
-        <div className="absolute -right-24 -top-24 -z-10 h-72 w-72 rounded-full bg-[radial-gradient(circle_at_center,var(--color-primary),transparent_55%)]/[18] blur-2xl" />
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_bottom_left,var(--color-chart-4),transparent_55%)]/[14]" />
+        <div className="absolute -right-24 -top-24 -z-10 h-72 w-72 rounded-full bg-[radial-gradient(circle_at_center,var(--color-primary),transparent_55%)]/[22] blur-2xl" />
+        <div className="absolute -left-24 -bottom-24 -z-10 h-72 w-72 rounded-full bg-[radial-gradient(circle_at_center,var(--color-chart-4),transparent_55%)]/[18] blur-2xl" />
 
         <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
           <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-500">
@@ -30,7 +32,10 @@ export default function Home() {
               ReserveMemorials.com
             </Badge>
             <h1 className="max-w-3xl text-balance text-4xl font-semibold tracking-tight sm:text-5xl">
-              Beautiful memorials, designed with clarity — crafted with care.
+              <span className="bg-linear-to-r from-primary via-chart-4 to-primary bg-clip-text text-transparent">
+                Beautiful memorials
+              </span>
+              , designed with clarity — crafted with care.
             </h1>
             <p className="max-w-2xl text-pretty text-base text-muted-foreground sm:text-lg">
               We help families and communities create timeless memorials through a guided design
@@ -60,7 +65,8 @@ export default function Home() {
           </div>
 
           <Card className="relative overflow-hidden border-border/60 bg-background/50">
-            <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,theme(colors.primary/12),transparent_60%)]" />
+            <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,var(--color-primary),transparent_60%)]/[12]" />
+            <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_bottom_left,var(--color-chart-4),transparent_60%)]/[10]" />
             <CardHeader className="space-y-2">
               <div className="inline-flex items-center gap-2 text-sm text-muted-foreground">
                 <Sparkles className="h-4 w-4 text-primary" />
@@ -129,7 +135,8 @@ export default function Home() {
       {/* Gallery + Blog teaser */}
       <section className="grid gap-4 md:grid-cols-2">
         <Card className="group relative overflow-hidden border-border/60 bg-card/60 backdrop-blur transition hover:-translate-y-0.5 hover:shadow-md">
-          <div className="pointer-events-none absolute inset-0 -z-10 opacity-0 transition group-hover:opacity-100 bg-[radial-gradient(ellipse_at_top,theme(colors.primary/12),transparent_60%)]" />
+          <div className="pointer-events-none absolute inset-0 -z-10 opacity-0 transition group-hover:opacity-100 bg-[radial-gradient(ellipse_at_top,var(--color-primary),transparent_60%)]/[12]" />
+          <div className="pointer-events-none absolute inset-0 -z-10 opacity-0 transition group-hover:opacity-100 bg-[radial-gradient(ellipse_at_bottom_left,var(--color-chart-4),transparent_60%)]/[10]" />
           <CardHeader className="space-y-2">
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <GalleryHorizontal className="h-4 w-4 text-primary" />
@@ -151,7 +158,8 @@ export default function Home() {
         </Card>
 
         <Card className="group relative overflow-hidden border-border/60 bg-card/60 backdrop-blur transition hover:-translate-y-0.5 hover:shadow-md">
-          <div className="pointer-events-none absolute inset-0 -z-10 opacity-0 transition group-hover:opacity-100 bg-[radial-gradient(ellipse_at_top,theme(colors.primary/12),transparent_60%)]" />
+          <div className="pointer-events-none absolute inset-0 -z-10 opacity-0 transition group-hover:opacity-100 bg-[radial-gradient(ellipse_at_top,var(--color-primary),transparent_60%)]/[12]" />
+          <div className="pointer-events-none absolute inset-0 -z-10 opacity-0 transition group-hover:opacity-100 bg-[radial-gradient(ellipse_at_bottom_left,var(--color-chart-4),transparent_60%)]/[10]" />
           <CardHeader className="space-y-2">
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <BookOpen className="h-4 w-4 text-primary" />
