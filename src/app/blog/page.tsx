@@ -38,9 +38,12 @@ export default async function BlogIndexPage() {
       {error ? (
         <Card className="overflow-hidden">
           <CardContent className="p-6 sm:p-8">
-            <div className="text-sm font-medium">Blog temporarily unavailable</div>
+            <div className="text-sm font-medium">
+              Blog temporarily unavailable
+            </div>
             <p className="mt-2 text-sm text-muted-foreground">
-              We couldn’t load posts from WordPress. This is usually caused by WordPress being offline or blocking requests.
+              We couldn’t load posts from WordPress. This is usually caused by
+              WordPress being offline or blocking requests.
             </p>
             <div className="mt-3 rounded-md border border-border/60 bg-muted/30 p-3 text-xs text-muted-foreground">
               {error}
@@ -52,10 +55,13 @@ export default async function BlogIndexPage() {
           <CardContent className="p-6 sm:p-8">
             <div className="text-sm font-medium">No posts published yet</div>
             <p className="mt-2 text-sm text-muted-foreground">
-              Once you publish posts in WordPress, they’ll automatically appear here.
+              Once you publish posts in WordPress, they’ll automatically appear
+              here.
             </p>
             <p className="mt-2 text-xs text-muted-foreground">
-              Tip: confirm posts are <span className="font-medium">Published</span> (not Draft/Private) in WordPress.
+              Tip: confirm posts are{" "}
+              <span className="font-medium">Published</span> (not Draft/Private)
+              in WordPress.
             </p>
           </CardContent>
         </Card>
@@ -89,7 +95,9 @@ export default async function BlogIndexPage() {
                     </div>
                   </CardHeader>
                   <CardContent className="space-y-3">
-                    <p className="line-clamp-3 text-sm text-muted-foreground">{excerpt}</p>
+                    <p className="line-clamp-3 text-sm text-muted-foreground">
+                      {excerpt}
+                    </p>
                     <div className="inline-flex items-center text-sm font-medium">
                       Read more
                       <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
