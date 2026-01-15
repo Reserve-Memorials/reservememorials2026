@@ -12,6 +12,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "anandi14.sg-host.com",
       },
+      {
+        protocol: "https",
+        hostname: "anandi13.sg-host.com",
+      },
     ],
   },
 };
