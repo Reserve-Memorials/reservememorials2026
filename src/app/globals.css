@@ -48,52 +48,52 @@
 
 :root {
   --radius: 0.5rem;
-  /* Stone Ivory - warm, subtle background */
-  --background: oklch(0.955 0.012 75);
-  /* Granite Charcoal - primary text */
-  --foreground: oklch(0.15 0.012 250);
+  /* Stone Ivory - warm, subtle background - increased brightness */
+  --background: oklch(0.98 0.008 75);
+  /* Granite Charcoal - primary text - darker for better contrast */
+  --foreground: oklch(0.20 0.015 250);
   /* Warm Sand - elevated surfaces */
-  --card: oklch(0.97 0.010 70);
-  --card-foreground: oklch(0.15 0.012 250);
-  --popover: oklch(0.97 0.010 70);
-  --popover-foreground: oklch(0.15 0.012 250);
+  --card: oklch(0.99 0.005 70);
+  --card-foreground: oklch(0.20 0.015 250);
+  --popover: oklch(0.99 0.005 70);
+  --popover-foreground: oklch(0.20 0.015 250);
   /* Deep Navy - brand anchor, dignified primary */
-  --primary: oklch(0.25 0.045 235);
-  --primary-foreground: oklch(0.97 0.005 70);
+  --primary: oklch(0.28 0.055 235);
+  --primary-foreground: oklch(0.98 0.005 70);
   /* Warm Sand - secondary surfaces */
-  --secondary: oklch(0.89 0.018 65);
-  --secondary-foreground: oklch(0.15 0.012 250);
-  /* Subtle muted tones */
-  --muted: oklch(0.91 0.015 70);
-  --muted-foreground: oklch(0.45 0.020 245);
-  /* Heritage Gold - restrained accent (not for body text) */
-  --accent: oklch(0.68 0.085 85);
-  --accent-foreground: oklch(0.15 0.012 250);
+  --secondary: oklch(0.92 0.015 65);
+  --secondary-foreground: oklch(0.20 0.015 250);
+  /* Subtle muted tones - improved contrast for readability */
+  --muted: oklch(0.94 0.012 70);
+  --muted-foreground: oklch(0.38 0.025 245);
+  /* Heritage Gold - restrained accent */
+  --accent: oklch(0.65 0.095 85);
+  --accent-foreground: oklch(0.98 0.005 70);
   /* Evergreen - secondary accent for veterans/community */
-  --evergreen: oklch(0.32 0.048 155);
-  --evergreen-foreground: oklch(0.97 0.005 70);
+  --evergreen: oklch(0.35 0.055 155);
+  --evergreen-foreground: oklch(0.98 0.005 70);
   /* Error state */
-  --destructive: oklch(0.55 0.22 25);
-  /* Borders - very subtle */
-  --border: oklch(0.85 0.015 70);
-  --input: oklch(0.89 0.015 70);
+  --destructive: oklch(0.50 0.24 25);
+  /* Borders - subtle but visible */
+  --border: oklch(0.88 0.012 70);
+  --input: oklch(0.92 0.012 70);
   /* Ring - Deep Navy with lower opacity */
-  --ring: oklch(0.25 0.045 235 / 60%);
+  --ring: oklch(0.28 0.055 235 / 60%);
   /* Chart colors - refined, stone-based palette */
-  --chart-1: oklch(0.25 0.045 235); /* Deep Navy */
-  --chart-2: oklch(0.32 0.048 155); /* Evergreen */
-  --chart-3: oklch(0.45 0.030 240); /* Slate Blue */
-  --chart-4: oklch(0.68 0.085 85); /* Heritage Gold */
-  --chart-5: oklch(0.52 0.040 30); /* Warm Terracotta */
+  --chart-1: oklch(0.28 0.055 235); /* Deep Navy */
+  --chart-2: oklch(0.35 0.055 155); /* Evergreen */
+  --chart-3: oklch(0.42 0.035 240); /* Slate Blue */
+  --chart-4: oklch(0.65 0.095 85); /* Heritage Gold */
+  --chart-5: oklch(0.48 0.045 30); /* Warm Terracotta */
   /* Sidebar (portal only) */
-  --sidebar: oklch(0.97 0.010 70);
-  --sidebar-foreground: oklch(0.15 0.012 250);
-  --sidebar-primary: oklch(0.25 0.045 235);
-  --sidebar-primary-foreground: oklch(0.97 0.005 70);
-  --sidebar-accent: oklch(0.89 0.018 65);
-  --sidebar-accent-foreground: oklch(0.15 0.012 250);
-  --sidebar-border: oklch(0.85 0.015 70);
-  --sidebar-ring: oklch(0.25 0.045 235 / 60%);
+  --sidebar: oklch(0.99 0.005 70);
+  --sidebar-foreground: oklch(0.20 0.015 250);
+  --sidebar-primary: oklch(0.28 0.055 235);
+  --sidebar-primary-foreground: oklch(0.98 0.005 70);
+  --sidebar-accent: oklch(0.92 0.015 65);
+  --sidebar-accent-foreground: oklch(0.20 0.015 250);
+  --sidebar-border: oklch(0.88 0.012 70);
+  --sidebar-ring: oklch(0.28 0.055 235 / 60%);
 }
 
 .dark {
@@ -190,8 +190,34 @@
   }
 }
 
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
 .animate-gentle-float {
   animation: gentle-float 8s ease-in-out infinite;
+}
+
+.animate-accordion-down {
+  animation: accordion-down 0.2s ease-out;
+}
+
+.animate-accordion-up {
+  animation: accordion-up 0.2s ease-out;
 }
 
 .animate-soft-glow {
