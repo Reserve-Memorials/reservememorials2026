@@ -18,9 +18,19 @@ function estimateReadingTime(html: string): number {
 export default async function BlogPostPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const post = await getWpPostBySlug(params.slug);
+  const { slug } = await params;
+
+  let post;
+  try {
+    post = await getWpPostBySlug(slug);
+  } catch (error) {
+    // If WordPress API fails, show 404
+    console.error(`Failed to fetch blog post "${slug}":`, error);
+    notFound();
+  }
+
   if (!post) notFound();
 
   const featured = wpGetFeaturedImage(post);
