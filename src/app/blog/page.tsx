@@ -66,41 +66,66 @@ export default async function BlogIndexPage() {
           </CardContent>
         </Card>
       ) : (
-        <section className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {posts.map((p) => {
+        <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {posts.map((p, index) => {
             const featured = wpGetFeaturedImage(p);
             const excerpt = stripHtml(p.excerpt?.rendered ?? "");
             return (
-              <Link key={p.id} href={`/blog/${p.slug}`} className="group">
-                <Card className="h-full overflow-hidden transition hover:-translate-y-0.5 hover:shadow-md">
+              <Link
+                key={p.id}
+                href={`/blog/${p.slug}`}
+                className="group animate-in fade-in slide-in-from-bottom-2 duration-500"
+                style={{ animationDelay: `${index * 50}ms` }}
+              >
+                <Card className="h-full overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl group-hover:border-primary/30">
                   {featured ? (
-                    <div className="relative aspect-video overflow-hidden bg-muted">
+                    <div className="relative aspect-[16/10] overflow-hidden bg-muted">
                       <Image
                         src={featured.url}
                         alt={featured.alt}
                         fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                        sizes="(max-width: 1024px) 100vw, 33vw"
+                        className="object-cover transition-transform duration-700 group-hover:scale-110"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        priority={index < 3}
                       />
-                      <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/35 via-black/0 to-black/0 opacity-70" />
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-80 transition-opacity group-hover:opacity-60" />
+                      <div className="absolute bottom-4 left-4 right-4">
+                        <Badge variant="secondary" className="bg-background/90 backdrop-blur">
+                          {new Date(p.date).toLocaleDateString("en-US", {
+                            month: "short",
+                            day: "numeric",
+                            year: "numeric",
+                          })}
+                        </Badge>
+                      </div>
                     </div>
-                  ) : null}
-                  <CardHeader className="space-y-2">
+                  ) : (
+                    <div className="relative aspect-[16/10] bg-gradient-to-br from-primary/10 via-accent/10 to-chart-4/10 flex items-center justify-center">
+                      <div className="text-4xl opacity-20">📝</div>
+                      <div className="absolute bottom-4 left-4 right-4">
+                        <Badge variant="secondary" className="bg-background/90 backdrop-blur">
+                          {new Date(p.date).toLocaleDateString("en-US", {
+                            month: "short",
+                            day: "numeric",
+                            year: "numeric",
+                          })}
+                        </Badge>
+                      </div>
+                    </div>
+                  )}
+                  <CardHeader className="space-y-3 pb-3">
                     <CardTitle
-                      className="text-lg leading-snug"
+                      className="text-xl leading-snug line-clamp-2 transition-colors group-hover:text-primary"
                       dangerouslySetInnerHTML={{ __html: p.title.rendered }}
                     />
-                    <div className="text-xs text-muted-foreground">
-                      {new Date(p.date).toLocaleDateString()}
-                    </div>
                   </CardHeader>
-                  <CardContent className="space-y-3">
-                    <p className="line-clamp-3 text-sm text-muted-foreground">
+                  <CardContent className="space-y-4 pt-0">
+                    <p className="line-clamp-3 text-sm leading-relaxed text-muted-foreground">
                       {excerpt}
                     </p>
-                    <div className="inline-flex items-center text-sm font-medium">
-                      Read more
-                      <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                    <div className="inline-flex items-center gap-2 text-sm font-semibold text-primary">
+                      Read article
+                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                     </div>
                   </CardContent>
                 </Card>

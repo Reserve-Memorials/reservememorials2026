@@ -22,7 +22,7 @@ type WPMedia = {
 
 const WP_BASE =
   (process.env.WORDPRESS_URL?.replace(/\/+$/, "") ||
-    "https://anandi14.sg-host.com") + "/wp-json/wp/v2";
+    "https://anandi13.sg-host.com") + "/wp-json/wp/v2";
 
 async function wpFetch<T>(
   path: string,
