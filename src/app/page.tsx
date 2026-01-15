@@ -50,13 +50,13 @@ export default function Home() {
 
           <div className="flex flex-wrap items-center justify-center gap-4">
             <Button asChild size="lg" className="shadow-sm">
-              <Link href="/design-consultation">
-                Start your design
+              <Link href="/contact-us">
+                Contact Us
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
             <Button asChild size="lg" variant="outline">
-              <Link href="/contact-us">Request a quote</Link>
+              <Link href="/design-consultation">Schedule consultation</Link>
             </Button>
             <Button asChild size="lg" variant="outline">
               <a href={`tel:${CONTACT_INFO.phone.replace(/[^0-9]/g, "")}`}>

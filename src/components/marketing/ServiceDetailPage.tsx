@@ -39,13 +39,13 @@ export function ServiceDetailPage({
           <p className="max-w-2xl text-pretty text-base text-muted-foreground sm:text-lg">{description}</p>
           <div className="flex flex-wrap gap-3">
             <Button asChild size="lg" className="group">
-              <a href={`${PORTAL_URL}/design`}>
-                Start your design
+              <Link href="/contact-us">
+                Contact Us
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-              </a>
+              </Link>
             </Button>
             <Button asChild size="lg" variant="outline">
-              <Link href="/contact-us">Request a consultation</Link>
+              <Link href="/design-consultation">Request a consultation</Link>
             </Button>
           </div>
           <div className="flex flex-wrap gap-2 text-xs text-muted-foreground">

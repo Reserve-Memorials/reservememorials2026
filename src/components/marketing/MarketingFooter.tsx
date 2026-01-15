@@ -20,13 +20,13 @@ export function MarketingFooter() {
             </p>
             <div className="flex flex-wrap gap-2">
               <Button asChild size="sm" className="group">
-                <a href={`${PORTAL_URL}/design`}>
-                  Start your design
+                <Link href="/contact-us">
+                  Contact Us
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                </a>
+                </Link>
               </Button>
               <Button asChild size="sm" variant="outline">
-                <Link href="/contact-us">Contact us</Link>
+                <Link href="/gallery">View Gallery</Link>
               </Button>
             </div>
           </div>
