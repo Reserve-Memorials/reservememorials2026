@@ -24,6 +24,73 @@ const WP_BASE =
   (process.env.WORDPRESS_URL?.replace(/\/+$/, "") ||
     "https://anandi13.sg-host.com") + "/wp-json/wp/v2";
 
+function getWpSiteOrigins(): string[] {
+  const origins = new Set<string>();
+  const candidates = [
+    process.env.WORDPRESS_URL,
+    "https://anandi13.sg-host.com",
+    "https://anandi14.sg-host.com",
+  ].filter(Boolean) as string[];
+
+  for (const c of candidates) {
+    try {
+      origins.add(new URL(c).origin);
+    } catch {
+      // ignore
+    }
+  }
+  return Array.from(origins);
+}
+
+function mapWpPathToAppPath(pathname: string): string {
+  // Keep homepage links on homepage
+  if (pathname === "/" || pathname === "") return "/";
+
+  // WP taxonomy / author pages don't have equivalents yet; point to our blog index.
+  if (
+    pathname.startsWith("/category/") ||
+    pathname.startsWith("/tag/") ||
+    pathname.startsWith("/author/")
+  ) {
+    return "/blog";
+  }
+
+  // If it looks like a WordPress "pretty permalink", last segment is usually the post slug.
+  const segments = pathname.split("/").filter(Boolean);
+  const slug = segments[segments.length - 1];
+  if (!slug) return "/blog";
+  return `/blog/${slug}`;
+}
+
+/**
+ * WordPress content often includes absolute links back to the WordPress origin (e.g. anandi13.sg-host.com).
+ * In the headless site, we want those internal links to stay on our domain and route to our Next.js blog.
+ *
+ * - Rewrites only <a href="..."> URLs (NOT images/src, so wp-content media keeps working).
+ * - Leaves wp-content links alone (media/downloads).
+ */
+export function rewriteWpInternalLinks(html: string): string {
+  const wpOrigins = new Set(getWpSiteOrigins());
+  return html.replace(
+    /(<a\b[^>]*\bhref=)(["'])(https?:\/\/[^"']+)\2/gi,
+    (full, prefix: string, quote: string, href: string) => {
+      try {
+        const u = new URL(href);
+        if (!wpOrigins.has(u.origin)) return full;
+        if (u.pathname.startsWith("/wp-content/")) return full;
+        if (u.pathname.startsWith("/wp-admin/")) return full;
+        if (u.pathname.startsWith("/wp-json/")) return full;
+
+        const nextPath = mapWpPathToAppPath(u.pathname);
+        const rewritten = `${nextPath}${u.search}${u.hash}`;
+        return `${prefix}${quote}${rewritten}${quote}`;
+      } catch {
+        return full;
+      }
+    }
+  );
+}
+
 async function wpFetch<T>(
   path: string,
   init?: RequestInit & { next?: { revalidate?: number; tags?: string[] } }

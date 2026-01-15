@@ -4,7 +4,12 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, Calendar, Clock } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { getWpPostBySlug, wpGetFeaturedImage, stripHtml } from "@/lib/wp";
+import {
+  getWpPostBySlug,
+  wpGetFeaturedImage,
+  stripHtml,
+  rewriteWpInternalLinks,
+} from "@/lib/wp";
 
 export const dynamic = "force-dynamic";
 
@@ -35,6 +40,7 @@ export default async function BlogPostPage({
 
   const featured = wpGetFeaturedImage(post);
   const readingTime = estimateReadingTime(post.content.rendered);
+  const html = rewriteWpInternalLinks(post.content.rendered);
 
   return (
     <div className="mx-auto max-w-4xl space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-500">
@@ -90,7 +96,7 @@ export default async function BlogPostPage({
         <CardContent className="p-8 sm:p-12">
           <article
             className="wp-content"
-            dangerouslySetInnerHTML={{ __html: post.content.rendered }}
+            dangerouslySetInnerHTML={{ __html: html }}
           />
         </CardContent>
       </Card>
