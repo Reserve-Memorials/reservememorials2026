@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, MapPin, Phone, ArrowRight } from "lucide-react";
+import { MARKETING_CONTACT, phoneToTel } from "@/lib/marketing/contact";
 
 export default function ContactUsPage() {
   return (
@@ -68,21 +69,25 @@ export default function ContactUsPage() {
           <CardHeader className="space-y-2">
             <CardTitle className="text-xl">Contact details</CardTitle>
             <p className="text-sm text-muted-foreground">
-              Replace these placeholders with your real NAP (name/address/phone) when ready.
+              Reach out and we’ll respond as soon as possible.
             </p>
           </CardHeader>
           <CardContent className="space-y-3 text-sm text-muted-foreground">
             <div className="flex items-start gap-2">
               <MapPin className="mt-0.5 h-4 w-4 text-primary" />
-              <div>Columbus, OH (service area)</div>
+              <div>{MARKETING_CONTACT.address}</div>
             </div>
             <div className="flex items-center gap-2">
               <Phone className="h-4 w-4 text-primary" />
-              <div>(555) 555-5555</div>
+              <a className="text-primary hover:underline" href={`tel:${phoneToTel(MARKETING_CONTACT.phone)}`}>
+                {MARKETING_CONTACT.phone}
+              </a>
             </div>
             <div className="flex items-center gap-2">
               <Mail className="h-4 w-4 text-primary" />
-              <div>support@reservememorials.com</div>
+              <a className="text-primary hover:underline" href={`mailto:${MARKETING_CONTACT.email}`}>
+                {MARKETING_CONTACT.email}
+              </a>
             </div>
           </CardContent>
         </Card>

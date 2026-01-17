@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowRight,
   Award,
@@ -12,8 +13,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-
-const CONTACT_PHONE = "(234) 269-5432";
+import { MARKETING_CONTACT, phoneToTel } from "@/lib/marketing/contact";
 
 export default function VeteranMemorialsPage() {
   return (
@@ -22,45 +22,61 @@ export default function VeteranMemorialsPage() {
       <section className="stone-texture relative overflow-hidden rounded-2xl border border-border bg-card p-10 shadow-sm sm:p-16">
         <div className="absolute -right-24 -top-24 -z-10 h-80 w-80 rounded-full bg-[radial-gradient(circle_at_center,oklch(0.32_0.048_155_/_0.15),transparent)] blur-3xl animate-gentle-float" />
 
-        <div className="relative z-10 mx-auto max-w-4xl space-y-6">
-          <div className="flex items-center gap-2">
-            <Link
-              href="/services"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              ← Back to services
-            </Link>
+        <div className="relative z-10 mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-[1.15fr_.85fr]">
+          <div className="space-y-6">
+            <div className="flex items-center gap-2">
+              <Link
+                href="/services"
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              >
+                ← Back to services
+              </Link>
+            </div>
+
+            <Badge variant="secondary" className="bg-evergreen/10 text-evergreen border-evergreen/20">
+              Service
+            </Badge>
+
+            <h1 className="text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
+              Veteran Memorials
+            </h1>
+
+            <p className="max-w-2xl text-lg leading-relaxed text-muted-foreground">
+              Honor military service with precision-engraved emblems, rank insignia, and meaningful inscriptions. We handle
+              VA paperwork, bronze plaques, and cemetery coordination with respect and attention to detail.
+            </p>
+
+            <div className="flex flex-wrap items-center gap-4 pt-4">
+              <Button asChild size="lg" className="bg-evergreen hover:bg-evergreen/90">
+                <Link href="/design-consultation">
+                  Schedule consultation
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+              <Button asChild size="lg" variant="outline">
+                <Link href="/contact-us">Request a quote</Link>
+              </Button>
+              <Button asChild size="lg" variant="outline">
+                <a href={`tel:${phoneToTel(MARKETING_CONTACT.phone)}`}>
+                  <Phone className="mr-2 h-4 w-4" />
+                  {MARKETING_CONTACT.phone}
+                </a>
+              </Button>
+            </div>
           </div>
 
-          <Badge variant="secondary" className="bg-evergreen/10 text-evergreen border-evergreen/20">
-            Service
-          </Badge>
-
-          <h1 className="text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
-            Veteran Memorials
-          </h1>
-
-          <p className="max-w-2xl text-lg leading-relaxed text-muted-foreground">
-            Honor military service with precision-engraved emblems, rank insignia, and meaningful inscriptions. We handle
-            VA paperwork, bronze plaques, and cemetery coordination with respect and attention to detail.
-          </p>
-
-          <div className="flex flex-wrap items-center gap-4 pt-4">
-            <Button asChild size="lg" className="bg-evergreen hover:bg-evergreen/90">
-              <Link href="/design-consultation">
-                Schedule consultation
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
-            <Button asChild size="lg" variant="outline">
-              <Link href="/contact-us">Request a quote</Link>
-            </Button>
-            <Button asChild size="lg" variant="outline">
-              <a href={`tel:${CONTACT_PHONE.replace(/[^0-9]/g, "")}`}>
-                <Phone className="mr-2 h-4 w-4" />
-                {CONTACT_PHONE}
-              </a>
-            </Button>
+          <div className="relative overflow-hidden rounded-2xl border border-border/60 bg-muted/20 shadow-sm">
+            <div className="relative aspect-[4/3] w-full">
+              <Image
+                src="/veteran-memorials.png"
+                alt="Veteran memorials"
+                fill
+                sizes="(max-width: 1024px) 100vw, 40vw"
+                className="object-cover"
+                priority
+              />
+              <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.35),transparent_65%)]" />
+            </div>
           </div>
         </div>
       </section>

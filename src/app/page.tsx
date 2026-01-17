@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowRight,
   Award,
@@ -17,13 +18,9 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { MARKETING_CONTACT, phoneToTel } from "@/lib/marketing/contact";
 
 const PORTAL_URL = "https://portal.reservememorials.com";
-const CONTACT_INFO = {
-  address: "30 Ravenna Street, Hudson, Ohio 44236",
-  phone: "(234) 269-5432",
-  email: "mcloboda@outlook.com",
-};
 
 export default function Home() {
   return (
@@ -59,7 +56,7 @@ export default function Home() {
               <Link href="/design-consultation">Schedule consultation</Link>
             </Button>
             <Button asChild size="lg" variant="outline">
-              <a href={`tel:${CONTACT_INFO.phone.replace(/[^0-9]/g, "")}`}>
+              <a href={`tel:${phoneToTel(MARKETING_CONTACT.phone)}`}>
                 <Phone className="mr-2 h-4 w-4" />
                 Call now
               </a>
@@ -79,6 +76,21 @@ export default function Home() {
             <div className="flex items-center gap-2">
               <MapPin className="h-4 w-4 text-primary" />
               <span>Hudson, Ohio</span>
+            </div>
+          </div>
+
+          {/* Visual previews */}
+          <div className="pt-8">
+            <div className="mx-auto grid max-w-4xl gap-3 sm:grid-cols-3">
+              <PreviewImage
+                src="/traditional-headstone.png"
+                alt="Traditional headstones"
+              />
+              <PreviewImage src="/columbariums.png" alt="Columbariums" />
+              <PreviewImage
+                src="/veteran-memorials.png"
+                alt="Veteran memorials"
+              />
             </div>
           </div>
         </div>
@@ -127,42 +139,49 @@ export default function Home() {
             title="Traditional headstones"
             description="Upright monuments, flat markers, companion and family memorials"
             href="/traditional-headstones"
+            imageSrc="/traditional-headstone.png"
           />
           <ServiceCard
             icon={<Building2 className="h-5 w-5" />}
             title="Columbariums"
             description="Custom-designed cremation memorials for families and institutions"
             href="/columbariums"
+            imageSrc="/columbariums.png"
           />
           <ServiceCard
             icon={<Shield className="h-5 w-5" />}
             title="Veteran memorials"
             description="Markers, plaques, medallions, and custom designs to honor service"
             href="/veteran-memorials"
+            imageSrc="/veteran-memorials.png"
           />
           <ServiceCard
             icon={<Palette className="h-5 w-5" />}
             title="Design consultation"
             description="Materials, layout, inscriptions, cemetery rules, timeline, and budget guidance"
             href="/design-consultation"
+            imageSrc="/design-consultation.png"
           />
           <ServiceCard
             icon={<Bird className="h-5 w-5" />}
             title="Dove release"
             description="Meaningful ceremony additions handled professionally with care"
             href="/dove-release"
+            imageSrc="/dove-release.png"
           />
           <ServiceCard
             icon={<Cross className="h-5 w-5" />}
             title="Statues"
             description="Garden, indoor, desktop stone and bronze statuary"
             href="/statues"
+            imageSrc="/statues.png"
           />
           <ServiceCard
             icon={<MessageCircleHeart className="h-5 w-5" />}
             title="Grief support"
             description="Resources and guidance for families navigating loss"
             href="/grief-coaching"
+            imageSrc="/grief-coaching.png"
           />
         </div>
 
@@ -219,20 +238,20 @@ export default function Home() {
               <div className="space-y-2">
                 <MapPin className="h-6 w-6 mx-auto text-primary" />
                 <div className="text-sm font-medium">Address</div>
-                <div className="text-sm text-muted-foreground">{CONTACT_INFO.address}</div>
+                <div className="text-sm text-muted-foreground">{MARKETING_CONTACT.address}</div>
               </div>
               <div className="space-y-2">
                 <Phone className="h-6 w-6 mx-auto text-primary" />
                 <div className="text-sm font-medium">Phone</div>
-                <a href={`tel:${CONTACT_INFO.phone.replace(/[^0-9]/g, "")}`} className="text-sm text-primary hover:underline block">
-                  {CONTACT_INFO.phone}
+                <a href={`tel:${phoneToTel(MARKETING_CONTACT.phone)}`} className="text-sm text-primary hover:underline block">
+                  {MARKETING_CONTACT.phone}
                 </a>
               </div>
               <div className="space-y-2">
                 <Heart className="h-6 w-6 mx-auto text-primary" />
                 <div className="text-sm font-medium">Email</div>
-                <a href={`mailto:${CONTACT_INFO.email}`} className="text-sm text-primary hover:underline block">
-                  {CONTACT_INFO.email}
+                <a href={`mailto:${MARKETING_CONTACT.email}`} className="text-sm text-primary hover:underline block">
+                  {MARKETING_CONTACT.email}
                 </a>
               </div>
             </div>
@@ -284,15 +303,31 @@ function ServiceCard({
   title,
   description,
   href,
+  imageSrc,
 }: {
   icon: React.ReactNode;
   title: string;
   description: string;
   href: string;
+  imageSrc?: string;
 }) {
   return (
     <Link href={href} className="group">
       <Card className="h-full border-border/60 shadow-sm transition-all hover:shadow-md hover:border-primary/30">
+        {imageSrc ? (
+          <div className="relative overflow-hidden rounded-t-xl border-b border-border/50 bg-muted/20">
+            <div className="relative aspect-[4/3] w-full">
+              <Image
+                src={imageSrc}
+                alt={title}
+                fill
+                sizes="(max-width: 1024px) 100vw, 33vw"
+                className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+              />
+              <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.45),transparent_65%)]" />
+            </div>
+          </div>
+        ) : null}
         <CardHeader className="space-y-4">
           <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary border border-primary/20 transition-all group-hover:scale-105">
             {icon}
@@ -308,5 +343,22 @@ function ServiceCard({
         </CardContent>
       </Card>
     </Link>
+  );
+}
+
+function PreviewImage({ src, alt }: { src: string; alt: string }) {
+  return (
+    <div className="group relative overflow-hidden rounded-2xl border border-border/60 bg-muted/20 shadow-sm">
+      <div className="relative aspect-[4/3] w-full">
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          sizes="(max-width: 640px) 100vw, 33vw"
+          className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.35),transparent_65%)]" />
+      </div>
+    </div>
   );
 }

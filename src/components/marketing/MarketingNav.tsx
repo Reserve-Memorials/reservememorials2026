@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowRight,
   BookOpen,
@@ -20,6 +21,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
+import { MARKETING_CONTACT } from "@/lib/marketing/contact";
 
 const PORTAL_URL = "https://portal.reservememorials.com";
 
@@ -87,8 +89,15 @@ export function MarketingNav() {
           </Sheet>
 
           <Link href="/" className="group flex items-center gap-2">
-            <span className="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-linear-to-br from-primary/95 via-chart-4/70 to-primary/95 text-primary-foreground shadow-sm ring-1 ring-border/50 transition-transform group-hover:-translate-y-0.5">
-              <Sparkles className="h-4 w-4" />
+            <span className="relative inline-flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl bg-black shadow-sm ring-1 ring-border/50 transition-transform group-hover:-translate-y-0.5">
+              <Image
+                src="/reservelogo.png"
+                alt={`${MARKETING_CONTACT.company} logo`}
+                fill
+                sizes="40px"
+                className="object-contain p-1.5"
+                priority
+              />
             </span>
             <div className="leading-tight">
               <div className="font-semibold tracking-tight">

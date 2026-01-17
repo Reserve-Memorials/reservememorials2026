@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowRight,
   Bird,
@@ -14,6 +15,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { MARKETING_CONTACT, phoneToTel } from "@/lib/marketing/contact";
 
 const SERVICES = [
   {
@@ -21,42 +23,49 @@ const SERVICES = [
     title: "Traditional headstones and cemetery monuments",
     description: "Classic upright monuments, flat markers, companion and family memorials in premium stone with custom inscriptions and artwork.",
     icon: <Gem className="h-5 w-5" />,
+    imageSrc: "/traditional-headstone.png",
   },
   {
     href: "/columbariums",
     title: "Columbariums and cremation memorials",
     description: "Custom-designed memorial spaces for families, cemeteries, and churches. Indoor and outdoor niche options with personalization.",
     icon: <Building2 className="h-5 w-5" />,
+    imageSrc: "/columbariums.png",
   },
   {
     href: "/veteran-memorials",
     title: "Veteran memorials",
     description: "Honor those who served with dignified designs, military emblems, proper insignia, and respectful attention to detail.",
     icon: <Shield className="h-5 w-5" />,
+    imageSrc: "/veteran-memorials.png",
   },
   {
     href: "/design-consultation",
     title: "Design consultation",
     description: "Guided help with materials, layout, inscriptions, cemetery rules, timeline, and budget. A conversation, not a sales pitch.",
     icon: <Palette className="h-5 w-5" />,
+    imageSrc: "/design-consultation.png",
   },
   {
     href: "/dove-release",
     title: "Dove release services",
     description: "Professional dove releases for memorial and graveside ceremonies. Single or multiple-dove tributes coordinated with care.",
     icon: <Bird className="h-5 w-5" />,
+    imageSrc: "/dove-release.png",
   },
   {
     href: "/statues",
     title: "Statues and statuary",
     description: "Garden, indoor, and desktop stone and bronze pieces. Concrete outdoor statues and meaningful memorial sculptures.",
     icon: <Cross className="h-5 w-5" />,
+    imageSrc: "/statues.png",
   },
   {
     href: "/grief-coaching",
     title: "Grief coaching resources",
     description: "Supportive resources and guidance for families navigating loss. Compassionate, practical help during difficult times.",
     icon: <MessageCircleHeart className="h-5 w-5" />,
+    imageSrc: "/grief-coaching.png",
   },
 ];
 
@@ -92,7 +101,7 @@ export default function ServicesPage() {
               <Link href="/contact-us">Request a quote</Link>
             </Button>
             <Button asChild size="lg" variant="outline">
-              <a href="tel:+12342695432">
+              <a href={`tel:${phoneToTel(MARKETING_CONTACT.phone)}`}>
                 <Phone className="mr-2 h-4 w-4" />
                 Call now
               </a>
@@ -118,6 +127,7 @@ export default function ServicesPage() {
               title={service.title}
               description={service.description}
               icon={service.icon}
+              imageSrc={service.imageSrc}
             />
           ))}
         </div>
@@ -142,6 +152,7 @@ export default function ServicesPage() {
               title={service.title}
               description={service.description}
               icon={service.icon}
+              imageSrc={service.imageSrc}
             />
           ))}
         </div>
@@ -214,15 +225,29 @@ function ServiceCard({
   title,
   description,
   icon,
+  imageSrc,
 }: {
   href: string;
   title: string;
   description: string;
   icon: React.ReactNode;
+  imageSrc: string;
 }) {
   return (
     <Link href={href} className="group">
       <Card className="h-full border-border/60 shadow-sm transition-all hover:shadow-md hover:border-primary/30">
+        <div className="relative overflow-hidden rounded-t-xl border-b border-border/50 bg-muted/20">
+          <div className="relative aspect-[4/3] w-full">
+            <Image
+              src={imageSrc}
+              alt={title}
+              fill
+              sizes="(max-width: 1024px) 100vw, 33vw"
+              className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+            />
+            <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.45),transparent_65%)]" />
+          </div>
+        </div>
         <CardHeader className="space-y-4">
           <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary border border-primary/20 transition-all group-hover:scale-105">
             {icon}

@@ -1,6 +1,8 @@
 import Link from "next/link";
+import Image from "next/image";
 import { MapPin, Phone, Mail, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { MARKETING_CONTACT, phoneToTel } from "@/lib/marketing/contact";
 
 const PORTAL_URL = "https://portal.reservememorials.com";
 
@@ -10,8 +12,19 @@ export function MarketingFooter() {
       <div className="mx-auto w-full px-4 py-10 sm:px-6 lg:px-10">
         <div className="grid gap-8 md:grid-cols-4">
           <div className="space-y-3 md:col-span-2">
-            <div className="text-lg font-semibold tracking-tight">
-              Reserve Memorials
+            <div className="flex items-center gap-3">
+              <div className="relative h-10 w-10 overflow-hidden rounded-xl bg-black ring-1 ring-border/50">
+                <Image
+                  src="/reservelogo.png"
+                  alt={`${MARKETING_CONTACT.company} logo`}
+                  fill
+                  sizes="40px"
+                  className="object-contain p-1.5"
+                />
+              </div>
+              <div className="text-lg font-semibold tracking-tight">
+                {MARKETING_CONTACT.company}
+              </div>
             </div>
             <p className="max-w-xl text-sm text-muted-foreground">
               A modern memorial company built for families, churches, and
@@ -69,17 +82,26 @@ export function MarketingFooter() {
               <li className="flex items-start gap-2">
                 <MapPin className="mt-0.5 h-4 w-4 text-primary" />
                 <span>
-                  {/* TODO: replace with real NAP */}
-                  Columbus, OH (service area)
+                  {MARKETING_CONTACT.address}
                 </span>
               </li>
               <li className="flex items-center gap-2">
                 <Phone className="h-4 w-4 text-primary" />
-                <span>(555) 555-5555</span>
+                <a
+                  className="hover:text-foreground transition"
+                  href={`tel:${phoneToTel(MARKETING_CONTACT.phone)}`}
+                >
+                  {MARKETING_CONTACT.phone}
+                </a>
               </li>
               <li className="flex items-center gap-2">
                 <Mail className="h-4 w-4 text-primary" />
-                <span>support@reservememorials.com</span>
+                <a
+                  className="hover:text-foreground transition"
+                  href={`mailto:${MARKETING_CONTACT.email}`}
+                >
+                  {MARKETING_CONTACT.email}
+                </a>
               </li>
             </ul>
           </div>
