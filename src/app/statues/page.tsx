@@ -337,7 +337,7 @@ export default function StatuesPage() {
                 </Link>
               </Button>
               <Button asChild size="lg" variant="outline">
-                <Link href="/gallery">View gallery</Link>
+                <Link href="/services">All services</Link>
               </Button>
             </div>
           </CardContent>

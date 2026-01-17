@@ -5,11 +5,11 @@ import Image from "next/image";
 import {
   ArrowRight,
   BookOpen,
-  ImageIcon,
+  ChevronDown,
+  Gem,
   Info,
   Menu,
   Phone,
-  Sparkles,
 } from "lucide-react";
 import { ModeToggle } from "@/components/mode-toggle";
 import { Button } from "@/components/ui/button";
@@ -24,6 +24,16 @@ import { cn } from "@/lib/utils";
 import { MARKETING_CONTACT } from "@/lib/marketing/contact";
 
 const PORTAL_URL = "https://portal.reservememorials.com";
+
+const SERVICES = [
+  { href: "/traditional-headstones", label: "Traditional headstones" },
+  { href: "/columbariums", label: "Columbariums" },
+  { href: "/veteran-memorials", label: "Veteran memorials" },
+  { href: "/design-consultation", label: "Design consultation" },
+  { href: "/dove-release", label: "Dove release" },
+  { href: "/statues", label: "Statues" },
+  { href: "/grief-coaching", label: "Grief coaching" },
+];
 
 export function MarketingNav() {
   return (
@@ -45,15 +55,9 @@ export function MarketingNav() {
               <nav className="flex flex-col gap-4 mt-6">
                 <MobileNavLink
                   href="/services"
-                  icon={<Sparkles className="h-5 w-5" />}
+                  icon={<Gem className="h-5 w-5" />}
                 >
                   Services
-                </MobileNavLink>
-                <MobileNavLink
-                  href="/gallery"
-                  icon={<ImageIcon className="h-5 w-5" />}
-                >
-                  Gallery
                 </MobileNavLink>
                 <MobileNavLink
                   href="/blog"
@@ -119,12 +123,7 @@ export function MarketingNav() {
         </div>
 
         <nav className="hidden items-center gap-1 md:flex">
-          <NavLink href="/services" icon={<Sparkles className="h-4 w-4" />}>
-            Services
-          </NavLink>
-          <NavLink href="/gallery" icon={<ImageIcon className="h-4 w-4" />}>
-            Gallery
-          </NavLink>
+          <ServicesDropdown />
           <NavLink href="/blog" icon={<BookOpen className="h-4 w-4" />}>
             Blog
           </NavLink>
@@ -155,6 +154,48 @@ export function MarketingNav() {
         </div>
       </div>
     </header>
+  );
+}
+
+function ServicesDropdown() {
+  return (
+    <div className="relative group">
+      <Link
+        href="/services"
+        className={cn(
+          "inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium text-foreground/80 transition",
+          "hover:bg-accent hover:text-foreground hover:shadow-sm",
+          "focus:outline-hidden focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background"
+        )}
+      >
+        <Gem className="h-4 w-4" />
+        <span>Services</span>
+        <ChevronDown className="h-4 w-4 transition-transform group-hover:rotate-180" />
+      </Link>
+
+      <div className="absolute left-0 top-full z-50 mt-2 hidden min-w-64 group-hover:block group-focus-within:block">
+        <div className="rounded-2xl border border-border/60 bg-popover/95 p-2 shadow-lg backdrop-blur">
+          <Link
+            href="/services"
+            className="block rounded-xl px-3 py-2 text-sm font-medium text-foreground hover:bg-accent transition"
+          >
+            All services
+          </Link>
+          <div className="my-2 h-px bg-border/60" />
+          <div className="grid">
+            {SERVICES.map((s) => (
+              <Link
+                key={s.href}
+                href={s.href}
+                className="block rounded-xl px-3 py-2 text-sm text-foreground/85 hover:bg-accent hover:text-foreground transition"
+              >
+                {s.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 

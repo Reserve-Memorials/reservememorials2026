@@ -264,7 +264,7 @@ export default function Home() {
                 </Link>
               </Button>
               <Button asChild size="lg" variant="outline">
-                <Link href="/gallery">See recent memorial work</Link>
+                <Link href="/services">Explore services</Link>
               </Button>
             </div>
           </CardContent>

@@ -85,7 +85,7 @@ export function ServiceDetailPage({
               </Link>
             </Button>
             <Button asChild variant="outline">
-              <Link href="/gallery">Browse gallery</Link>
+              <Link href="/services">Explore services</Link>
             </Button>
           </div>
         </CardContent>

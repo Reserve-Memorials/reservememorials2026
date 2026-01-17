@@ -185,7 +185,7 @@ export default function ServicesPage() {
               </Link>
             </Button>
             <Button asChild size="lg" variant="outline">
-              <Link href="/gallery">View gallery</Link>
+              <Link href="/contact-us">Contact us</Link>
             </Button>
           </div>
         </div>
@@ -210,7 +210,7 @@ export default function ServicesPage() {
                 </Link>
               </Button>
               <Button asChild size="lg" variant="outline">
-                <Link href="/gallery">View our work</Link>
+                <Link href="/blog">Read the blog</Link>
               </Button>
             </div>
           </CardContent>

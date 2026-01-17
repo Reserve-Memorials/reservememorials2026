@@ -45,9 +45,6 @@ export function MarketingFooter() {
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                 </Link>
               </Button>
-              <Button asChild size="sm" variant="outline">
-                <Link href="/gallery">View Gallery</Link>
-              </Button>
             </div>
           </div>
 
@@ -60,14 +57,6 @@ export function MarketingFooter() {
                   href="/services"
                 >
                   Services
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className="hover:text-foreground transition"
-                  href="/gallery"
-                >
-                  Gallery
                 </Link>
               </li>
               <li>
