@@ -173,8 +173,11 @@ function ServicesDropdown() {
         <ChevronDown className="h-4 w-4 transition-transform group-hover:rotate-180" />
       </Link>
 
+      {/* Hover buffer: prevents flicker when moving from trigger to menu */}
+      <div className="absolute left-0 top-full h-3 w-full" />
+
       <div className="absolute left-0 top-full z-50 mt-2 hidden min-w-64 group-hover:block group-focus-within:block">
-        <div className="rounded-2xl border border-border/60 bg-popover/95 p-2 shadow-lg backdrop-blur">
+        <div className="max-h-[70vh] overflow-auto rounded-2xl border border-border/60 bg-popover/95 p-2 shadow-lg backdrop-blur">
           <Link
             href="/services"
             className="block rounded-xl px-3 py-2 text-sm font-medium text-foreground hover:bg-accent transition"
