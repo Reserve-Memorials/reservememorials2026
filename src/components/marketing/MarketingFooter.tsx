@@ -13,13 +13,20 @@ export function MarketingFooter() {
         <div className="grid gap-8 md:grid-cols-4">
           <div className="space-y-3 md:col-span-2">
             <div className="flex items-center gap-3">
-              <div className="relative h-10 w-10 overflow-hidden rounded-xl bg-black ring-1 ring-border/50">
+              <div className="relative h-10 w-10 overflow-hidden rounded-xl bg-muted/30 ring-1 ring-border/50">
                 <Image
-                  src="/reservelogo.png"
+                  src="/reservelogoblack.png"
                   alt={`${MARKETING_CONTACT.company} logo`}
                   fill
                   sizes="40px"
-                  className="object-contain p-1.5"
+                  className="object-contain p-1.5 dark:hidden"
+                />
+                <Image
+                  src="/reservelogowhite.png"
+                  alt={`${MARKETING_CONTACT.company} logo`}
+                  fill
+                  sizes="40px"
+                  className="hidden object-contain p-1.5 dark:block"
                 />
               </div>
               <div className="text-lg font-semibold tracking-tight">

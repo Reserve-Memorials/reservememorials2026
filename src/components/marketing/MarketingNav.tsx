@@ -89,13 +89,21 @@ export function MarketingNav() {
           </Sheet>
 
           <Link href="/" className="group flex items-center gap-2">
-            <span className="relative inline-flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl bg-black shadow-sm ring-1 ring-border/50 transition-transform group-hover:-translate-y-0.5">
+            <span className="relative inline-flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl bg-muted/30 shadow-sm ring-1 ring-border/50 transition-transform group-hover:-translate-y-0.5">
               <Image
-                src="/reservelogo.png"
+                src="/reservelogoblack.png"
                 alt={`${MARKETING_CONTACT.company} logo`}
                 fill
                 sizes="40px"
-                className="object-contain p-1.5"
+                className="object-contain p-1.5 dark:hidden"
+                priority
+              />
+              <Image
+                src="/reservelogowhite.png"
+                alt={`${MARKETING_CONTACT.company} logo`}
+                fill
+                sizes="40px"
+                className="hidden object-contain p-1.5 dark:block"
                 priority
               />
             </span>
