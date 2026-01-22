@@ -32,15 +32,34 @@ export default function Home() {
         <div className="relative z-10 mx-auto max-w-4xl space-y-8 text-center">
           <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20 shadow-sm">
             <Heart className="mr-1.5 h-3.5 w-3.5" />
-            Loboda Monuments
+            Reserve Memorials
           </Badge>
 
           <h1 className="text-4xl font-semibold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
             Crafting Custom Headstones, Monuments, and Mausoleums in Ohio
           </h1>
 
+          <div className="flex justify-center">
+            <Image
+              src="/reservelogoblack.png"
+              alt="Reserve Memorials logo"
+              width={220}
+              height={64}
+              className="h-auto w-36 sm:w-44 dark:hidden"
+              priority
+            />
+            <Image
+              src="/reservelogowhite.png"
+              alt="Reserve Memorials logo"
+              width={220}
+              height={64}
+              className="hidden h-auto w-36 sm:w-44 dark:block"
+              priority
+            />
+          </div>
+
           <p className="mx-auto max-w-2xl text-lg leading-relaxed text-muted-foreground">
-            At Loboda Monuments, we create personalized memorials that reflect the story and legacy of your loved one.
+            At Reserve Memorials, we create personalized memorials that reflect the story and legacy of your loved one.
             Based in Hudson, Ohio, our family-owned team guides you from design through installation, including cemetery
             approval and foundation planning.
           </p>
@@ -100,7 +119,7 @@ export default function Home() {
       <section className="mx-auto max-w-6xl space-y-10">
         <div className="text-center space-y-3">
           <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-            Why families choose Loboda Monuments
+            Why families choose Reserve Memorials
           </h2>
         </div>
 

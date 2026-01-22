@@ -22,8 +22,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Loboda Monuments | Custom Memorials, Headstones & Columbariums",
-  description: "Family-owned memorial company in Hudson, Ohio. Custom headstones, columbariums, and veteran memorials crafted with compassion and enduring workmanship.",
+  title: "Reserve Memorials | Custom Memorials, Headstones & Columbariums",
+  description:
+    "Family-owned memorial company in Hudson, Ohio. Custom headstones, columbariums, and veteran memorials crafted with compassion and enduring workmanship.",
 };
 
 export default function RootLayout({
