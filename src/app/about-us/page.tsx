@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowRight,
   Award,
@@ -20,9 +21,30 @@ export default function AboutUsPage() {
       {/* Hero */}
       <section className="stone-texture relative overflow-hidden rounded-2xl border border-border bg-card p-10 shadow-sm sm:p-16">
         <div className="absolute -right-32 -top-32 -z-10 h-96 w-96 rounded-full bg-[radial-gradient(circle_at_center,oklch(0.68_0.085_85_/_0.15),transparent)] blur-3xl animate-gentle-float" />
+        <div className="pointer-events-none absolute -right-6 bottom-4 hidden h-40 w-40 sm:block">
+          <Image
+            src="/reserve-duck-black.jpg"
+            alt=""
+            fill
+            sizes="160px"
+            className="object-contain opacity-90 dark:hidden"
+            priority
+          />
+          <Image
+            src="/reserve-duck-white.jpg"
+            alt=""
+            fill
+            sizes="160px"
+            className="hidden object-contain opacity-90 dark:block"
+            priority
+          />
+        </div>
 
         <div className="relative z-10 mx-auto max-w-4xl space-y-6 text-center">
-          <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20">
+          <Badge
+            variant="secondary"
+            className="bg-primary/10 text-primary border-primary/20"
+          >
             <Heart className="mr-1.5 h-3.5 w-3.5" />
             About Us
           </Badge>
@@ -32,8 +54,9 @@ export default function AboutUsPage() {
           </h1>
 
           <p className="mx-auto max-w-2xl text-lg leading-relaxed text-muted-foreground">
-            We believe creating a memorial should be a thoughtful, personal experience—not overwhelming. Our mission is to
-            guide families through every step with clarity, compassion, and expertise.
+            We believe creating a memorial should be a thoughtful, personal
+            experience—not overwhelming. Our mission is to guide families
+            through every step with clarity, compassion, and expertise.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
@@ -60,21 +83,26 @@ export default function AboutUsPage() {
 
         <div className="space-y-6 text-base leading-relaxed text-muted-foreground">
           <p>
-            What started as a passion for craftsmanship and design has grown into a full-service memorial company
-            dedicated to honoring lives and preserving legacies. We've learned that the most meaningful memorials come
-            from truly understanding the person they commemorate.
+            What started as a passion for craftsmanship and design has grown
+            into a full-service memorial company dedicated to honoring lives and
+            preserving legacies. We've learned that the most meaningful
+            memorials come from truly understanding the person they commemorate.
           </p>
           <p>
-            We believe the memorial process should be personal—not transactional. That's why we created the "Rocking Chair
-            Remedy," a consultation space designed for comfort and conversation, not pressure. Our showroom is half monument
-            samples and half consultation room—complete with rocking chairs and a coffee table instead of a traditional
-            conference room. This intentional design helps families feel at ease during what can be an emotionally
+            We believe the memorial process should be personal—not
+            transactional. That's why we created the "Rocking Chair Remedy," a
+            consultation space designed for comfort and conversation, not
+            pressure. Our showroom is half monument samples and half
+            consultation room—complete with rocking chairs and a coffee table
+            instead of a traditional conference room. This intentional design
+            helps families feel at ease during what can be an emotionally
             difficult time.
           </p>
           <p>
-            Every memorial we create is custom-designed to reflect the unique story of the person it honors. Whether it's
-            incorporating meaningful symbols, choosing the perfect stone, or crafting custom lettering, we ensure every
-            detail has purpose and meaning.
+            Every memorial we create is custom-designed to reflect the unique
+            story of the person it honors. Whether it's incorporating meaningful
+            symbols, choosing the perfect stone, or crafting custom lettering,
+            we ensure every detail has purpose and meaning.
           </p>
         </div>
       </section>
@@ -82,7 +110,10 @@ export default function AboutUsPage() {
       {/* Values */}
       <section className="mx-auto max-w-6xl space-y-10">
         <div className="text-center space-y-3">
-          <Badge variant="secondary" className="bg-evergreen/10 text-evergreen border-evergreen/20">
+          <Badge
+            variant="secondary"
+            className="bg-evergreen/10 text-evergreen border-evergreen/20"
+          >
             Our Values
           </Badge>
           <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
@@ -126,11 +157,17 @@ export default function AboutUsPage() {
 
       {/* Service Area */}
       <section className="stone-texture relative overflow-hidden rounded-2xl border border-border bg-card p-10 shadow-sm sm:p-16">
-        <div className="absolute -left-24 -bottom-24 -z-10 h-80 w-80 rounded-full bg-[radial-gradient(circle_at_center,oklch(0.32_0.048_155_/_0.12),transparent)] blur-3xl animate-gentle-float" style={{ animationDelay: '4s' }} />
+        <div
+          className="absolute -left-24 -bottom-24 -z-10 h-80 w-80 rounded-full bg-[radial-gradient(circle_at_center,oklch(0.32_0.048_155_/_0.12),transparent)] blur-3xl animate-gentle-float"
+          style={{ animationDelay: "4s" }}
+        />
 
         <div className="relative z-10 mx-auto max-w-4xl space-y-8">
           <div className="text-center space-y-3">
-            <Badge variant="secondary" className="bg-evergreen/10 text-evergreen border-evergreen/20">
+            <Badge
+              variant="secondary"
+              className="bg-evergreen/10 text-evergreen border-evergreen/20"
+            >
               <MapPin className="mr-1.5 h-3.5 w-3.5" />
               Service Area
             </Badge>
@@ -141,20 +178,35 @@ export default function AboutUsPage() {
 
           <div className="space-y-6 text-base leading-relaxed text-muted-foreground">
             <p>
-              Based in Hudson, Ohio, we proudly serve families throughout Summit, Portage, Cuyahoga, and surrounding
-              counties. Our local presence means we understand regional cemetery requirements and can coordinate
-              seamlessly with local services.
+              Based in Hudson, Ohio, we proudly serve families throughout
+              Summit, Portage, Cuyahoga, and surrounding counties. Our local
+              presence means we understand regional cemetery requirements and
+              can coordinate seamlessly with local services.
             </p>
             <p>
-              From design consultation and planning to monument manufacturing, installation, and maintenance, we handle
-              every aspect of your memorial. We coordinate with cemeteries on regulations and foundations, removing
-              complexity from your experience.
+              From design consultation and planning to monument manufacturing,
+              installation, and maintenance, we handle every aspect of your
+              memorial. We coordinate with cemeteries on regulations and
+              foundations, removing complexity from your experience.
             </p>
           </div>
 
           <div className="flex flex-wrap justify-center gap-2 pt-4">
-            {["Hudson", "Akron", "Cleveland", "Cuyahoga Falls", "Stow", "Kent", "Medina", "Aurora"].map((city) => (
-              <Badge key={city} variant="secondary" className="bg-primary/5 text-primary border-primary/20">
+            {[
+              "Hudson",
+              "Akron",
+              "Cleveland",
+              "Cuyahoga Falls",
+              "Stow",
+              "Kent",
+              "Medina",
+              "Aurora",
+            ].map((city) => (
+              <Badge
+                key={city}
+                variant="secondary"
+                className="bg-primary/5 text-primary border-primary/20"
+              >
                 {city}
               </Badge>
             ))}
@@ -170,8 +222,9 @@ export default function AboutUsPage() {
               Ready to start the conversation?
             </h2>
             <p className="mx-auto max-w-xl text-muted-foreground">
-              Whether you're planning ahead or need immediate assistance, we're here to help. Schedule a consultation to
-              visit our showroom and experience the "Rocking Chair Remedy" for yourself.
+              Whether you're planning ahead or need immediate assistance, we're
+              here to help. Schedule a consultation to visit our showroom and
+              experience the "Rocking Chair Remedy" for yourself.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-4">
               <Button asChild size="lg">
@@ -212,7 +265,9 @@ function ValueCard({
         <CardTitle className="text-lg">{title}</CardTitle>
       </CardHeader>
       <CardContent>
-        <p className="text-sm leading-relaxed text-muted-foreground">{description}</p>
+        <p className="text-sm leading-relaxed text-muted-foreground">
+          {description}
+        </p>
       </CardContent>
     </Card>
   );

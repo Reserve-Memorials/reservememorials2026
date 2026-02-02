@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import Image from "next/image";
+import Link from "next/link";
 import { Mail, MapPin, Phone, ArrowRight } from "lucide-react";
 import { MARKETING_CONTACT, phoneToTel } from "@/lib/marketing/contact";
 
@@ -12,6 +14,24 @@ export default function ContactUsPage() {
     <div className="space-y-10">
       <section className="relative overflow-hidden rounded-3xl border border-border/60 bg-card/60 p-8 shadow-sm backdrop-blur sm:p-12">
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top_right,var(--color-primary),transparent_60%)]/[14]" />
+        <div className="pointer-events-none absolute -right-8 bottom-0 hidden h-44 w-44 sm:block">
+          <Image
+            src="/reserve-duck-black.jpg"
+            alt=""
+            fill
+            sizes="176px"
+            className="object-contain opacity-90 dark:hidden"
+            priority
+          />
+          <Image
+            src="/reserve-duck-white.jpg"
+            alt=""
+            fill
+            sizes="176px"
+            className="hidden object-contain opacity-90 dark:block"
+            priority
+          />
+        </div>
         <div className="space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-500">
           <Badge className="w-fit" variant="secondary">
             Contact
@@ -20,8 +40,14 @@ export default function ContactUsPage() {
             Talk to a memorial advisor.
           </h1>
           <p className="max-w-2xl text-pretty text-base text-muted-foreground sm:text-lg">
-            Send a note and we’ll follow up. Next step: we’ll wire this form to create a prospect in the portal.
+            Send a note and we’ll follow up. Next step: we’ll wire this form to
+            create a prospect in the portal.
           </p>
+          <div className="flex flex-wrap gap-2 pt-2">
+            <Button asChild variant="outline" size="sm">
+              <Link href="/cemeteries-we-serve">Cemeteries we serve</Link>
+            </Button>
+          </div>
         </div>
       </section>
 
@@ -30,7 +56,8 @@ export default function ContactUsPage() {
           <CardHeader className="space-y-2">
             <CardTitle className="text-xl">Request a consultation</CardTitle>
             <p className="text-sm text-muted-foreground">
-              This is a placeholder form (safe step). We’ll connect it to the portal API next.
+              This is a placeholder form (safe step). We’ll connect it to the
+              portal API next.
             </p>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -56,7 +83,11 @@ export default function ContactUsPage() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="message">Message</Label>
-              <Textarea id="message" placeholder="Tell us what you're looking for…" rows={5} />
+              <Textarea
+                id="message"
+                placeholder="Tell us what you're looking for…"
+                rows={5}
+              />
             </div>
             <Button type="button" size="lg" className="group w-full" disabled>
               Send request (coming next)
@@ -79,13 +110,19 @@ export default function ContactUsPage() {
             </div>
             <div className="flex items-center gap-2">
               <Phone className="h-4 w-4 text-primary" />
-              <a className="text-primary hover:underline" href={`tel:${phoneToTel(MARKETING_CONTACT.phone)}`}>
+              <a
+                className="text-primary hover:underline"
+                href={`tel:${phoneToTel(MARKETING_CONTACT.phone)}`}
+              >
                 {MARKETING_CONTACT.phone}
               </a>
             </div>
             <div className="flex items-center gap-2">
               <Mail className="h-4 w-4 text-primary" />
-              <a className="text-primary hover:underline" href={`mailto:${MARKETING_CONTACT.email}`}>
+              <a
+                className="text-primary hover:underline"
+                href={`mailto:${MARKETING_CONTACT.email}`}
+              >
                 {MARKETING_CONTACT.email}
               </a>
             </div>
@@ -95,4 +132,3 @@ export default function ContactUsPage() {
     </div>
   );
 }
-

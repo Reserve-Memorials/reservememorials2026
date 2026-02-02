@@ -2,7 +2,7 @@ export const MARKETING_CONTACT = {
   company: "Reserve Memorials",
   address: "30 Ravenna Street, Hudson, Ohio 44236",
   phone: "(234) 269-5432",
-  email: "mcloboda@outlook.com",
+  email: "mark@reservememorials.com",
 } as const;
 
 export function phoneToTel(phone: string) {
@@ -13,6 +13,7 @@ export function phoneToTel(phone: string) {
   return `+${digits}`;
 }
 
-export const MARKETING_PORTAL_URL = "https://portal.reservememorials.com" as const;
-export const MARKETING_PORTAL_DESIGN_URL = `${MARKETING_PORTAL_URL}/design` as const;
-
+export const MARKETING_PORTAL_URL =
+  "https://portal.reservememorials.com" as const;
+export const MARKETING_PORTAL_DESIGN_URL =
+  `${MARKETING_PORTAL_URL}/design` as const;
