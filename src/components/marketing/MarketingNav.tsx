@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ArrowRight,
   BookOpen,
@@ -36,11 +36,8 @@ import { MARKETING_CONTACT } from "@/lib/marketing/contact";
 
 const PORTAL_URL = "https://portal.reservememorials.com";
 
-const OFFER_EMAIL = "mark@reservememorials.com";
-const OFFER_SUBJECT = "Claim Offer: Free Installation (Up to $1,000)";
-const OFFER_BODY =
-  "Hi Mark,\n\nI'd like to claim the Free Installation offer (up to $1,000) for an order placed before Feb 28, 2026.\n\nName:\nPhone:\nPreferred cemetery/city:\nNotes:\n";
 const OFFER_SESSION_KEY = "reserve_offer_modal_seen_2026_02_01";
+const OFFER_CONTACT_HREF = "/contact-us";
 
 const SERVICES = [
   { href: "/traditional-headstones", label: "Traditional headstones" },
@@ -54,12 +51,6 @@ const SERVICES = [
 
 export function MarketingNav() {
   const [offerOpen, setOfferOpen] = useState(false);
-
-  const offerMailto = useMemo(() => {
-    return `mailto:${OFFER_EMAIL}?subject=${encodeURIComponent(
-      OFFER_SUBJECT,
-    )}&body=${encodeURIComponent(OFFER_BODY)}`;
-  }, []);
 
   useEffect(() => {
     try {
@@ -92,8 +83,9 @@ export function MarketingNav() {
               only.
             </span>
           </div>
-          <a
-            href={offerMailto}
+          <Link
+            href={OFFER_CONTACT_HREF}
+            onClick={() => setOfferOpen(false)}
             className={cn(
               "inline-flex h-8 items-center justify-center gap-2 rounded-full px-3 text-xs font-semibold transition",
               "border border-amber-500/35 bg-amber-100/70 text-amber-950 hover:bg-amber-100",
@@ -104,7 +96,7 @@ export function MarketingNav() {
           >
             Claim Offer
             <ArrowRight className="h-4 w-4" />
-          </a>
+          </Link>
         </div>
       </div>
 
@@ -144,7 +136,12 @@ export function MarketingNav() {
                   asChild
                   className="bg-amber-600 text-white hover:bg-amber-600/90"
                 >
-                  <a href={offerMailto}>Claim Offer</a>
+                  <Link
+                    href={OFFER_CONTACT_HREF}
+                    onClick={() => setOfferOpen(false)}
+                  >
+                    Claim Offer
+                  </Link>
                 </Button>
               </DialogFooter>
             </div>

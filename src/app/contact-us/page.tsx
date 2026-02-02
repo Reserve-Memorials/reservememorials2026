@@ -1,13 +1,11 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import Image from "next/image";
 import Link from "next/link";
-import { Mail, MapPin, Phone, ArrowRight } from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
 import { MARKETING_CONTACT, phoneToTel } from "@/lib/marketing/contact";
+import { HubSpotContactForm } from "@/components/marketing/HubSpotContactForm";
 
 export default function ContactUsPage() {
   return (
@@ -56,43 +54,23 @@ export default function ContactUsPage() {
           <CardHeader className="space-y-2">
             <CardTitle className="text-xl">Request a consultation</CardTitle>
             <p className="text-sm text-muted-foreground">
-              This is a placeholder form (safe step). We’ll connect it to the
-              portal API next.
+              Fill out the form below and we’ll follow up shortly.
             </p>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="grid gap-4 md:grid-cols-2">
-              <div className="space-y-2">
-                <Label htmlFor="name">Name</Label>
-                <Input id="name" placeholder="Your name" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="zip">ZIP</Label>
-                <Input id="zip" placeholder="e.g. 43004" inputMode="numeric" />
-              </div>
+            <div className="rounded-xl border border-border/60 bg-background/50 p-4 sm:p-6">
+              <HubSpotContactForm />
             </div>
-            <div className="grid gap-4 md:grid-cols-2">
-              <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" placeholder="you@email.com" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="phone">Phone</Label>
-                <Input id="phone" placeholder="(555) 555-5555" />
-              </div>
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="message">Message</Label>
-              <Textarea
-                id="message"
-                placeholder="Tell us what you're looking for…"
-                rows={5}
-              />
-            </div>
-            <Button type="button" size="lg" className="group w-full" disabled>
-              Send request (coming next)
-              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-            </Button>
+            <p className="text-xs text-muted-foreground">
+              Prefer email? Reach us at{" "}
+              <a
+                className="text-primary hover:underline"
+                href={`mailto:${MARKETING_CONTACT.email}`}
+              >
+                {MARKETING_CONTACT.email}
+              </a>
+              .
+            </p>
           </CardContent>
         </Card>
 

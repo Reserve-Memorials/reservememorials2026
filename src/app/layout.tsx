@@ -25,6 +25,11 @@ export const metadata: Metadata = {
   title: "Reserve Memorials | Custom Memorials, Headstones & Columbariums",
   description:
     "Family-owned memorial company in Hudson, Ohio. Custom headstones, columbariums, and veteran memorials crafted with compassion and enduring workmanship.",
+  icons: {
+    icon: "/reservelogoblack.png",
+    shortcut: "/reservelogoblack.png",
+    apple: "/reservelogoblack.png",
+  },
 };
 
 export default function RootLayout({
@@ -36,7 +41,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${cormorantGaramond.variable} ${inter.variable} font-body antialiased`}
-        style={{ fontFamily: 'var(--font-body)' }}
+        style={{ fontFamily: "var(--font-body)" }}
       >
         <ThemeProvider
           attribute="class"
@@ -48,7 +53,7 @@ export default function RootLayout({
             {/* Subtle stone-inspired background gradient */}
             <div className="pointer-events-none fixed inset-0 -z-10 opacity-30">
               <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,oklch(0.89_0.018_65),transparent_50%)]" />
-              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,oklch(0.68_0.085_85_/_0.15),transparent_50%)]" />
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,oklch(0.68_0.085_85/0.15),transparent_50%)]" />
             </div>
             <AppHeader />
             <main className="w-full px-4 py-8 sm:px-6 lg:px-10 lg:py-10">
