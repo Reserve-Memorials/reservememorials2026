@@ -26,9 +26,9 @@ export const metadata: Metadata = {
   description:
     "Family-owned memorial company in Hudson, Ohio. Custom headstones, columbariums, and veteran memorials crafted with compassion and enduring workmanship.",
   icons: {
-    icon: "/reservelogoblack.png",
-    shortcut: "/reservelogoblack.png",
-    apple: "/reservelogoblack.png",
+    icon: [{ url: "/reservelogoblack.png", type: "image/png" }],
+    shortcut: ["/reservelogoblack.png"],
+    apple: [{ url: "/reservelogoblack.png" }],
   },
 };
 

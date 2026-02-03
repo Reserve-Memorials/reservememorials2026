@@ -84,7 +84,15 @@ export default function ContactUsPage() {
           <CardContent className="space-y-3 text-sm text-muted-foreground">
             <div className="flex items-start gap-2">
               <MapPin className="mt-0.5 h-4 w-4 text-primary" />
-              <div>{MARKETING_CONTACT.address}</div>
+              <div>
+                <div>{MARKETING_CONTACT.address}</div>
+                <div className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                  Ohio Headquarters
+                </div>
+                <div className="text-xs text-muted-foreground">
+                  Serving all of Ohio
+                </div>
+              </div>
             </div>
             <div className="flex items-center gap-2">
               <Phone className="h-4 w-4 text-primary" />

@@ -27,7 +27,7 @@ export default function Home() {
     <div className="space-y-20">
       {/* Hero Section */}
       <section className="stone-texture relative overflow-hidden rounded-2xl border border-border bg-card p-10 shadow-sm sm:p-16">
-        <div className="absolute -right-32 -top-32 -z-10 h-96 w-96 rounded-full bg-[radial-gradient(circle_at_center,oklch(0.68_0.085_85_/_0.15),transparent)] blur-3xl animate-gentle-float" />
+        <div className="absolute -right-32 -top-32 -z-10 h-96 w-96 rounded-full bg-[radial-gradient(circle_at_center,oklch(0.68_0.085_85/0.15),transparent)] blur-3xl animate-gentle-float" />
 
         <div className="relative z-10 mx-auto max-w-4xl space-y-8 text-center">
           <Badge
@@ -224,7 +224,7 @@ export default function Home() {
       {/* Service Area */}
       <section className="stone-texture relative overflow-hidden rounded-2xl border border-border bg-card p-10 shadow-sm sm:p-16">
         <div
-          className="absolute -left-24 -bottom-24 -z-10 h-80 w-80 rounded-full bg-[radial-gradient(circle_at_center,oklch(0.32_0.048_155_/_0.12),transparent)] blur-3xl animate-gentle-float"
+          className="absolute -left-24 -bottom-24 -z-10 h-80 w-80 rounded-full bg-[radial-gradient(circle_at_center,oklch(0.32_0.048_155/0.12),transparent)] blur-3xl animate-gentle-float"
           style={{ animationDelay: "4s" }}
         />
 
@@ -238,13 +238,13 @@ export default function Home() {
               Service Area
             </Badge>
             <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-              Serving Northeast Ohio
+              Serving all of Ohio
             </h2>
           </div>
 
           <p className="mx-auto max-w-2xl text-muted-foreground">
-            Proudly serving Hudson, Stow, Akron, Cleveland, and surrounding
-            Northeast Ohio communities.
+            Based in Hudson, we proudly serve families across Ohio—including
+            Hudson, Stow, Akron, Cleveland, and beyond.
           </p>
 
           <div className="flex flex-wrap justify-center gap-2 pt-4">
@@ -286,6 +286,9 @@ export default function Home() {
                 <div className="text-sm font-medium">Address</div>
                 <div className="text-sm text-muted-foreground">
                   {MARKETING_CONTACT.address}
+                </div>
+                <div className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                  Ohio Headquarters
                 </div>
               </div>
               <div className="space-y-2">
@@ -372,7 +375,7 @@ function ServiceCard({
       <Card className="h-full border-border/60 shadow-sm transition-all hover:shadow-md hover:border-primary/30">
         {imageSrc ? (
           <div className="relative overflow-hidden rounded-t-xl border-b border-border/50 bg-muted/20">
-            <div className="relative aspect-[4/3] w-full">
+            <div className="relative aspect-4/3 w-full">
               <Image
                 src={imageSrc}
                 alt={title}
@@ -409,7 +412,7 @@ function ServiceCard({
 function PreviewImage({ src, alt }: { src: string; alt: string }) {
   return (
     <div className="group relative overflow-hidden rounded-2xl border border-border/60 bg-muted/20 shadow-sm">
-      <div className="relative aspect-[4/3] w-full">
+      <div className="relative aspect-4/3 w-full">
         <Image
           src={src}
           alt={alt}
