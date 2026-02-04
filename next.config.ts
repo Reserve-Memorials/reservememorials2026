@@ -16,6 +16,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "anandi13.sg-host.com",
       },
+      {
+        protocol: "https",
+        hostname: "markl522.sg-host.com",
+      },
     ],
   },
 };

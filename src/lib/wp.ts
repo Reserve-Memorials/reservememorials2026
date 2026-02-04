@@ -20,13 +20,17 @@ type WPMedia = {
   };
 };
 
-const WP_BASE =
-  (process.env.WORDPRESS_URL?.replace(/\/+$/, "") ||
-    "https://anandi13.sg-host.com") + "/wp-json/wp/v2";
+const WP_SITE =
+  process.env.WORDPRESS_BLOG_CMS_URL ||
+  process.env.WORDPRESS_URL ||
+  "https://anandi13.sg-host.com";
+
+const WP_BASE = `${WP_SITE.replace(/\/+$/, "")}/wp-json/wp/v2`;
 
 function getWpSiteOrigins(): string[] {
   const origins = new Set<string>();
   const candidates = [
+    process.env.WORDPRESS_BLOG_CMS_URL,
     process.env.WORDPRESS_URL,
     "https://anandi13.sg-host.com",
     "https://anandi14.sg-host.com",
