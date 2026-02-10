@@ -109,17 +109,9 @@ export function MarketingFooter() {
           </div>
         </div>
 
-        <div className="mt-10 flex flex-col gap-2 border-t border-border/60 pt-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-10 border-t border-border/60 pt-6 text-xs text-muted-foreground">
           <div>
             © {new Date().getFullYear()} Reserve Memorials. All rights reserved.
-          </div>
-          <div className="flex gap-4">
-            <Link className="hover:text-foreground transition" href="/privacy">
-              Privacy
-            </Link>
-            <Link className="hover:text-foreground transition" href="/terms">
-              Terms
-            </Link>
           </div>
         </div>
       </div>

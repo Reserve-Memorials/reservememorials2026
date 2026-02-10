@@ -194,9 +194,6 @@ export function MarketingNav() {
                   Cemeteries we serve
                 </MobileNavLink>
                 <div className="mt-4 pt-4 border-t border-border">
-                  <Button asChild variant="outline" className="w-full mb-3">
-                    <Link href="/login">Portal login</Link>
-                  </Button>
                   <Button asChild className="w-full group">
                     <Link href="/contact-us">
                       Contact Us
@@ -251,14 +248,6 @@ export function MarketingNav() {
 
         <div className="flex items-center gap-2">
           <ModeToggle />
-          <Button
-            asChild
-            variant="outline"
-            size="sm"
-            className="hidden sm:inline-flex"
-          >
-            <Link href="/login">Portal login</Link>
-          </Button>
           <Button asChild size="sm" className="group hidden md:inline-flex">
             <Link href="/contact-us">
               Contact Us
