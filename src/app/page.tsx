@@ -26,42 +26,44 @@ export default function Home() {
   return (
     <div className="space-y-20">
       {/* Hero Section */}
-      <section className="stone-texture relative overflow-hidden rounded-2xl border border-border bg-card p-10 shadow-sm sm:p-16">
-        <div className="absolute -right-32 -top-32 -z-10 h-96 w-96 rounded-full bg-[radial-gradient(circle_at_center,oklch(0.68_0.085_85/0.15),transparent)] blur-3xl animate-gentle-float" />
+      <section className="relative overflow-hidden rounded-2xl border border-border p-10 shadow-sm sm:p-16">
+        {/* Background video */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 h-full w-full object-cover"
+          src="/duck-video.mp4"
+        />
+        {/* Dark overlay for text readability */}
+        <div className="absolute inset-0 bg-black/55 dark:bg-black/65" />
 
         <div className="relative z-10 mx-auto max-w-4xl space-y-8 text-center">
           <Badge
             variant="secondary"
-            className="bg-primary/10 text-primary border-primary/20 shadow-sm"
+            className="bg-white/15 text-white border-white/25 shadow-sm backdrop-blur-sm"
           >
             <Heart className="mr-1.5 h-3.5 w-3.5" />
             Reserve Memorials
           </Badge>
 
-          <h1 className="text-4xl font-semibold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+          <h1 className="text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl">
             Crafting Custom Headstones, Monuments, and Mausoleums in Ohio
           </h1>
 
           <div className="flex justify-center">
             <Image
-              src="/reservelogoblack.png"
-              alt="Reserve Memorials logo"
-              width={220}
-              height={64}
-              className="h-auto w-36 sm:w-44 dark:hidden"
-              priority
-            />
-            <Image
               src="/reservelogowhite.png"
               alt="Reserve Memorials logo"
               width={220}
               height={64}
-              className="hidden h-auto w-36 sm:w-44 dark:block"
+              className="h-auto w-36 sm:w-44"
               priority
             />
           </div>
 
-          <p className="mx-auto max-w-2xl text-lg leading-relaxed text-muted-foreground">
+          <p className="mx-auto max-w-2xl text-lg leading-relaxed text-white/80">
             At Reserve Memorials, we create personalized memorials that reflect
             the story and legacy of your loved one. Based in Hudson, Ohio, our
             family-owned team guides you from design through installation,
@@ -75,10 +77,10 @@ export default function Home() {
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
-            <Button asChild size="lg" variant="outline">
+            <Button asChild size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10 hover:text-white">
               <Link href="/design-consultation">Schedule consultation</Link>
             </Button>
-            <Button asChild size="lg" variant="outline">
+            <Button asChild size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10 hover:text-white">
               <a href={`tel:${phoneToTel(MARKETING_CONTACT.phone)}`}>
                 <Phone className="mr-2 h-4 w-4" />
                 Call now
@@ -87,17 +89,17 @@ export default function Home() {
           </div>
 
           {/* Trust indicators */}
-          <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-muted-foreground pt-6">
+          <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-white/70 pt-6">
             <div className="flex items-center gap-2">
-              <Shield className="h-4 w-4 text-primary" />
+              <Shield className="h-4 w-4 text-white" />
               <span>Family-owned</span>
             </div>
             <div className="flex items-center gap-2">
-              <Heart className="h-4 w-4 text-primary" />
+              <Heart className="h-4 w-4 text-white" />
               <span>Compassionate guidance</span>
             </div>
             <div className="flex items-center gap-2">
-              <MapPin className="h-4 w-4 text-primary" />
+              <MapPin className="h-4 w-4 text-white" />
               <span>Hudson, Ohio</span>
             </div>
           </div>
