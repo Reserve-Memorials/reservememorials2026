@@ -14,19 +14,21 @@ import {
   Shield,
   Bird,
   Cross,
+  Quote,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MARKETING_CONTACT, phoneToTel } from "@/lib/marketing/contact";
-
-const PORTAL_URL = "https://portal.reservememorials.com";
+import { FadeIn } from "@/components/marketing/FadeIn";
+import { ParallaxSection } from "@/components/marketing/ParallaxSection";
 
 export default function Home() {
   return (
-    <div className="space-y-20">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden rounded-2xl border border-border p-10 shadow-sm sm:p-16">
+    /* Negative margins cancel the layout padding so every section is full-bleed */
+    <div className="-mx-4 -mt-8 sm:-mx-6 lg:-mx-10 lg:-mt-10">
+      {/* ───────────────────── Hero ───────────────────── */}
+      <section className="relative flex min-h-[85vh] items-center justify-center overflow-hidden">
         {/* Background video */}
         <video
           autoPlay
@@ -34,12 +36,14 @@ export default function Home() {
           muted
           playsInline
           className="absolute inset-0 h-full w-full object-cover"
-          src="/duck-video.mp4"
+          src="/Reserve Memorials.mp4"
         />
         {/* Dark overlay for text readability */}
-        <div className="absolute inset-0 bg-black/55 dark:bg-black/65" />
+        <div className="absolute inset-0 bg-black/50 dark:bg-black/60" />
+        {/* Blue tone overlay */}
+        <div className="absolute inset-0 bg-linear-to-br from-sky-600/25 via-blue-700/15 to-indigo-800/20 dark:from-sky-500/20 dark:via-blue-600/15 dark:to-indigo-700/20 mix-blend-screen dark:mix-blend-soft-light" />
 
-        <div className="relative z-10 mx-auto max-w-4xl space-y-8 text-center">
+        <div className="relative z-10 mx-auto max-w-4xl space-y-8 px-4 py-24 text-center sm:px-6 lg:px-10">
           <Badge
             variant="secondary"
             className="bg-white/15 text-white border-white/25 shadow-sm backdrop-blur-sm"
@@ -71,16 +75,26 @@ export default function Home() {
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-4">
-            <Button asChild size="lg" className="shadow-sm">
+            <Button asChild size="lg" className="shadow-lg">
               <Link href="/contact-us">
                 Contact Us
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10 hover:text-white">
+            <Button
+              asChild
+              size="lg"
+              variant="outline"
+              className="border-white/40 bg-white/10 text-white backdrop-blur-sm hover:bg-white/20 hover:text-white"
+            >
               <Link href="/design-consultation">Schedule consultation</Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10 hover:text-white">
+            <Button
+              asChild
+              size="lg"
+              variant="outline"
+              className="border-white/40 bg-white/10 text-white backdrop-blur-sm hover:bg-white/20 hover:text-white"
+            >
               <a href={`tel:${phoneToTel(MARKETING_CONTACT.phone)}`}>
                 <Phone className="mr-2 h-4 w-4" />
                 Call now
@@ -89,7 +103,7 @@ export default function Home() {
           </div>
 
           {/* Trust indicators */}
-          <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-white/70 pt-6">
+          <div className="flex flex-wrap items-center justify-center gap-6 pt-6 text-sm text-white/70">
             <div className="flex items-center gap-2">
               <Shield className="h-4 w-4 text-white" />
               <span>Family-owned</span>
@@ -121,217 +135,289 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Why Families Choose Us */}
-      <section className="mx-auto max-w-6xl space-y-10">
-        <div className="text-center space-y-3">
-          <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-            Why families choose Reserve Memorials
-          </h2>
-        </div>
-
-        <div className="grid gap-6 md:grid-cols-3">
-          <ValueCard
-            icon={<Heart className="h-5 w-5" />}
-            title="Family-owned and values-driven"
-            description="Compassionate guidance through every step of the memorial planning process."
-          />
-          <ValueCard
-            icon={<Palette className="h-5 w-5" />}
-            title="Custom design support"
-            description="Personalized headstones, monuments, and cremation memorials tailored to your loved one's story."
-          />
-          <ValueCard
-            icon={<CheckCircle2 className="h-5 w-5" />}
-            title="We handle the details"
-            description="Cemetery requirements, approvals, and installation coordination—all managed for you."
-          />
-        </div>
-      </section>
-
-      {/* Services */}
-      <section className="mx-auto max-w-6xl space-y-10">
-        <div className="space-y-3 text-center">
-          <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-            Services
-          </h2>
-          <p className="mx-auto max-w-2xl text-muted-foreground">
-            Explore our memorial options below. If you're unsure where to start,
-            schedule a design consultation and we'll guide you through the
-            process.
-          </p>
-        </div>
-
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          <ServiceCard
-            icon={<Gem className="h-5 w-5" />}
-            title="Traditional headstones"
-            description="Upright monuments, flat markers, companion and family memorials"
-            href="/traditional-headstones"
-            imageSrc="/traditional-headstone.png"
-          />
-          <ServiceCard
-            icon={<Building2 className="h-5 w-5" />}
-            title="Columbariums"
-            description="Custom-designed cremation memorials for families and institutions"
-            href="/columbariums"
-            imageSrc="/columbariums.png"
-          />
-          <ServiceCard
-            icon={<Shield className="h-5 w-5" />}
-            title="Veteran memorials"
-            description="Markers, plaques, medallions, and custom designs to honor service"
-            href="/veteran-memorials"
-            imageSrc="/veteran-memorials.png"
-          />
-          <ServiceCard
-            icon={<Palette className="h-5 w-5" />}
-            title="Design consultation"
-            description="Materials, layout, inscriptions, cemetery rules, timeline, and budget guidance"
-            href="/design-consultation"
-            imageSrc="/design-consultation.png"
-          />
-          <ServiceCard
-            icon={<Bird className="h-5 w-5" />}
-            title="Dove release"
-            description="Meaningful ceremony additions handled professionally with care"
-            href="/dove-release"
-            imageSrc="/dove-release.png"
-          />
-          <ServiceCard
-            icon={<Cross className="h-5 w-5" />}
-            title="Statues"
-            description="Garden, indoor, desktop stone and bronze statuary"
-            href="/statues"
-            imageSrc="/statues.png"
-          />
-          <ServiceCard
-            icon={<MessageCircleHeart className="h-5 w-5" />}
-            title="Grief support"
-            description="Resources and guidance for families navigating loss"
-            href="/grief-coaching"
-            imageSrc="/grief-coaching.png"
-          />
-        </div>
-
-        <div className="text-center pt-6">
-          <Button asChild variant="outline">
-            <Link href="/services">
-              View all services
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-          </Button>
-        </div>
-      </section>
-
-      {/* Service Area */}
-      <section className="stone-texture relative overflow-hidden rounded-2xl border border-border bg-card p-10 shadow-sm sm:p-16">
-        <div
-          className="absolute -left-24 -bottom-24 -z-10 h-80 w-80 rounded-full bg-[radial-gradient(circle_at_center,oklch(0.32_0.048_155/0.12),transparent)] blur-3xl animate-gentle-float"
-          style={{ animationDelay: "4s" }}
-        />
-
-        <div className="relative z-10 mx-auto max-w-4xl space-y-6 text-center">
-          <div className="space-y-3">
-            <Badge
-              variant="secondary"
-              className="bg-evergreen/10 text-evergreen border-evergreen/20"
-            >
-              <MapPin className="mr-1.5 h-3.5 w-3.5" />
-              Service Area
-            </Badge>
-            <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-              Serving all of Ohio
-            </h2>
-          </div>
-
-          <p className="mx-auto max-w-2xl text-muted-foreground">
-            Based in Hudson, we proudly serve families across Ohio—including
-            Hudson, Stow, Akron, Cleveland, and beyond.
-          </p>
-
-          <div className="flex flex-wrap justify-center gap-2 pt-4">
-            {[
-              "Hudson",
-              "Stow",
-              "Akron",
-              "Cleveland",
-              "Cuyahoga Falls",
-              "Kent",
-              "Medina",
-              "Aurora",
-            ].map((city) => (
-              <Badge
-                key={city}
-                variant="secondary"
-                className="bg-primary/5 text-primary border-primary/20"
-              >
-                {city}
-              </Badge>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Visit or Contact */}
-      <section className="mx-auto max-w-4xl">
-        <Card className="border-primary/20 shadow-sm">
-          <CardContent className="p-10 sm:p-16 space-y-8">
+      {/* ───────────── Why Families Choose Us ───────────── */}
+      <section className="bg-background px-4 py-20 sm:px-6 lg:px-10">
+        <div className="mx-auto max-w-6xl space-y-10">
+          <FadeIn>
             <div className="text-center space-y-3">
+              <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20">
+                <Heart className="mr-1.5 h-3.5 w-3.5" />
+                Why Us
+              </Badge>
               <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-                Visit or contact us
+                Why families choose Reserve Memorials
               </h2>
             </div>
+          </FadeIn>
 
-            <div className="grid gap-6 md:grid-cols-3 text-center">
-              <div className="space-y-2">
-                <MapPin className="h-6 w-6 mx-auto text-primary" />
-                <div className="text-sm font-medium">Address</div>
-                <div className="text-sm text-muted-foreground">
-                  {MARKETING_CONTACT.address}
-                </div>
-                <div className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-                  Ohio Headquarters
-                </div>
-              </div>
-              <div className="space-y-2">
-                <Phone className="h-6 w-6 mx-auto text-primary" />
-                <div className="text-sm font-medium">Phone</div>
-                <a
-                  href={`tel:${phoneToTel(MARKETING_CONTACT.phone)}`}
-                  className="text-sm text-primary hover:underline block"
-                >
-                  {MARKETING_CONTACT.phone}
-                </a>
-              </div>
-              <div className="space-y-2">
-                <Heart className="h-6 w-6 mx-auto text-primary" />
-                <div className="text-sm font-medium">Email</div>
-                <a
-                  href={`mailto:${MARKETING_CONTACT.email}`}
-                  className="text-sm text-primary hover:underline block"
-                >
-                  {MARKETING_CONTACT.email}
-                </a>
-              </div>
-            </div>
+          <div className="grid gap-6 md:grid-cols-3">
+            <FadeIn delay={0}>
+              <ValueCard
+                icon={<Heart className="h-5 w-5" />}
+                title="Family-owned and values-driven"
+                description="Compassionate guidance through every step of the memorial planning process."
+              />
+            </FadeIn>
+            <FadeIn delay={0.15}>
+              <ValueCard
+                icon={<Palette className="h-5 w-5" />}
+                title="Custom design support"
+                description="Personalized headstones, monuments, and cremation memorials tailored to your loved one's story."
+              />
+            </FadeIn>
+            <FadeIn delay={0.3}>
+              <ValueCard
+                icon={<CheckCircle2 className="h-5 w-5" />}
+                title="We handle the details"
+                description="Cemetery requirements, approvals, and installation coordination—all managed for you."
+              />
+            </FadeIn>
+          </div>
+        </div>
+      </section>
 
-            <div className="flex flex-wrap items-center justify-center gap-4 pt-6">
-              <Button asChild size="lg">
+      {/* ───────────── Parallax Divider ───────────── */}
+      <ParallaxSection imageSrc="/parallax-cemetery-landscape.jpg">
+        <div className="flex min-h-[50vh] items-center justify-center px-4 py-24 sm:px-6 lg:px-10">
+          <FadeIn className="mx-auto max-w-3xl text-center">
+            <Quote className="mx-auto mb-6 h-10 w-10 text-white/40" />
+            <p className="text-2xl font-medium leading-relaxed text-white sm:text-3xl lg:text-4xl">
+              Honoring lives with enduring craftsmanship
+            </p>
+            <p className="mt-6 text-lg text-white/70">
+              Every memorial we create tells a story — your story.
+            </p>
+            <div className="mt-8">
+              <Button
+                asChild
+                size="lg"
+                className="shadow-lg"
+              >
                 <Link href="/design-consultation">
-                  Schedule a consultation
+                  Start your design
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
-              <Button asChild size="lg" variant="outline">
-                <Link href="/services">Explore services</Link>
+            </div>
+          </FadeIn>
+        </div>
+      </ParallaxSection>
+
+      {/* ───────────── Services ───────────── */}
+      <section className="bg-slate-50 px-4 py-20 dark:bg-slate-900/40 sm:px-6 lg:px-10">
+        <div className="mx-auto max-w-6xl space-y-10">
+          <FadeIn>
+            <div className="space-y-3 text-center">
+              <Badge variant="secondary" className="bg-blue-500/10 text-blue-600 border-blue-500/20 dark:text-blue-400">
+                <Award className="mr-1.5 h-3.5 w-3.5" />
+                Our Services
+              </Badge>
+              <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+                Memorial services tailored to you
+              </h2>
+              <p className="mx-auto max-w-2xl text-muted-foreground">
+                Explore our memorial options below. If you&#39;re unsure where
+                to start, schedule a design consultation and we&#39;ll guide you
+                through the process.
+              </p>
+            </div>
+          </FadeIn>
+
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <FadeIn delay={0}>
+              <ServiceCard
+                icon={<Gem className="h-5 w-5" />}
+                title="Traditional headstones"
+                description="Upright monuments, flat markers, companion and family memorials"
+                href="/traditional-headstones"
+                imageSrc="/traditional-headstone.png"
+              />
+            </FadeIn>
+            <FadeIn delay={0.1}>
+              <ServiceCard
+                icon={<Building2 className="h-5 w-5" />}
+                title="Columbariums"
+                description="Custom-designed cremation memorials for families and institutions"
+                href="/columbariums"
+                imageSrc="/columbariums.png"
+              />
+            </FadeIn>
+            <FadeIn delay={0.2}>
+              <ServiceCard
+                icon={<Shield className="h-5 w-5" />}
+                title="Veteran memorials"
+                description="Markers, plaques, medallions, and custom designs to honor service"
+                href="/veteran-memorials"
+                imageSrc="/veteran-memorials.png"
+              />
+            </FadeIn>
+            <FadeIn delay={0.1}>
+              <ServiceCard
+                icon={<Palette className="h-5 w-5" />}
+                title="Design consultation"
+                description="Materials, layout, inscriptions, cemetery rules, timeline, and budget guidance"
+                href="/design-consultation"
+                imageSrc="/design-consultation.png"
+              />
+            </FadeIn>
+            <FadeIn delay={0.2}>
+              <ServiceCard
+                icon={<Bird className="h-5 w-5" />}
+                title="Dove release"
+                description="Meaningful ceremony additions handled professionally with care"
+                href="/dove-release"
+                imageSrc="/dove-release.png"
+              />
+            </FadeIn>
+            <FadeIn delay={0.3}>
+              <ServiceCard
+                icon={<Cross className="h-5 w-5" />}
+                title="Statues"
+                description="Garden, indoor, desktop stone and bronze statuary"
+                href="/statues"
+                imageSrc="/statues.png"
+              />
+            </FadeIn>
+            <FadeIn delay={0.2}>
+              <ServiceCard
+                icon={<MessageCircleHeart className="h-5 w-5" />}
+                title="Grief support"
+                description="Resources and guidance for families navigating loss"
+                href="/grief-coaching"
+                imageSrc="/grief-coaching.png"
+              />
+            </FadeIn>
+          </div>
+
+          <FadeIn>
+            <div className="text-center pt-6">
+              <Button asChild variant="outline">
+                <Link href="/services">
+                  View all services
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
               </Button>
             </div>
-          </CardContent>
-        </Card>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* ───────────── Service Area ───────────── */}
+      <section className="bg-slate-900 px-4 py-20 dark:bg-slate-950 sm:px-6 lg:px-10">
+        <div className="mx-auto max-w-4xl space-y-6 text-center">
+          <FadeIn>
+            <div className="space-y-3">
+              <Badge
+                variant="secondary"
+                className="bg-sky-400/15 text-sky-300 border-sky-400/25"
+              >
+                <MapPin className="mr-1.5 h-3.5 w-3.5" />
+                Service Area
+              </Badge>
+              <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+                Serving all of Ohio
+              </h2>
+            </div>
+          </FadeIn>
+
+          <FadeIn delay={0.15}>
+            <p className="mx-auto max-w-2xl text-slate-300">
+              Based in Hudson, we proudly serve families across Ohio — including
+              Hudson, Stow, Akron, Cleveland, and beyond.
+            </p>
+          </FadeIn>
+
+          <FadeIn delay={0.25}>
+            <div className="flex flex-wrap justify-center gap-2 pt-4">
+              {[
+                "Hudson",
+                "Stow",
+                "Akron",
+                "Cleveland",
+                "Cuyahoga Falls",
+                "Kent",
+                "Medina",
+                "Aurora",
+              ].map((city) => (
+                <Badge
+                  key={city}
+                  variant="secondary"
+                  className="bg-white/10 text-white border-white/20"
+                >
+                  {city}
+                </Badge>
+              ))}
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* ───────────── Visit or Contact ───────────── */}
+      <section className="bg-background px-4 py-20 sm:px-6 lg:px-10">
+        <FadeIn>
+          <div className="mx-auto max-w-4xl">
+            <Card className="border-primary/20 shadow-sm">
+              <CardContent className="space-y-8 p-10 sm:p-16">
+                <div className="space-y-3 text-center">
+                  <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+                    Visit or contact us
+                  </h2>
+                </div>
+
+                <div className="grid gap-6 text-center md:grid-cols-3">
+                  <div className="space-y-2">
+                    <MapPin className="mx-auto h-6 w-6 text-primary" />
+                    <div className="text-sm font-medium">Address</div>
+                    <div className="text-sm text-muted-foreground">
+                      {MARKETING_CONTACT.address}
+                    </div>
+                    <div className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                      Ohio Headquarters
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <Phone className="mx-auto h-6 w-6 text-primary" />
+                    <div className="text-sm font-medium">Phone</div>
+                    <a
+                      href={`tel:${phoneToTel(MARKETING_CONTACT.phone)}`}
+                      className="block text-sm text-primary hover:underline"
+                    >
+                      {MARKETING_CONTACT.phone}
+                    </a>
+                  </div>
+                  <div className="space-y-2">
+                    <Heart className="mx-auto h-6 w-6 text-primary" />
+                    <div className="text-sm font-medium">Email</div>
+                    <a
+                      href={`mailto:${MARKETING_CONTACT.email}`}
+                      className="block text-sm text-primary hover:underline"
+                    >
+                      {MARKETING_CONTACT.email}
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap items-center justify-center gap-4 pt-6">
+                  <Button asChild size="lg">
+                    <Link href="/design-consultation">
+                      Schedule a consultation
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </Button>
+                  <Button asChild size="lg" variant="outline">
+                    <Link href="/services">Explore services</Link>
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </FadeIn>
       </section>
     </div>
   );
 }
+
+/* ───────────── Sub-components ───────────── */
 
 function ValueCard({
   icon,
@@ -343,9 +429,9 @@ function ValueCard({
   description: string;
 }) {
   return (
-    <Card className="border-border/60 shadow-sm hover:shadow-md transition-shadow">
+    <Card className="h-full border-border/60 shadow-sm transition-shadow hover:shadow-md">
       <CardHeader className="space-y-3">
-        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary border border-primary/20">
+        <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-primary/20 bg-primary/10 text-primary">
           {icon}
         </div>
         <CardTitle className="text-lg">{title}</CardTitle>
@@ -373,7 +459,7 @@ function ServiceCard({
   imageSrc?: string;
 }) {
   return (
-    <Link href={href} className="group">
+    <Link href={href} className="group block h-full">
       <Card className="h-full border-border/60 shadow-sm transition-all hover:shadow-md hover:border-primary/30">
         {imageSrc ? (
           <div className="relative overflow-hidden rounded-t-xl border-b border-border/50 bg-muted/20">
@@ -390,10 +476,10 @@ function ServiceCard({
           </div>
         ) : null}
         <CardHeader className="space-y-4">
-          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary border border-primary/20 transition-all group-hover:scale-105">
+          <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-primary/20 bg-primary/10 text-primary transition-all group-hover:scale-105">
             {icon}
           </div>
-          <CardTitle className="text-base group-hover:text-primary transition-colors">
+          <CardTitle className="text-base transition-colors group-hover:text-primary">
             {title}
           </CardTitle>
         </CardHeader>
@@ -413,7 +499,7 @@ function ServiceCard({
 
 function PreviewImage({ src, alt }: { src: string; alt: string }) {
   return (
-    <div className="group relative overflow-hidden rounded-2xl border border-border/60 bg-muted/20 shadow-sm">
+    <div className="group relative overflow-hidden rounded-2xl border border-white/20 bg-white/5 shadow-sm">
       <div className="relative aspect-4/3 w-full">
         <Image
           src={src}
