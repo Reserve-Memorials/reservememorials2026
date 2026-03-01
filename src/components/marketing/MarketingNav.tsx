@@ -79,7 +79,7 @@ export function MarketingNav() {
               (Up to $1,000)
             </span>{" "}
             <span className="text-amber-900/70 dark:text-amber-100/70">
-              • Valid for monument orders placed now through Feb 28, 2026 • Ohio
+              • Valid for monument orders placed now through Mar 31, 2026 • Ohio
               only.
             </span>
           </div>
@@ -112,7 +112,7 @@ export function MarketingNav() {
                 <DialogDescription className="text-base">
                   Valid for monument orders placed now through{" "}
                   <span className="font-semibold text-foreground">
-                    February 28, 2026
+                    March 31, 2026
                   </span>
                   . Ohio only.
                 </DialogDescription>
