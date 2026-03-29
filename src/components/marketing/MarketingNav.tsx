@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import {
   ArrowRight,
   BookOpen,
+  Briefcase,
   ChevronDown,
   Gem,
   Info,
@@ -193,6 +194,12 @@ export function MarketingNav() {
                 >
                   Cemeteries we serve
                 </MobileNavLink>
+                <MobileNavLink
+                  href="/license-opportunity"
+                  icon={<Briefcase className="h-5 w-5" />}
+                >
+                  Own a License
+                </MobileNavLink>
                 <div className="mt-4 pt-4 border-t border-border">
                   <Button asChild className="w-full group">
                     <Link href="/contact-us">
@@ -244,6 +251,14 @@ export function MarketingNav() {
             About
           </NavLink>
           <ContactDropdown />
+          <Button
+            asChild
+            size="sm"
+            variant="outline"
+            className="ml-1 border-accent/40 bg-accent/10 text-accent hover:bg-accent/20 font-medium"
+          >
+            <Link href="/license-opportunity">Own a License</Link>
+          </Button>
         </nav>
 
         <div className="flex items-center gap-2">

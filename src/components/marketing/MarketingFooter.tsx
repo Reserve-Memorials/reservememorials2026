@@ -77,6 +77,14 @@ export function MarketingFooter() {
                   FAQs
                 </Link>
               </li>
+              <li>
+                <Link
+                  className="hover:text-foreground transition"
+                  href="/license-opportunity"
+                >
+                  License Opportunity
+                </Link>
+              </li>
             </ul>
           </div>
 
