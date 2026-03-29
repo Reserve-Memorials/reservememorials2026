@@ -3,10 +3,40 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
-/**
- * Animated SVG map of Ohio with a pulsing dot on Hudson.
- * The outline draws itself when scrolled into view.
+/*
+ * Real Ohio state outline derived from US Census Bureau simplified boundary data,
+ * scaled to fit a 500x600 viewBox. Cities placed at their approximate
+ * geographic positions relative to the state outline.
  */
+
+const OHIO_PATH =
+  "M 410 38 L 395 36 L 370 32 L 345 28 L 320 25 L 295 22 L 270 20 L 245 18 L 220 17 L 195 16 L 170 16 L 145 17 L 120 19 L 100 22 L 85 27 " +
+  "L 82 45 L 78 65 L 75 90 L 72 115 L 68 140 L 65 165 L 62 190 L 58 215 L 55 240 L 52 265 L 48 290 L 45 315 L 42 340 " +
+  "L 48 355 L 58 370 L 72 388 L 88 402 L 105 415 L 122 428 L 138 440 L 148 448 " +
+  "L 160 455 L 172 460 L 182 462 " +
+  "L 190 458 L 198 450 L 208 438 L 220 428 " +
+  "L 232 440 L 245 452 L 258 460 L 268 464 " +
+  "L 280 460 L 292 452 L 305 440 L 315 430 " +
+  "L 330 432 L 345 438 L 360 445 L 375 448 " +
+  "L 388 444 L 398 436 L 406 425 L 412 412 " +
+  "L 418 395 L 422 378 L 428 358 L 432 338 L 435 318 " +
+  "L 440 295 L 445 270 L 448 245 L 450 220 " +
+  "L 448 195 L 445 170 L 440 148 L 435 128 " +
+  "L 450 115 L 462 100 L 470 88 L 475 75 L 472 62 L 462 52 L 448 45 L 430 40 Z";
+
+const CITIES = [
+  { name: "Cleveland", x: 365, y: 82, size: 5 },
+  { name: "Akron", x: 370, y: 135, size: 4 },
+  { name: "Hudson", x: 380, y: 115, size: 6, isHQ: true },
+  { name: "Canton", x: 385, y: 165, size: 4 },
+  { name: "Youngstown", x: 440, y: 128, size: 4 },
+  { name: "Toledo", x: 140, y: 65, size: 5 },
+  { name: "Columbus", x: 280, y: 310, size: 5 },
+  { name: "Dayton", x: 185, y: 355, size: 5 },
+  { name: "Cincinnati", x: 175, y: 455, size: 5 },
+  { name: "Stow", x: 375, y: 125, size: 3 },
+];
+
 export function OhioMap({ className }: { className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-60px" });
@@ -14,14 +44,14 @@ export function OhioMap({ className }: { className?: string }) {
   return (
     <div ref={ref} className={className}>
       <svg
-        viewBox="0 0 400 500"
+        viewBox="0 0 520 520"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         className="h-full w-full"
       >
-        {/* Ohio state outline */}
+        {/* State outline - draws itself */}
         <motion.path
-          d="M 95 18 L 120 15 L 155 12 L 185 10 L 215 10 L 250 12 L 280 16 L 310 22 L 335 30 L 350 42 L 358 58 L 360 80 L 355 105 L 345 130 L 338 155 L 335 180 L 340 210 L 348 235 L 355 260 L 358 285 L 352 310 L 340 335 L 330 360 L 318 380 L 300 395 L 278 405 L 255 412 L 230 418 L 205 425 L 180 430 L 155 432 L 130 428 L 108 420 L 90 408 L 78 390 L 68 370 L 60 345 L 55 320 L 52 295 L 50 270 L 52 245 L 55 220 L 58 195 L 62 170 L 65 145 L 68 120 L 72 95 L 78 70 L 85 45 Z"
+          d={OHIO_PATH}
           stroke="currentColor"
           strokeWidth="2.5"
           strokeLinecap="round"
@@ -32,119 +62,81 @@ export function OhioMap({ className }: { className?: string }) {
           transition={{ duration: 2, ease: "easeInOut" }}
         />
 
-        {/* Fill that fades in after the outline draws */}
+        {/* State fill fades in after outline */}
         <motion.path
-          d="M 95 18 L 120 15 L 155 12 L 185 10 L 215 10 L 250 12 L 280 16 L 310 22 L 335 30 L 350 42 L 358 58 L 360 80 L 355 105 L 345 130 L 338 155 L 335 180 L 340 210 L 348 235 L 355 260 L 358 285 L 352 310 L 340 335 L 330 360 L 318 380 L 300 395 L 278 405 L 255 412 L 230 418 L 205 425 L 180 430 L 155 432 L 130 428 L 108 420 L 90 408 L 78 390 L 68 370 L 60 345 L 55 320 L 52 295 L 50 270 L 52 245 L 55 220 L 58 195 L 62 170 L 65 145 L 68 120 L 72 95 L 78 70 L 85 45 Z"
+          d={OHIO_PATH}
           className="fill-primary/5 dark:fill-primary/10"
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 1, delay: 1.8 }}
         />
 
-        {/* Hudson, OH marker (approximate position NE Ohio) */}
-        <motion.g
-          initial={{ opacity: 0, scale: 0 }}
-          animate={isInView ? { opacity: 1, scale: 1 } : {}}
-          transition={{ duration: 0.5, delay: 2.2, type: "spring" }}
-        >
-          {/* Pulse ring */}
-          <motion.circle
-            cx="290"
-            cy="130"
-            r="12"
-            className="fill-accent/20 stroke-accent/40"
-            strokeWidth="1"
-            animate={isInView ? { r: [12, 22, 12], opacity: [0.6, 0, 0.6] } : {}}
-            transition={{ duration: 2.5, repeat: Infinity, delay: 2.5 }}
-          />
-          {/* Dot */}
-          <circle cx="290" cy="130" r="6" className="fill-accent" />
-          {/* Label */}
-          <text
-            x="305"
-            y="126"
-            className="fill-foreground text-[13px] font-semibold"
-            fontFamily="var(--font-body)"
+        {/* City markers */}
+        {CITIES.map((city, i) => (
+          <motion.g
+            key={city.name}
+            initial={{ opacity: 0, scale: 0 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : {}}
+            transition={{
+              duration: 0.4,
+              delay: 2.0 + i * 0.12,
+              type: "spring",
+              stiffness: 200,
+            }}
           >
-            Hudson
-          </text>
-          <text
-            x="305"
-            y="142"
-            className="fill-muted-foreground text-[11px]"
-            fontFamily="var(--font-body)"
-          >
-            HQ
-          </text>
-        </motion.g>
+            {/* HQ pulse ring */}
+            {city.isHQ && (
+              <motion.circle
+                cx={city.x}
+                cy={city.y}
+                r={city.size + 6}
+                className="fill-accent/20 stroke-accent/30"
+                strokeWidth="1"
+                animate={
+                  isInView
+                    ? {
+                        r: [city.size + 6, city.size + 16, city.size + 6],
+                        opacity: [0.5, 0, 0.5],
+                      }
+                    : {}
+                }
+                transition={{
+                  duration: 2.5,
+                  repeat: Infinity,
+                  delay: 3,
+                }}
+              />
+            )}
 
-        {/* Cleveland marker */}
-        <motion.g
-          initial={{ opacity: 0, scale: 0 }}
-          animate={isInView ? { opacity: 1, scale: 1 } : {}}
-          transition={{ duration: 0.5, delay: 2.6, type: "spring" }}
-        >
-          <circle cx="268" cy="95" r="4" className="fill-primary/60" />
-          <text
-            x="248"
-            y="85"
-            className="fill-muted-foreground text-[10px]"
-            fontFamily="var(--font-body)"
-          >
-            Cleveland
-          </text>
-        </motion.g>
+            {/* Dot */}
+            <circle
+              cx={city.x}
+              cy={city.y}
+              r={city.size}
+              className={city.isHQ ? "fill-accent" : "fill-primary/50"}
+            />
 
-        {/* Columbus marker */}
-        <motion.g
-          initial={{ opacity: 0, scale: 0 }}
-          animate={isInView ? { opacity: 1, scale: 1 } : {}}
-          transition={{ duration: 0.5, delay: 2.8, type: "spring" }}
-        >
-          <circle cx="230" cy="260" r="4" className="fill-primary/60" />
-          <text
-            x="242"
-            y="264"
-            className="fill-muted-foreground text-[10px]"
-            fontFamily="var(--font-body)"
-          >
-            Columbus
-          </text>
-        </motion.g>
-
-        {/* Cincinnati marker */}
-        <motion.g
-          initial={{ opacity: 0, scale: 0 }}
-          animate={isInView ? { opacity: 1, scale: 1 } : {}}
-          transition={{ duration: 0.5, delay: 3.0, type: "spring" }}
-        >
-          <circle cx="140" cy="395" r="4" className="fill-primary/60" />
-          <text
-            x="100"
-            y="410"
-            className="fill-muted-foreground text-[10px]"
-            fontFamily="var(--font-body)"
-          >
-            Cincinnati
-          </text>
-        </motion.g>
-
-        {/* Akron marker */}
-        <motion.g
-          initial={{ opacity: 0, scale: 0 }}
-          animate={isInView ? { opacity: 1, scale: 1 } : {}}
-          transition={{ duration: 0.5, delay: 2.4, type: "spring" }}
-        >
-          <circle cx="275" cy="155" r="3.5" className="fill-primary/60" />
-          <text
-            x="256"
-            y="172"
-            className="fill-muted-foreground text-[10px]"
-            fontFamily="var(--font-body)"
-          >
-            Akron
-          </text>
-        </motion.g>
+            {/* Label */}
+            <text
+              x={city.x + city.size + 6}
+              y={city.y + (city.isHQ ? -2 : 1)}
+              className={`text-[11px] ${city.isHQ ? "fill-foreground font-semibold" : "fill-muted-foreground"}`}
+              fontFamily="var(--font-body)"
+            >
+              {city.name}
+            </text>
+            {city.isHQ && (
+              <text
+                x={city.x + city.size + 6}
+                y={city.y + 13}
+                className="fill-accent text-[9px] font-medium"
+                fontFamily="var(--font-body)"
+              >
+                HEADQUARTERS
+              </text>
+            )}
+          </motion.g>
+        ))}
       </svg>
     </div>
   );

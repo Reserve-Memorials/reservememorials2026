@@ -24,18 +24,21 @@ const VALUE_PROPS = [
     title: "Low Overhead",
     description:
       "No storefront required. Operate from a home office with minimal startup costs compared to traditional franchises.",
+    image: "/license/license-value-overhead.jpg",
   },
   {
     icon: Wrench,
     title: "Turnkey Support",
     description:
       "We handle manufacturing, fulfillment, and supplier relationships. You focus on families in your community.",
+    image: "/license/license-value-support.jpg",
   },
   {
     icon: TrendingUp,
     title: "Growing Market",
     description:
       "The memorial industry continues to grow, driven by demographic trends and steady long-term demand for personalized memorials.",
+    image: "/license/license-value-market.jpg",
   },
   {
     icon: MapPin,
