@@ -1,3 +1,4 @@
+import Image from "next/image";
 import {
   GraduationCap,
   Home,
@@ -16,6 +17,7 @@ const VALUE_PROPS = [
     title: "Proven Brand",
     description:
       "Join an established Ohio-based memorial company with a reputation for quality craftsmanship and compassionate service.",
+    image: "/license/license-value-brand.jpg",
   },
   {
     icon: Home,
@@ -40,12 +42,14 @@ const VALUE_PROPS = [
     title: "Exclusive Territory",
     description:
       "Secure your market. Each licensee gets a protected geographic territory to build their business.",
+    image: "/license/license-value-territory.jpg",
   },
   {
     icon: GraduationCap,
     title: "Training and Mentorship",
     description:
       "Comprehensive onboarding covers memorial design, cemetery regulations, sales, and customer service.",
+    image: "/license/license-value-training.jpg",
   },
 ];
 
@@ -73,9 +77,23 @@ export function LicenseValueProps() {
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {VALUE_PROPS.map((item, i) => (
           <FadeIn key={item.title} delay={i * 0.1}>
-            <Card className="h-full border-border/60 shadow-sm transition-shadow hover:shadow-md">
+            <Card className="group h-full border-border/60 shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1 overflow-hidden">
+              {item.image && (
+                <div className="relative overflow-hidden border-b border-border/50 bg-muted/20">
+                  <div className="relative aspect-[16/9] w-full">
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 33vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                    />
+                    <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.35),transparent_60%)]" />
+                  </div>
+                </div>
+              )}
               <CardHeader className="space-y-3">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-primary/20 bg-primary/10 text-primary">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-primary/20 bg-primary/10 text-primary transition-transform duration-300 group-hover:scale-110">
                   <item.icon className="h-5 w-5" />
                 </div>
                 <CardTitle className="text-lg">{item.title}</CardTitle>

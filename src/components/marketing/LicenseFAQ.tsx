@@ -37,7 +37,7 @@ export function LicenseFAQ() {
             <AccordionItem
               key={i}
               value={`faq-${i}`}
-              className="border border-border/60 rounded-lg px-6 shadow-sm"
+              className="border border-border/60 rounded-lg px-6 shadow-sm transition-all duration-200 hover:border-primary/20 hover:shadow-md"
             >
               <AccordionTrigger className="text-left hover:no-underline">
                 {faq.question}

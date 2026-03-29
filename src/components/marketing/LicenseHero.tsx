@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { ArrowRight, Heart, MapPin, Play, Shield } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -37,9 +38,15 @@ export function LicenseHero() {
           />
         )}
 
-        {/* Fallback gradient when video is missing */}
+        {/* Fallback image when video is missing */}
         {videoFailed && (
-          <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900" />
+          <Image
+            src="/license/license-hero.jpg"
+            alt="Memorial garden landscape"
+            fill
+            className="object-cover"
+            priority
+          />
         )}
 
         {/* Dark overlay */}

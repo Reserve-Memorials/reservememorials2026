@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { FileText, Mail, Phone, Rocket } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { FadeIn } from "@/components/marketing/FadeIn";
@@ -37,7 +38,7 @@ export function LicenseProcess() {
         style={{ animationDelay: "4s" }}
       />
 
-      <div className="relative z-10 mx-auto max-w-4xl space-y-8">
+      <div className="relative z-10 mx-auto max-w-6xl space-y-10">
         <FadeIn>
           <div className="space-y-3 text-center">
             <Badge
@@ -55,25 +56,44 @@ export function LicenseProcess() {
           </div>
         </FadeIn>
 
-        <div className="grid gap-6 sm:grid-cols-2">
-          {STEPS.map((step, i) => (
-            <FadeIn key={step.title} delay={i * 0.1}>
-              <div className="space-y-3">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-primary/20 bg-primary/10 text-primary font-semibold">
-                    {i + 1}
+        <div className="grid items-center gap-10 lg:grid-cols-[1fr_0.85fr]">
+          {/* Left: Steps */}
+          <div className="grid gap-6 sm:grid-cols-2">
+            {STEPS.map((step, i) => (
+              <FadeIn key={step.title} delay={i * 0.1}>
+                <div className="group space-y-3 rounded-xl border border-border/40 bg-background/40 p-5 transition-all duration-300 hover:border-primary/20 hover:shadow-md">
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-primary/20 bg-primary/10 text-primary font-semibold transition-transform duration-300 group-hover:scale-110">
+                      {i + 1}
+                    </div>
+                    <step.icon className="h-5 w-5 text-muted-foreground transition-colors group-hover:text-primary" />
                   </div>
-                  <step.icon className="h-5 w-5 text-muted-foreground" />
+                  <h3 className="text-lg font-semibold text-foreground">
+                    {step.title}
+                  </h3>
+                  <p className="text-sm leading-relaxed text-muted-foreground">
+                    {step.description}
+                  </p>
                 </div>
-                <h3 className="text-lg font-semibold text-foreground">
-                  {step.title}
-                </h3>
-                <p className="text-sm leading-relaxed text-muted-foreground">
-                  {step.description}
-                </p>
+              </FadeIn>
+            ))}
+          </div>
+
+          {/* Right: Image */}
+          <FadeIn delay={0.2}>
+            <div className="relative hidden overflow-hidden rounded-2xl border border-border/60 shadow-sm lg:block">
+              <div className="relative aspect-[4/3] w-full">
+                <Image
+                  src="/license/license-process.jpg"
+                  alt="Business partnership handshake"
+                  fill
+                  sizes="40vw"
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.3),transparent_50%)]" />
               </div>
-            </FadeIn>
-          ))}
+            </div>
+          </FadeIn>
         </div>
       </div>
     </section>
