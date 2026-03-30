@@ -14,6 +14,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MARKETING_CONTACT, phoneToTel } from "@/lib/marketing/contact";
+import { ServiceQuoteForm } from "@/components/marketing/ServiceQuoteForm";
 
 export default function StatuesPage() {
   return (
@@ -48,14 +49,11 @@ export default function StatuesPage() {
             </p>
 
             <div className="flex flex-wrap items-center gap-4 pt-4">
-              <Button asChild size="lg">
-                <Link href="/design-consultation">
-                  Schedule consultation
+              <Button size="lg" asChild>
+                <a href="#quote-form">
+                  Request a Quote
                   <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-              <Button asChild size="lg" variant="outline">
-                <Link href="/contact-us">Request a quote</Link>
+                </a>
               </Button>
               <Button asChild size="lg" variant="outline">
                 <a href={`tel:${phoneToTel(MARKETING_CONTACT.phone)}`}>
@@ -318,31 +316,7 @@ export default function StatuesPage() {
         </Card>
       </section>
 
-      {/* CTA */}
-      <section className="mx-auto max-w-4xl">
-        <Card className="border-primary/20 shadow-sm">
-          <CardContent className="p-10 sm:p-16 text-center space-y-6">
-            <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-              Find the right statue for your memorial
-            </h2>
-            <p className="mx-auto max-w-xl text-muted-foreground">
-              Schedule a consultation to discuss statue options, review available pieces, and plan installation. We'll
-              guide you through selection with care and clarity.
-            </p>
-            <div className="flex flex-wrap items-center justify-center gap-4">
-              <Button asChild size="lg">
-                <Link href="/design-consultation">
-                  Schedule consultation
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-              <Button asChild size="lg" variant="outline">
-                <Link href="/services">All services</Link>
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-      </section>
+      <ServiceQuoteForm />
     </div>
   );
 }

@@ -48,6 +48,7 @@ const SERVICES = [
   { href: "/dove-release", label: "Dove release" },
   { href: "/statues", label: "Statues" },
   { href: "/grief-coaching", label: "Grief coaching" },
+  { href: "/wind-chimes-and-accessories", label: "Wind chimes & accessories" },
 ];
 
 export function MarketingNav() {

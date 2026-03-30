@@ -80,6 +80,14 @@ export function MarketingFooter() {
               <li>
                 <Link
                   className="hover:text-foreground transition"
+                  href="/wind-chimes-and-accessories"
+                >
+                  Wind Chimes &amp; Accessories
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="hover:text-foreground transition"
                   href="/license-opportunity"
                 >
                   License Opportunity

@@ -12,6 +12,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MARKETING_CONTACT, phoneToTel } from "@/lib/marketing/contact";
+import { ServiceQuoteForm } from "@/components/marketing/ServiceQuoteForm";
 
 export default function GriefCoachingPage() {
   return (
@@ -45,11 +46,11 @@ export default function GriefCoachingPage() {
             </p>
 
             <div className="flex flex-wrap items-center gap-4 pt-4">
-              <Button asChild size="lg">
-                <Link href="/contact-us">
-                  Request support
+              <Button size="lg" asChild>
+                <a href="#quote-form">
+                  Request a Quote
                   <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
+                </a>
               </Button>
               <Button asChild size="lg" variant="outline">
                 <a href={`tel:${phoneToTel(MARKETING_CONTACT.phone)}`}>
@@ -277,34 +278,7 @@ export default function GriefCoachingPage() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="mx-auto max-w-4xl">
-        <Card className="border-primary/20 shadow-sm">
-          <CardContent className="p-10 sm:p-16 text-center space-y-6">
-            <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-              We're here when you're ready
-            </h2>
-            <p className="mx-auto max-w-xl text-muted-foreground">
-              Reach out for support, memorial planning guidance, or just to talk. We'll meet you where you are with
-              compassion and care.
-            </p>
-            <div className="flex flex-wrap items-center justify-center gap-4">
-              <Button asChild size="lg">
-                <Link href="/contact-us">
-                  Contact us
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-              <Button asChild size="lg" variant="outline">
-                <a href={`tel:${phoneToTel(MARKETING_CONTACT.phone)}`}>
-                  <Phone className="mr-2 h-4 w-4" />
-                  Call now
-                </a>
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-      </section>
+      <ServiceQuoteForm />
     </div>
   );
 }

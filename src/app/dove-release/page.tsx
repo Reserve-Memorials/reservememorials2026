@@ -21,6 +21,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { MARKETING_CONTACT, phoneToTel } from "@/lib/marketing/contact";
+import { ServiceQuoteForm } from "@/components/marketing/ServiceQuoteForm";
 
 export default function DoveReleasePage() {
   return (
@@ -54,11 +55,11 @@ export default function DoveReleasePage() {
             </p>
 
             <div className="flex flex-wrap items-center gap-4 pt-4">
-              <Button asChild size="lg">
-                <Link href="/contact-us">
-                  Book a dove release
+              <Button size="lg" asChild>
+                <a href="#quote-form">
+                  Request a Quote
                   <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
+                </a>
               </Button>
               <Button asChild size="lg" variant="outline">
                 <a href={`tel:${phoneToTel(MARKETING_CONTACT.phone)}`}>
@@ -331,34 +332,7 @@ export default function DoveReleasePage() {
         </Accordion>
       </section>
 
-      {/* CTA */}
-      <section className="mx-auto max-w-4xl">
-        <Card className="border-primary/20 shadow-sm">
-          <CardContent className="p-10 sm:p-16 text-center space-y-6">
-            <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-              Book a dove release for your service
-            </h2>
-            <p className="mx-auto max-w-xl text-muted-foreground">
-              Contact us to schedule a dove release, discuss timing, and coordinate with your funeral director or service
-              provider. We'll handle the details with care and respect.
-            </p>
-            <div className="flex flex-wrap items-center justify-center gap-4">
-              <Button asChild size="lg">
-                <Link href="/contact-us">
-                  Book now
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-              <Button asChild size="lg" variant="outline">
-                <a href={`tel:${phoneToTel(MARKETING_CONTACT.phone)}`}>
-                  <Phone className="mr-2 h-4 w-4" />
-                  Call us
-                </a>
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-      </section>
+      <ServiceQuoteForm />
     </div>
   );
 }

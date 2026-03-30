@@ -8,6 +8,7 @@ import {
   Gem,
   Heart,
   MessageCircleHeart,
+  Music,
   Palette,
   Phone,
   Shield,
@@ -66,6 +67,13 @@ const SERVICES = [
     description: "Supportive resources and guidance for families navigating loss. Compassionate, practical help during difficult times.",
     icon: <MessageCircleHeart className="h-5 w-5" />,
     imageSrc: "/grief-coaching.png",
+  },
+  {
+    href: "/wind-chimes-and-accessories",
+    title: "Wind chimes and memorial accessories",
+    description: "Personalized memorial wind chimes, cemetery flower vases, cremation urns, and accessories from our trusted partners.",
+    icon: <Music className="h-5 w-5" />,
+    imageSrc: "/wind-chimes/hero.jpg",
   },
 ];
 

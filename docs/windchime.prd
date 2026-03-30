@@ -1,0 +1,563 @@
+# Reserve Memorials - Wind Chime & Memorial Accessories Page PRD
+
+**Version:** 1.0
+**Date:** March 30, 2026
+**Author:** Anand Iyer
+**Status:** Ready for implementation
+
+---
+
+## 1. Overview
+
+Reserve Memorials has partnered with two suppliers to become an official dealer:
+
+1. **U.S. Metalcraft, Inc.** (usmetalcraft.com) - Established 1967, based in Delphos, Ohio. Leading provider of cemetery memorial flower vases, cremation urns, memorial lights, emblems, flower bouquets, flag holders, and pet urns. All products made in the USA.
+2. **The Wind Chime Co** (thewindchime.co) - Family-owned company based in Grand Blanc, Michigan. Specializes in personalized memorial wind chimes with premium gift-box packaging. Featured on ABC's Good Morning America. Products available on Amazon, Walmart, Etsy, etc.
+
+Mark has full permission to use all photos, descriptions, and product content from both supplier websites.
+
+**Goal:** Create a new page (or set of pages) on reservememorials.com that showcases products from both partners, positions Reserve Memorials as a local dealer, and drives inquiries/orders through the existing contact flow.
+
+---
+
+## 2. Context and Architecture Alignment
+
+### Existing site patterns to follow
+
+The current site is a **Next.js App Router** project deployed on **Vercel** with **Supabase** backend, **Tailwind CSS v4**, **shadcn/ui** components, and **Framer Motion** animations.
+
+The existing service pages (e.g., `/statues`, `/traditional-headstones`, `/veteran-memorials`) follow a consistent pattern:
+- "Back to services" breadcrumb link
+- Service label badge
+- H1 title
+- Description paragraph
+- CTA buttons (Schedule consultation, Request a quote, Call now)
+- Hero image
+- Product/option grid sections with cards
+- Optional "Featured" section for highlighted collections or partners
+- Pricing/guidance section
+- Bottom CTA section
+- Standard site footer
+
+**This page should follow the same pattern.** No new backend infrastructure is needed. This is a pure frontend page. All inquiries route through the existing contact form at `/contact-us` or the design consultation at `/design-consultation`.
+
+### What NOT to build
+
+- No e-commerce/cart system - Reserve Memorials is a dealer, not an online store. Customers inquire, then Mark handles ordering and fulfillment.
+- No new Supabase tables or migrations
+- No new API routes or server actions
+- No separate product database - product data lives as static content on the page
+
+---
+
+## 3. Information Architecture
+
+### 3.1 Route Structure
+
+Create a single new page:
+
+```
+app/
+  wind-chimes-and-accessories/
+    page.tsx              # Main page
+    components/
+      HeroSection.tsx
+      WindChimeSection.tsx
+      MemorialVasesSection.tsx
+      CremationUrnsSection.tsx
+      AccessoriesSection.tsx
+      PartnerBadges.tsx
+      ProductCard.tsx       # Reusable product card component
+      CategoryCard.tsx      # Reusable category card component
+      BottomCTA.tsx
+```
+
+**Route:** `/wind-chimes-and-accessories`
+
+**Reasoning:** This slug is SEO-friendly, covers both partners' product lines, and is descriptive enough for users navigating from the services page.
+
+### 3.2 Navigation Updates
+
+Add to the main nav under Services dropdown:
+- Label: "Wind Chimes & Accessories"
+- Link: `/wind-chimes-and-accessories`
+- Position: After "Grief coaching" in the services dropdown
+
+Add to the Services page (`/services`) grid:
+- New card in the "Ceremony and support" section (or create a new "Memorial Products" section)
+- Title: "Wind Chimes & Memorial Accessories"
+- Description: "Personalized memorial wind chimes, flower vases, cremation urns, and cemetery accessories from our trusted partners."
+- Image: Use a wind chime product image (sourced from The Wind Chime Co with permission)
+
+Add to footer "Explore" links if services are listed there.
+
+---
+
+## 4. Page Design Spec
+
+Follow the exact same design language as the `/statues` page. Same spacing, same component patterns, same typography hierarchy, same CTA button styles.
+
+### 4.1 Page Header
+
+```
+[← Back to services]          (link to /services)
+
+Service                        (small label/badge, same style as other service pages)
+
+# Memorial Wind Chimes & Accessories
+
+Personalized memorial wind chimes, cemetery flower vases, cremation urns,
+and memorial accessories. Reserve Memorials is an official dealer for
+U.S. Metalcraft and The Wind Chime Co, bringing you quality memorial
+products with local guidance and care.
+
+[Schedule consultation]  [Request a quote]  [(234) 269-5432]
+```
+
+Hero image: Use a high-quality wind chime product photo from The Wind Chime Co (they have great lifestyle/product photography on their site).
+
+### 4.2 Section: Memorial Wind Chimes (The Wind Chime Co)
+
+Section heading: "Memorial Wind Chimes"
+Subtitle: "Personalized wind chimes crafted to comfort and honor loved ones. Each chime arrives in premium gift-box packaging, ready to give."
+
+Product cards grid (3 columns on desktop, 1 on mobile). Each card:
+- Product image
+- Product name
+- Brief description (1-2 sentences)
+- No price displayed (inquiry-based)
+
+**Products to feature (sourced from thewindchime.co):**
+
+1. **Whispering Hearts Collection - Platinum Rose** (30")
+   - Personalized memorial wind chime
+   - Premium gift-box packaging with velvet interior
+   - Personalizable wind sail
+
+2. **Whispering Hearts Collection - Rose Gold** (28")
+   - Memorial heart included
+   - Gift-ready packaging
+   - Personalizable wind sail
+
+3. **Serenity Memorial Wind Chime - Amazing Grace** (40")
+   - Features verses from "Amazing Grace"
+   - Deep tone, musically tuned
+   - Gift bundle with premium packaging
+
+4. **Serenity Memorial Wind Chime - Church Bells** (55")
+   - Large deep tone chime
+   - Church bell-inspired sound
+   - Gift bundle packaging
+
+5. **Serenity Memorial Wind Chime - Antique Bronze Flower** (48")
+   - Antique bronze finish
+   - Deep, resonant tones
+   - Gift bundle packaging
+
+6. **Serenity Family-Love Memorial Wind Chime** (34")
+   - Family-themed design
+   - Medium tone
+   - Gift bundle packaging
+
+**Note to developer:** Pull product names, images, and descriptions directly from https://thewindchime.co/collections/all. Mark has full permission to use all content. Download images and host locally in the `/public` directory (do not hotlink to their site).
+
+Below the product grid, add a callout box:
+
+```
+All wind chimes from The Wind Chime Co feature:
+- Hand-tuned, musically precise tones
+- Premium gift-box packaging with velvet interior
+- Personalizable wind sails with custom messages
+- Greeting card and love note included
+- Fast shipping
+```
+
+### 4.3 Section: Memorial Vases (U.S. Metalcraft)
+
+Section heading: "Memorial Flower Vases"
+Subtitle: "Die-cast aluminum vases with exclusive coating for lasting beauty. Available in a variety of designs and sizes for upright memorials and flush ground installations."
+
+Category cards (not individual products - there are too many). Show 4 category cards:
+
+1. **Upright Memorial Vases**
+   - For mounting on upright headstones and monuments
+   - Multiple fastener options available
+   - Image from usmetalcraft.com
+
+2. **Lawn/Flush Ground Vases**
+   - Meet cemetery maintenance regulations
+   - Convenient ground unit system
+   - Image from usmetalcraft.com
+
+3. **Wall Mount Vases**
+   - For columbarium walls and mausoleum niches
+   - Image from usmetalcraft.com
+
+4. **Bronze Replacement Vases**
+   - Replace worn or damaged vases
+   - Image from usmetalcraft.com
+
+### 4.4 Section: Cremation Urns (U.S. Metalcraft)
+
+Section heading: "Cremation Urns"
+Subtitle: "Handcrafted urns in a broad range of styles and materials to meet the needs of any family. From precision die-cast aluminum to hand-finished hardwood."
+
+Category cards (same pattern as vases). Show 6 key categories:
+
+1. **Aria Urns** - Innovative designs with coordinating keepsakes
+2. **Traditional Urns** - Classic brushed nickel and bronze finishes
+3. **Cloisonne Urns** - Decorative enamel artistry
+4. **Flag Urns** - Patriotic tribute urns for veterans
+5. **Wood/Box Urns** - Hand-finished hardwood with high gloss
+6. **Keepsakes** - Small memorial keepsakes for sharing
+
+### 4.5 Section: Cemetery Accessories (U.S. Metalcraft)
+
+Section heading: "Cemetery Accessories"
+Subtitle: "Quality add-on products for memorials, from memorial lights to emblems and flag holders."
+
+Category cards (4 items):
+
+1. **Memorial Lights** - LED-powered, available in 3 lens colors and 5 designs
+2. **Brass Emblems** - Made in the USA, add personal touch to vases, urns, or memorials
+3. **Flower Bouquets** - Artificial flower arrangements for memorial vases
+4. **Star Flag Holder** - Cemetery flag holders for veteran graves
+
+### 4.6 Section: Our Partners
+
+A "Featured" section (same style as the "Featured artists and collections" section on `/statues`).
+
+Two partner cards side by side:
+
+**U.S. Metalcraft, Inc.**
+- Logo image
+- "Since 1967, U.S. Metalcraft has been serving the North American memorial industry as a leading provider of cemetery memorial flower vases, cremation urns, and related memorial products. Based in Delphos, Ohio. All products made in the USA."
+- Small "Made in USA" badge
+
+**The Wind Chime Co**
+- Logo image
+- "Family-owned and operated in Grand Blanc, Michigan. The Wind Chime Co creates personalized memorial wind chimes with premium gift-box packaging. Featured on ABC's Good Morning America. Their mission is providing comfort to families through meaningful, lasting gifts."
+
+### 4.7 Section: How to Order
+
+Simple 3-step process (use the same visual pattern as step-by-step layouts on other pages if one exists, otherwise use a numbered list with icons):
+
+1. **Browse and choose** - Explore the products above and note what interests you.
+2. **Contact us** - Call, email, or fill out our contact form with your selections and any personalization requests.
+3. **We handle the rest** - We place the order with our partners, coordinate delivery, and follow up to make sure everything is perfect.
+
+### 4.8 Bottom CTA
+
+Same pattern as other service pages:
+
+```
+## Find the right memorial accessory
+
+Whether you're looking for a personalized wind chime, a cemetery vase,
+or a cremation urn, we'll help you choose the right product with care
+and guidance.
+
+[Schedule consultation]  [All services]
+```
+
+---
+
+## 5. SEO Requirements
+
+### 5.1 Metadata
+
+```typescript
+export const metadata: Metadata = {
+  title: "Memorial Wind Chimes & Cemetery Accessories | Reserve Memorials",
+  description:
+    "Shop personalized memorial wind chimes, cemetery flower vases, cremation urns, and memorial accessories. Official dealer for U.S. Metalcraft and The Wind Chime Co. Serving Hudson, Ohio and surrounding areas.",
+  keywords: [
+    "memorial wind chimes",
+    "cemetery flower vases",
+    "cremation urns",
+    "memorial accessories",
+    "personalized wind chimes",
+    "cemetery vases Ohio",
+    "memorial gifts",
+    "sympathy wind chimes",
+    "Reserve Memorials",
+    "Hudson Ohio",
+  ],
+  openGraph: {
+    title: "Memorial Wind Chimes & Cemetery Accessories | Reserve Memorials",
+    description:
+      "Personalized memorial wind chimes, cemetery flower vases, cremation urns, and memorial accessories from trusted American manufacturers.",
+    url: "https://www.reservememorials.com/wind-chimes-and-accessories",
+    type: "website",
+  },
+};
+```
+
+### 5.2 JSON-LD Schema
+
+Add `LocalBusiness` + `Product` structured data:
+
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Reserve Memorials",
+  "url": "https://www.reservememorials.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "30 Ravenna Street",
+    "addressLocality": "Hudson",
+    "addressRegion": "OH",
+    "postalCode": "44236"
+  },
+  "telephone": "+1-234-269-5432",
+  "makesOffer": [
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Product",
+        "name": "Memorial Wind Chimes",
+        "description": "Personalized memorial wind chimes with premium gift-box packaging from The Wind Chime Co",
+        "brand": {
+          "@type": "Brand",
+          "name": "The Wind Chime Co"
+        }
+      }
+    },
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Product",
+        "name": "Memorial Flower Vases",
+        "description": "Die-cast aluminum cemetery vases from U.S. Metalcraft",
+        "brand": {
+          "@type": "Brand",
+          "name": "U.S. Metalcraft"
+        }
+      }
+    },
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Product",
+        "name": "Cremation Urns",
+        "description": "Handcrafted cremation urns in various styles and materials from U.S. Metalcraft",
+        "brand": {
+          "@type": "Brand",
+          "name": "U.S. Metalcraft"
+        }
+      }
+    }
+  ]
+}
+```
+
+### 5.3 Internal Linking
+
+On the new page, link to:
+- `/services` (back to services breadcrumb)
+- `/contact-us` (all CTA buttons)
+- `/design-consultation` (schedule consultation CTAs)
+- `/traditional-headstones` (contextual: "pair a memorial vase with your headstone")
+- `/columbariums` (contextual: "wall mount vases for columbarium niches")
+- `/veteran-memorials` (contextual: "flag holders and patriotic urns for veteran memorials")
+
+On existing pages, add contextual links TO the new page:
+- `/traditional-headstones` - mention memorial vases as an add-on
+- `/veteran-memorials` - mention flag urns and flag holders
+- `/columbariums` - mention wall mount vases
+- `/services` - add the new card to the grid
+
+---
+
+## 6. Image Handling
+
+### 6.1 Sourcing
+
+Mark has explicit permission to use all images from both partner sites. Download the following:
+
+**From thewindchime.co:**
+- Hero/lifestyle image of wind chime (for page hero and services card)
+- Individual product images for the 6 featured wind chimes
+- Company logo
+
+**From usmetalcraft.com:**
+- Category images for vases (upright, ground, wall mount, replacement)
+- Category images for urns (aria, traditional, cloisonne, flag, wood, keepsakes)
+- Category images for accessories (memorial lights, emblems, bouquets, flag holder)
+- Company logo
+- "Made in USA" badge
+
+### 6.2 Storage
+
+Save all images in the `/public` directory following the existing naming convention:
+
+```
+public/
+  wind-chimes/
+    hero.png (or .jpg)
+    whispering-hearts-platinum.png
+    whispering-hearts-rosegold.png
+    serenity-amazing-grace.png
+    serenity-church-bells.png
+    serenity-bronze-flower.png
+    serenity-family-love.png
+  metalcraft/
+    upright-vases.jpg
+    ground-vases.jpg
+    wall-mount-vases.jpg
+    replacement-vases.jpg
+    aria-urns.jpg
+    traditional-urns.jpg
+    cloisonne-urns.jpg
+    flag-urns.jpg
+    wood-urns.jpg
+    keepsakes.jpg
+    memorial-lights.jpg
+    emblems.jpg
+    flower-bouquets.jpg
+    flag-holder.jpg
+  partners/
+    windchime-co-logo.png
+    metalcraft-logo.jpg
+    made-in-usa-badge.png
+```
+
+Use Next.js `<Image>` component with proper `width`, `height`, and `alt` attributes for all images. Follow the same optimization patterns used on existing pages.
+
+---
+
+## 7. Component Specifications
+
+### 7.1 ProductCard
+
+Reusable card for individual products (used for wind chimes):
+
+```typescript
+interface ProductCardProps {
+  name: string;
+  description: string;
+  imageSrc: string;
+  imageAlt: string;
+  size?: string; // e.g., "30 inches"
+  features?: string[]; // bullet points
+}
+```
+
+Visual: Same card style as the statue option cards on `/statues`. Image on top, content below. No price. No "Add to cart" button. Hover animation consistent with existing cards.
+
+### 7.2 CategoryCard
+
+Reusable card for product categories (used for vases, urns, accessories):
+
+```typescript
+interface CategoryCardProps {
+  name: string;
+  description: string;
+  imageSrc: string;
+  imageAlt: string;
+}
+```
+
+Visual: Same as the service cards on the `/services` page. Image, title, short description. These are NOT clickable links to sub-pages (there are no sub-pages). They're display-only cards showing what's available.
+
+### 7.3 PartnerBadges
+
+Two side-by-side cards showing partner info. Follow the "Featured artists and collections" pattern from `/statues`:
+
+```typescript
+interface PartnerBadgeProps {
+  name: string;
+  description: string;
+  logoSrc: string;
+  logoAlt: string;
+  badge?: string; // e.g., "Made in USA"
+}
+```
+
+---
+
+## 8. Responsive Behavior
+
+Follow the same responsive breakpoints as other service pages:
+
+- **Desktop (1024px+):** 3-column product grid, 2-column partner badges
+- **Tablet (768px - 1023px):** 2-column product grid, stacked partner badges
+- **Mobile (< 768px):** 1-column everything, stacked CTAs
+
+---
+
+## 9. Animations
+
+Use Framer Motion consistent with the rest of the site:
+- Fade-in on scroll for sections
+- Staggered card entrance animations (same as services page cards)
+- Hover scale on cards (same as existing cards)
+
+Do NOT add any new animation patterns. Match exactly what exists.
+
+---
+
+## 10. Acceptance Criteria
+
+- [ ] Page loads at `/wind-chimes-and-accessories`
+- [ ] Page follows exact same design patterns as `/statues` and other service pages
+- [ ] All product images are locally hosted (not hotlinked)
+- [ ] All images use Next.js `<Image>` with proper alt text
+- [ ] Navigation updated: services dropdown includes new page
+- [ ] Services page grid includes new card for this page
+- [ ] All CTA buttons link to `/contact-us` or `/design-consultation`
+- [ ] JSON-LD structured data present in page head
+- [ ] Metadata (title, description, OG tags) set correctly
+- [ ] Mobile responsive following existing breakpoints
+- [ ] Framer Motion animations match existing service pages
+- [ ] Internal links to related service pages included
+- [ ] Partner section with logos and descriptions for both suppliers
+- [ ] "How to Order" section with clear 3-step process
+- [ ] Page passes Lighthouse accessibility audit (same standard as other pages)
+
+---
+
+## 11. Out of Scope
+
+- E-commerce functionality (no cart, no checkout, no pricing)
+- Individual product detail pages
+- Inventory management or product database
+- New Supabase tables or migrations
+- Payment processing
+- API integrations with supplier systems
+- Product search or filtering
+
+---
+
+## 12. Content Checklist for Mark
+
+Before this page goes live, Mark should review:
+
+- [ ] Confirm which specific products from each supplier he wants featured (the ones listed above are a starting recommendation based on what's most prominent on their sites)
+- [ ] Provide any specific pricing guidance (or confirm inquiry-only model)
+- [ ] Confirm if he wants any products excluded
+- [ ] Review partner descriptions for accuracy
+- [ ] Provide any dealer-specific messaging he wants included (e.g., "Order through us and get local support")
+
+---
+
+## 13. Implementation Priority
+
+This is a single-page build with no backend work. Estimated effort: 1-2 days.
+
+**Phase 1 (Day 1):**
+- Create page route and basic layout
+- Build ProductCard and CategoryCard components
+- Add wind chime section with products
+- Add navigation updates
+
+**Phase 2 (Day 2):**
+- Add vases, urns, and accessories sections
+- Add partner section
+- Add "How to Order" section
+- Add SEO metadata and JSON-LD
+- Download and optimize all images
+- Add internal links to/from existing pages
+- Test responsive behavior
+- QA against other service pages for visual consistency
