@@ -1,8 +1,8 @@
+import Image from "next/image";
 import { Globe, MapPin } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { FadeIn } from "@/components/marketing/FadeIn";
-import { OhioMap } from "@/components/marketing/OhioMap";
 
 export function LicenseTerritory() {
   return (
@@ -68,9 +68,17 @@ export function LicenseTerritory() {
             </FadeIn>
           </div>
 
-          {/* Right: Ohio Map */}
+          {/* Right: Ohio territory map */}
           <FadeIn delay={0.2}>
-            <OhioMap className="mx-auto h-[340px] w-full max-w-[300px] lg:h-[400px] lg:max-w-[340px]" />
+            <div className="relative mx-auto w-full max-w-[420px]">
+              <Image
+                src="/license/ohio-territories.png"
+                alt="Map of Ohio showing open territories available for Reserve Memorials licensees"
+                width={800}
+                height={800}
+                className="h-auto w-full"
+              />
+            </div>
           </FadeIn>
         </div>
       </div>
