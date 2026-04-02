@@ -51,17 +51,20 @@ const SERVICES = [
   { href: "/wind-chimes-and-accessories", label: "Wind chimes & accessories" },
 ];
 
+// Flip to true to re-enable the promotional banner + dialog
+const SHOW_PROMO = false;
+
 export function MarketingNav() {
   const [offerOpen, setOfferOpen] = useState(false);
 
   useEffect(() => {
+    if (!SHOW_PROMO) return;
     try {
       if (sessionStorage.getItem(OFFER_SESSION_KEY) === "1") return;
       sessionStorage.setItem(OFFER_SESSION_KEY, "1");
       const t = window.setTimeout(() => setOfferOpen(true), 450);
       return () => window.clearTimeout(t);
     } catch {
-      // If storage is blocked, just don't show repeatedly.
       const t = window.setTimeout(() => setOfferOpen(true), 450);
       return () => window.clearTimeout(t);
     }
@@ -69,87 +72,95 @@ export function MarketingNav() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-border/50 bg-background/70 backdrop-blur supports-backdrop-filter:bg-background/60">
-      <div className="border-b border-amber-500/25 bg-amber-50/90 text-amber-950 backdrop-blur dark:border-amber-400/20 dark:bg-amber-950/30 dark:text-amber-50">
-        <div className="mx-auto flex w-full flex-col gap-2 px-4 py-2 text-center text-xs sm:flex-row sm:items-center sm:justify-between sm:text-left sm:px-6 lg:px-10 data-[state=open]:animate-in data-[state=open]:slide-in-from-top-2 data-[state=open]:fade-in duration-500">
-          <div className="text-amber-950/90 dark:text-amber-50/90">
-            <span className="inline-flex items-center gap-1 rounded-full bg-amber-200/70 px-2 py-0.5 font-semibold text-amber-950 dark:bg-amber-400/15 dark:text-amber-100">
-              <Sparkles className="h-3.5 w-3.5" />
-              Limited-time offer
-            </span>{" "}
-            <span className="font-semibold">Free Installation</span>{" "}
-            <span className="text-amber-900/80 dark:text-amber-100/80">
-              (Up to $1,000)
-            </span>{" "}
-            <span className="text-amber-900/70 dark:text-amber-100/70">
-              • Valid for monument orders placed now through Mar 31, 2026 • Ohio
-              only.
-            </span>
-          </div>
-          <Link
-            href={OFFER_CONTACT_HREF}
-            onClick={() => setOfferOpen(false)}
-            className={cn(
-              "inline-flex h-8 items-center justify-center gap-2 rounded-full px-3 text-xs font-semibold transition",
-              "border border-amber-500/35 bg-amber-100/70 text-amber-950 hover:bg-amber-100",
-              "shadow-[inset_0_0_0_1px_rgba(255,255,255,0.35)]",
-              "dark:border-amber-300/25 dark:bg-amber-400/10 dark:text-amber-50 dark:hover:bg-amber-400/15",
-              "focus:outline-hidden focus:ring-2 focus:ring-amber-400/60 focus:ring-offset-2 focus:ring-offset-background",
-            )}
-          >
-            Claim Offer
-            <ArrowRight className="h-4 w-4" />
-          </Link>
-        </div>
-      </div>
-
-      <Dialog open={offerOpen} onOpenChange={setOfferOpen}>
-        <DialogContent className="overflow-hidden border-amber-500/25 p-0 sm:max-w-lg">
-          <div className="relative">
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(251,191,36,0.35),transparent_55%)]" />
-            <div className="relative space-y-4 p-6">
-              <DialogHeader>
-                <DialogTitle className="text-balance text-2xl">
-                  Free Installation (Up to $1,000)
-                </DialogTitle>
-                <DialogDescription className="text-base">
-                  Valid for monument orders placed now through{" "}
-                  <span className="font-semibold text-foreground">
-                    March 31, 2026
-                  </span>
-                  . Ohio only.
-                </DialogDescription>
-              </DialogHeader>
-
-              <div className="rounded-lg border border-amber-500/20 bg-amber-50/70 p-4 text-sm text-amber-950 dark:border-amber-300/15 dark:bg-amber-950/25 dark:text-amber-50">
-                <div className="flex items-start gap-2">
-                  <Sparkles className="mt-0.5 h-4 w-4 text-amber-600 dark:text-amber-300" />
-                  <div>
-                    Click “Claim Offer” and we’ll help you confirm eligibility
-                    and next steps.
-                  </div>
-                </div>
+      {/* ── Promotional banner + dialog (hidden via SHOW_PROMO flag) ── */}
+      {SHOW_PROMO && (
+        <>
+          <div className="border-b border-amber-500/25 bg-amber-50/90 text-amber-950 backdrop-blur dark:border-amber-400/20 dark:bg-amber-950/30 dark:text-amber-50">
+            <div className="mx-auto flex w-full flex-col gap-2 px-4 py-2 text-center text-xs sm:flex-row sm:items-center sm:justify-between sm:text-left sm:px-6 lg:px-10 data-[state=open]:animate-in data-[state=open]:slide-in-from-top-2 data-[state=open]:fade-in duration-500">
+              <div className="text-amber-950/90 dark:text-amber-50/90">
+                <span className="inline-flex items-center gap-1 rounded-full bg-amber-200/70 px-2 py-0.5 font-semibold text-amber-950 dark:bg-amber-400/15 dark:text-amber-100">
+                  <Sparkles className="h-3.5 w-3.5" />
+                  Limited-time offer
+                </span>{" "}
+                <span className="font-semibold">Free Installation</span>{" "}
+                <span className="text-amber-900/80 dark:text-amber-100/80">
+                  (Up to $1,000)
+                </span>{" "}
+                <span className="text-amber-900/70 dark:text-amber-100/70">
+                  • Valid for monument orders placed now through Mar 31, 2026 •
+                  Ohio only.
+                </span>
               </div>
-
-              <DialogFooter className="pt-1">
-                <Button variant="outline" onClick={() => setOfferOpen(false)}>
-                  Not now
-                </Button>
-                <Button
-                  asChild
-                  className="bg-amber-600 text-white hover:bg-amber-600/90"
-                >
-                  <Link
-                    href={OFFER_CONTACT_HREF}
-                    onClick={() => setOfferOpen(false)}
-                  >
-                    Claim Offer
-                  </Link>
-                </Button>
-              </DialogFooter>
+              <Link
+                href={OFFER_CONTACT_HREF}
+                onClick={() => setOfferOpen(false)}
+                className={cn(
+                  "inline-flex h-8 items-center justify-center gap-2 rounded-full px-3 text-xs font-semibold transition",
+                  "border border-amber-500/35 bg-amber-100/70 text-amber-950 hover:bg-amber-100",
+                  "shadow-[inset_0_0_0_1px_rgba(255,255,255,0.35)]",
+                  "dark:border-amber-300/25 dark:bg-amber-400/10 dark:text-amber-50 dark:hover:bg-amber-400/15",
+                  "focus:outline-hidden focus:ring-2 focus:ring-amber-400/60 focus:ring-offset-2 focus:ring-offset-background",
+                )}
+              >
+                Claim Offer
+                <ArrowRight className="h-4 w-4" />
+              </Link>
             </div>
           </div>
-        </DialogContent>
-      </Dialog>
+
+          <Dialog open={offerOpen} onOpenChange={setOfferOpen}>
+            <DialogContent className="overflow-hidden border-amber-500/25 p-0 sm:max-w-lg">
+              <div className="relative">
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(251,191,36,0.35),transparent_55%)]" />
+                <div className="relative space-y-4 p-6">
+                  <DialogHeader>
+                    <DialogTitle className="text-balance text-2xl">
+                      Free Installation (Up to $1,000)
+                    </DialogTitle>
+                    <DialogDescription className="text-base">
+                      Valid for monument orders placed now through{" "}
+                      <span className="font-semibold text-foreground">
+                        March 31, 2026
+                      </span>
+                      . Ohio only.
+                    </DialogDescription>
+                  </DialogHeader>
+
+                  <div className="rounded-lg border border-amber-500/20 bg-amber-50/70 p-4 text-sm text-amber-950 dark:border-amber-300/15 dark:bg-amber-950/25 dark:text-amber-50">
+                    <div className="flex items-start gap-2">
+                      <Sparkles className="mt-0.5 h-4 w-4 text-amber-600 dark:text-amber-300" />
+                      <div>
+                        Click &quot;Claim Offer&quot; and we&apos;ll help you
+                        confirm eligibility and next steps.
+                      </div>
+                    </div>
+                  </div>
+
+                  <DialogFooter className="pt-1">
+                    <Button
+                      variant="outline"
+                      onClick={() => setOfferOpen(false)}
+                    >
+                      Not now
+                    </Button>
+                    <Button
+                      asChild
+                      className="bg-amber-600 text-white hover:bg-amber-600/90"
+                    >
+                      <Link
+                        href={OFFER_CONTACT_HREF}
+                        onClick={() => setOfferOpen(false)}
+                      >
+                        Claim Offer
+                      </Link>
+                    </Button>
+                  </DialogFooter>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
+        </>
+      )}
       <div className="flex w-full items-center justify-between px-4 py-3 sm:px-6 lg:px-10">
         <div className="flex items-center gap-2">
           {/* Mobile Menu */}
