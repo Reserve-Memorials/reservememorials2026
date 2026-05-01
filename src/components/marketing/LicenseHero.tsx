@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Image from "next/image";
 import { ArrowRight, Heart, MapPin, Play, Shield } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -25,7 +24,16 @@ export function LicenseHero() {
   return (
     <>
       <section className="relative flex min-h-[85vh] items-center justify-center overflow-hidden">
-        {/* Background video -- falls back to gradient if file not found */}
+        {/* Background image (always rendered as base) */}
+        <Image
+          src="/license/license-hero.jpg"
+          alt="Memorial garden landscape"
+          fill
+          className="object-cover"
+          priority
+        />
+
+        {/* Optional background video on top — hides itself if it fails to load */}
         {!videoFailed && (
           <video
             autoPlay
@@ -38,38 +46,30 @@ export function LicenseHero() {
           />
         )}
 
-        {/* Fallback image when video is missing */}
-        {videoFailed && (
-          <Image
-            src="/license/license-hero.jpg"
-            alt="Memorial garden landscape"
-            fill
-            className="object-cover"
-            priority
-          />
-        )}
+        {/* Dark overlay for text contrast */}
+        <div className="absolute inset-0 bg-black/65 dark:bg-black/75" />
+        {/* Bottom-weighted gradient to deepen contrast under the copy */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.35),rgba(0,0,0,0.55)_60%,rgba(0,0,0,0.7))]" />
+        {/* Subtle tone overlay */}
+        <div className="absolute inset-0 bg-linear-to-br from-sky-600/15 via-blue-700/10 to-indigo-800/15 mix-blend-soft-light" />
 
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-black/50 dark:bg-black/60" />
-        {/* Tone overlay */}
-        <div className="absolute inset-0 bg-linear-to-br from-sky-600/25 via-blue-700/15 to-indigo-800/20 dark:from-sky-500/20 dark:via-blue-600/15 dark:to-indigo-700/20 mix-blend-screen dark:mix-blend-soft-light" />
-
-        <div className="relative z-10 mx-auto max-w-4xl space-y-8 px-4 py-24 text-center sm:px-6 lg:px-10">
-          <Badge
-            variant="secondary"
-            className="bg-white/15 text-white border-white/25 shadow-sm backdrop-blur-sm"
-          >
-            License Opportunity
-          </Badge>
+        <div className="relative z-10 mx-auto max-w-4xl space-y-6 px-4 py-24 text-center sm:px-6 lg:px-10 [&_*]:[text-shadow:0_2px_8px_rgba(0,0,0,0.6)]">
+          <p className="mx-auto max-w-3xl text-xl font-medium leading-snug text-white sm:text-2xl lg:text-3xl">
+            130,000+ deaths annually in Ohio. Less than 100 monument companies.
+            Hmmm?
+          </p>
 
           <h1 className="text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl">
-            Own a Reserve Memorials License
+            Become a Reserve Memorials License Owner
           </h1>
 
-          <p className="mx-auto max-w-2xl text-lg leading-relaxed text-white/80">
-            Join a growing memorial brand helping families honor loved ones
-            across America. Low overhead, exclusive territories, comprehensive
-            training, and a modern technology platform.
+          <p className="mx-auto max-w-2xl text-lg leading-relaxed text-white/95">
+            A meaningful business opportunity in a timeless industry.
+          </p>
+
+          <p className="mx-auto max-w-2xl text-base leading-relaxed text-white/90">
+            Start a compassionate, community-based memorial business with
+            Reserve Memorials.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-4">

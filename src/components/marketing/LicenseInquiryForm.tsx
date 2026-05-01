@@ -74,11 +74,11 @@ export function LicenseInquiryForm() {
           Get Started
         </Badge>
         <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-          Ready to Build Your Memorial Business?
+          Interested in owning a Reserve Memorials license?
         </h2>
         <p className="mx-auto max-w-xl text-muted-foreground">
-          Fill out the form below and we&apos;ll send you everything you need to
-          make an informed decision. Or call us directly at{" "}
+          Schedule a confidential conversation to learn whether this
+          opportunity is the right fit for your market. Or call us directly at{" "}
           <a
             href={`tel:${phoneToTel(MARKETING_CONTACT.phone)}`}
             className="inline-flex items-center gap-1 text-primary hover:underline"

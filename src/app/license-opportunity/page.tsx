@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
 import { LicenseHero } from "@/components/marketing/LicenseHero";
 import { LicenseValueProps } from "@/components/marketing/LicenseValueProps";
-import { LicenseIndustryStats } from "@/components/marketing/LicenseIndustryStats";
+import { LicenseAbout } from "@/components/marketing/LicenseAbout";
 
-import { LicenseProcess } from "@/components/marketing/LicenseProcess";
 import { LicenseInvestment } from "@/components/marketing/LicenseInvestment";
+import { LicenseWhyViable } from "@/components/marketing/LicenseWhyViable";
+import { LicenseUnique } from "@/components/marketing/LicenseUnique";
+import { LicenseIncomePotential } from "@/components/marketing/LicenseIncomePotential";
+import { LicenseWhyChoose } from "@/components/marketing/LicenseWhyChoose";
+import { LicenseIndustryUniqueness } from "@/components/marketing/LicenseIndustryUniqueness";
 import { LicenseTerritory } from "@/components/marketing/LicenseTerritory";
 import { LicenseTestimonials } from "@/components/marketing/LicenseTestimonials";
 import { LicenseFAQ } from "@/components/marketing/LicenseFAQ";
@@ -80,9 +84,13 @@ export default function LicenseOpportunityPage() {
       {/* Remaining sections with standard spacing */}
       <div className="space-y-16 pt-16">
         <LicenseValueProps />
-        <LicenseIndustryStats />
-        <LicenseProcess />
+        <LicenseAbout />
         <LicenseInvestment />
+        <LicenseWhyViable />
+        <LicenseUnique />
+        <LicenseIncomePotential />
+        <LicenseWhyChoose />
+        <LicenseIndustryUniqueness />
         <LicenseTerritory />
         <LicenseTestimonials />
         <LicenseFAQ />

@@ -11,10 +11,10 @@ import { Separator } from "@/components/ui/separator";
 import { FadeIn } from "@/components/marketing/FadeIn";
 
 const INVESTMENT_ITEMS = [
-  { label: "License Fee", icon: DollarSign },
-  { label: "Estimated Total Startup", icon: TrendingDown },
-  { label: "Ongoing Royalty", icon: Users },
-  { label: "Marketing Contribution", icon: Laptop },
+  { label: "License Fee", icon: DollarSign, value: "$25,000" },
+  { label: "Estimated Total Startup", icon: TrendingDown, value: "Contact for Details" },
+  { label: "Ongoing Royalty", icon: Users, value: "Contact for Details" },
+  { label: "Marketing Contribution", icon: Laptop, value: "Contact for Details" },
 ];
 
 const ADVANTAGES = [
@@ -57,11 +57,18 @@ export function LicenseInvestment() {
                       {item.label}
                     </div>
                     <div className="mt-1 text-lg font-semibold text-foreground">
-                      Contact for Details
+                      {item.value}
                     </div>
                   </div>
                 ))}
               </div>
+
+              <p className="mx-auto max-w-3xl text-center text-sm leading-relaxed text-muted-foreground sm:text-base">
+                This license gives the right person an opportunity to enter a
+                respected, need-based industry with a trusted brand, proven
+                presentation approach, and support system designed around
+                service, dignity, and family guidance.
+              </p>
 
               <div className="rounded-xl border border-accent/20 bg-accent/5 p-6">
                 <h3 className="mb-4 text-center text-sm font-semibold uppercase tracking-wide text-muted-foreground">
