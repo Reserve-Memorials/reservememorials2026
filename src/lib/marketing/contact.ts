@@ -2,7 +2,7 @@ export const MARKETING_CONTACT = {
   company: "Reserve Memorials",
   address: "30 Ravenna Street, Hudson, Ohio 44236",
   phone: "(234) 269-5432",
-  email: "mark@reservememorials.com",
+  email: "concierge@reservememorials.com",
 } as const;
 
 export function phoneToTel(phone: string) {
