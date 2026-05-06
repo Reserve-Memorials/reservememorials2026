@@ -42,7 +42,7 @@ export const LICENSE_FAQS = [
   {
     question: "What states are available?",
     answer:
-      "Ohio territories are available now. We are expanding nationwide.",
+      "Ohio territories are available now. We are not licensing in other states at this time.",
   },
   {
     question: "Can I own multiple territories?",

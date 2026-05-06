@@ -26,7 +26,7 @@ export function LicenseTerritory() {
                   Territories
                 </Badge>
                 <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-                  Territories Available Nationwide
+                  Territories Available in Ohio
                 </h2>
               </div>
             </FadeIn>
@@ -34,10 +34,10 @@ export function LicenseTerritory() {
             <FadeIn delay={0.1}>
               <p className="text-muted-foreground">
                 We&apos;re actively growing our licensee network. Territories
-                are currently available in Ohio and expanding across the United
-                States. Each licensee receives a protected geographic territory
-                defined by ZIP codes &mdash; no one else in the Reserve
-                Memorials network can operate in your area.
+                are currently available exclusively in Ohio. Each licensee
+                receives a protected geographic territory defined by ZIP codes
+                &mdash; no one else in the Reserve Memorials network can
+                operate in your area.
               </p>
             </FadeIn>
 
@@ -49,12 +49,6 @@ export function LicenseTerritory() {
                 >
                   <MapPin className="mr-1 h-3 w-3" />
                   Ohio (Available Now)
-                </Badge>
-                <Badge
-                  variant="secondary"
-                  className="bg-muted text-muted-foreground border-border/60"
-                >
-                  Expanding Nationwide
                 </Badge>
               </div>
             </FadeIn>
