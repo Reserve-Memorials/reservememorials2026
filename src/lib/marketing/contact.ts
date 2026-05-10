@@ -20,3 +20,8 @@ export const MARKETING_PORTAL_DESIGN_URL =
 
 export const MARKETING_BOOKING_URL =
   "https://calendar.app.google/jh1kedCmX5G1Jebv9" as const;
+// Canonical Google Calendar appointment scheduling URL — iframe-embeddable
+// when the `gv=true` parameter is appended. The short link above sets
+// X-Frame-Options: DENY and cannot be embedded.
+export const MARKETING_BOOKING_EMBED_URL =
+  "https://calendar.google.com/calendar/appointments/schedules/AcZssZ2BHEEgTjN0pGCK5prnxTlsI09ctxiXLe7t1CO_aQHvfMPDoFKowbxegdkiW1veVY5F8Po58JYU?gv=true" as const;

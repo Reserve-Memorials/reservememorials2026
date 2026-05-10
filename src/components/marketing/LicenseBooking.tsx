@@ -4,7 +4,10 @@ import { Calendar, ExternalLink } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { FadeIn } from "@/components/marketing/FadeIn";
-import { MARKETING_BOOKING_URL } from "@/lib/marketing/contact";
+import {
+  MARKETING_BOOKING_EMBED_URL,
+  MARKETING_BOOKING_URL,
+} from "@/lib/marketing/contact";
 
 export function LicenseBooking() {
   return (
@@ -52,7 +55,7 @@ export function LicenseBooking() {
 
         <div className="mt-8 overflow-hidden rounded-xl border border-border/60 bg-background/50 shadow-sm">
           <iframe
-            src={MARKETING_BOOKING_URL}
+            src={MARKETING_BOOKING_EMBED_URL}
             title="Schedule a call with Reserve Memorials"
             loading="lazy"
             className="h-[760px] w-full border-0"
