@@ -1,7 +1,11 @@
 import Image from "next/image";
-import { ArrowRight, Phone } from "lucide-react";
+import { ArrowRight, Calendar, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { MARKETING_CONTACT, phoneToTel } from "@/lib/marketing/contact";
+import {
+  MARKETING_BOOKING_URL,
+  MARKETING_CONTACT,
+  phoneToTel,
+} from "@/lib/marketing/contact";
 import { FadeIn } from "@/components/marketing/FadeIn";
 
 export function LicenseBottomCTA() {
@@ -32,6 +36,21 @@ export function LicenseBottomCTA() {
             </p>
             <div className="flex flex-wrap items-center justify-center gap-4">
               <Button size="lg" className="shadow-lg" asChild>
+                <a
+                  href={MARKETING_BOOKING_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Calendar className="mr-2 h-4 w-4" />
+                  Book a Call
+                </a>
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-white/40 bg-white/10 text-white backdrop-blur-sm hover:bg-white/20 hover:text-white"
+                asChild
+              >
                 <a href="#license-inquiry-form">
                   Request Information
                   <ArrowRight className="ml-2 h-4 w-4" />

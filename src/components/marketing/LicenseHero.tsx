@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { ArrowRight, Heart, MapPin, Play, Shield } from "lucide-react";
+import { ArrowRight, Calendar, Heart, MapPin, Play, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -10,6 +10,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { MARKETING_BOOKING_URL } from "@/lib/marketing/contact";
 
 export function LicenseHero() {
   const [videoFailed, setVideoFailed] = useState(false);
@@ -76,6 +77,21 @@ export function LicenseHero() {
             <Button
               size="lg"
               className="shadow-lg"
+              asChild
+            >
+              <a
+                href={MARKETING_BOOKING_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Calendar className="mr-2 h-4 w-4" />
+                Book a Call
+              </a>
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="border-white/40 bg-white/10 text-white backdrop-blur-sm hover:bg-white/20 hover:text-white"
               onClick={scrollToForm}
             >
               Request Information

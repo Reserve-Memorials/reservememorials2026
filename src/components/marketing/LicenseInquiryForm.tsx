@@ -2,9 +2,14 @@
 
 import Script from "next/script";
 import { useEffect, useId, useMemo, useRef, useState } from "react";
-import { Phone } from "lucide-react";
+import { Calendar, Phone } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { MARKETING_CONTACT, phoneToTel } from "@/lib/marketing/contact";
+import { Button } from "@/components/ui/button";
+import {
+  MARKETING_BOOKING_URL,
+  MARKETING_CONTACT,
+  phoneToTel,
+} from "@/lib/marketing/contact";
 
 declare global {
   interface Window {
@@ -88,6 +93,21 @@ export function LicenseInquiryForm() {
           </a>
           .
         </p>
+        <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+          <Button size="lg" asChild>
+            <a
+              href={MARKETING_BOOKING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Calendar className="mr-2 h-4 w-4" />
+              Book a Call
+            </a>
+          </Button>
+          <Button size="lg" variant="outline" asChild>
+            <a href="#license-booking">View Calendar</a>
+          </Button>
+        </div>
       </div>
 
       <div className="rounded-xl border border-border/60 bg-background/50 p-4 sm:p-6">

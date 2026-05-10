@@ -17,3 +17,6 @@ export const MARKETING_PORTAL_URL =
   "https://portal.reservememorials.com" as const;
 export const MARKETING_PORTAL_DESIGN_URL =
   `${MARKETING_PORTAL_URL}/design` as const;
+
+export const MARKETING_BOOKING_URL =
+  "https://calendar.app.google/jh1kedCmX5G1Jebv9" as const;

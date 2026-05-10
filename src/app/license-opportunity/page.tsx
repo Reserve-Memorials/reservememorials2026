@@ -13,6 +13,7 @@ import { LicenseTerritory } from "@/components/marketing/LicenseTerritory";
 import { LicenseTestimonials } from "@/components/marketing/LicenseTestimonials";
 import { LicenseFAQ } from "@/components/marketing/LicenseFAQ";
 import { LicenseInquiryForm } from "@/components/marketing/LicenseInquiryForm";
+import { LicenseBooking } from "@/components/marketing/LicenseBooking";
 import { LicenseBottomCTA } from "@/components/marketing/LicenseBottomCTA";
 import { LICENSE_FAQS } from "@/lib/marketing/license-faqs";
 
@@ -95,6 +96,7 @@ export default function LicenseOpportunityPage() {
         <LicenseTestimonials />
         <LicenseFAQ />
         <LicenseInquiryForm />
+        <LicenseBooking />
         <LicenseBottomCTA />
       </div>
     </>
