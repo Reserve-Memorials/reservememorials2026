@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { MARKETING_CONTACT, phoneToTel } from "@/lib/marketing/contact";
-import { HubSpotContactForm } from "@/components/marketing/HubSpotContactForm";
+import { MethodContactForm } from "@/components/marketing/MethodContactForm";
 
 export default function ContactUsPage() {
   return (
@@ -58,8 +58,8 @@ export default function ContactUsPage() {
             </p>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="rounded-xl border border-border/60 bg-background/50 p-4 sm:p-6">
-              <HubSpotContactForm />
+            <div className="overflow-hidden rounded-xl border border-border/60 bg-background/50">
+              <MethodContactForm />
             </div>
             <p className="text-xs text-muted-foreground">
               Prefer email? Reach us at{" "}
