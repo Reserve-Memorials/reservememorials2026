@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight, CheckCircle2, Phone } from "lucide-react";
 import { MARKETING_CONTACT, phoneToTel } from "@/lib/marketing/contact";
+import { FrameBreakout } from "@/components/marketing/FrameBreakout";
 
 export const metadata: Metadata = {
   title: "Thank You | Reserve Memorials",
@@ -16,6 +17,7 @@ export const metadata: Metadata = {
 export default function ThankYouPage() {
   return (
     <div className="mx-auto max-w-2xl space-y-10 py-10">
+      <FrameBreakout />
       <section className="relative overflow-hidden rounded-3xl border border-border/60 bg-card/60 p-8 shadow-sm backdrop-blur sm:p-12">
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top_right,var(--color-primary),transparent_60%)]/[14]" />
 
