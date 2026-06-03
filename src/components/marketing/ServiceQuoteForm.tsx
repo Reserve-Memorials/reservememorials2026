@@ -1,12 +1,12 @@
 import { Phone } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { MARKETING_CONTACT, phoneToTel } from "@/lib/marketing/contact";
-import { HubSpotContactForm } from "@/components/marketing/HubSpotContactForm";
+import { MethodContactForm } from "@/components/marketing/MethodContactForm";
 import { FadeIn } from "@/components/marketing/FadeIn";
 
 /**
  * Inline quote request form for service pages.
- * Wraps the HubSpot contact form with a heading and phone fallback.
+ * Wraps the Method CRM contact form with a heading and phone fallback.
  * Anchor id="quote-form" lets hero CTAs scroll directly here.
  */
 export function ServiceQuoteForm() {
@@ -39,8 +39,8 @@ export function ServiceQuoteForm() {
       </FadeIn>
 
       <FadeIn delay={0.1}>
-        <div className="rounded-xl border border-border/60 bg-background/50 p-4 sm:p-6">
-          <HubSpotContactForm />
+        <div className="overflow-hidden rounded-xl border border-border/60 bg-background/50">
+          <MethodContactForm />
         </div>
       </FadeIn>
     </section>

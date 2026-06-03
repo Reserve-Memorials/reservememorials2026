@@ -1,7 +1,3 @@
-"use client";
-
-import Script from "next/script";
-import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { Calendar, Phone } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -10,65 +6,9 @@ import {
   MARKETING_CONTACT,
   phoneToTel,
 } from "@/lib/marketing/contact";
-
-declare global {
-  interface Window {
-    hbspt?: {
-      forms?: {
-        create?: (opts: {
-          region: string;
-          portalId: string;
-          formId: string;
-          target: string;
-        }) => void;
-      };
-    };
-  }
-}
-
-const HUBSPOT_SCRIPT_SRC =
-  "https://js-na2.hsforms.net/forms/embed/245064716.js";
-const HUBSPOT_REGION = "na2";
-const HUBSPOT_PORTAL_ID = "245064716";
-const LICENSE_FORM_ID = "2bdf5307-0d45-40fe-b96f-ed35705ba91b";
+import { MethodContactForm } from "@/components/marketing/MethodContactForm";
 
 export function LicenseInquiryForm() {
-  const reactId = useId();
-  const [loaded, setLoaded] = useState(false);
-  const containerRef = useRef<HTMLDivElement | null>(null);
-
-  const targetId = useMemo(() => {
-    const safe = reactId.replace(/[^a-zA-Z0-9_-]/g, "");
-    return `hs-license-form-${safe}`;
-  }, [reactId]);
-
-  const createForm = () => {
-    if (!containerRef.current) return;
-    const create = window.hbspt?.forms?.create;
-    if (!create) return;
-
-    // Prevent duplicate embeds when navigating back to this page.
-    containerRef.current.innerHTML = "";
-
-    create({
-      region: HUBSPOT_REGION,
-      portalId: HUBSPOT_PORTAL_ID,
-      formId: LICENSE_FORM_ID,
-      target: `#${targetId}`,
-    });
-  };
-
-  useEffect(() => {
-    // If script is already present (client-side navigation), create immediately.
-    if (window.hbspt?.forms?.create) createForm();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [targetId]);
-
-  useEffect(() => {
-    if (loaded) createForm();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loaded]);
-
   return (
     <section id="license-inquiry-form" className="mx-auto max-w-4xl space-y-8">
       <div className="space-y-3 text-center">
@@ -110,21 +50,8 @@ export function LicenseInquiryForm() {
         </div>
       </div>
 
-      <div className="rounded-xl border border-border/60 bg-background/50 p-4 sm:p-6">
-        <Script
-          src={HUBSPOT_SCRIPT_SRC}
-          strategy="afterInteractive"
-          onLoad={() => setLoaded(true)}
-        />
-
-        <div
-          id={targetId}
-          ref={containerRef}
-          className="hs-form-frame"
-          data-region={HUBSPOT_REGION}
-          data-form-id={LICENSE_FORM_ID}
-          data-portal-id={HUBSPOT_PORTAL_ID}
-        />
+      <div className="overflow-hidden rounded-xl border border-border/60 bg-background/50">
+        <MethodContactForm />
       </div>
     </section>
   );
