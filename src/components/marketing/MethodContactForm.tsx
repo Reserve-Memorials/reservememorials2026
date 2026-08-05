@@ -1,42 +1,37 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ExternalLink, Mail, Phone } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MARKETING_CONTACT, phoneToTel } from "@/lib/marketing/contact";
 
-export const METHOD_FORM_URL =
+const METHOD_FORM_URL =
   "https://reservememorials.method.ws/apps/Public.aspx#/628471c8-4121-4d85-85d8-5594f814ee31/Z0xaYWUxQlp3M3B5NF9NUmxoczJ1QS0t";
 
 /**
- * Method serves this form from a third-party origin, which leaves the browser
- * giving us almost nothing to work with:
+ * KNOWN BROKEN: this URL no longer serves the form.
  *
- * - `error` does not fire when a frame is refused by X-Frame-Options or a CSP
- *   `frame-ancestors` directive.
- * - `load` DOES fire for that refusal page, and (verified against a blocked
- *   host) for Chrome's network-error page too. A fired `load` is therefore not
- *   proof the form is visible, and the absence of `error` proves nothing.
- * - Same-origin policy stops us inspecting the frame's contents to check.
+ * Confirmed by following it in a real browser — it redirects to Method's own
+ * marketing site:
  *
- * Detecting a failed cross-origin embed is simply not possible from here, so
- * this component does not pretend otherwise. It degrades instead:
+ *   https://www.method.me/blog/lead-gen-form/?account=reservememorials#/628471c8-...
  *
- * 1. The direct link to the form, plus phone and email, sit ABOVE the frame.
- *    They are always rendered, server-side, before hydration. A frame that
- *    comes up blank therefore cannot strand a visitor behind 1800px of empty
- *    space with no way to reach us — the escape hatch is the first thing under
- *    the heading.
- * 2. If `load` never fires within LOAD_TIMEOUT_MS the embed is additionally
- *    swapped for contact details. This only catches the subset of failures
- *    where the frame hangs rather than erroring, but it is cheap to keep.
+ * The fragment survives the redirect (fragments are client-side and are
+ * reapplied to the redirect target), which is why the URL still *looks* right
+ * while landing somewhere else entirely. So the embed is not being blocked by
+ * X-Frame-Options as first suspected — the endpoint is simply gone, and the
+ * form GUID now points at a marketing page.
  *
- * Opening the form via that direct link is unaffected by framing restrictions,
- * so it works even when the embed cannot.
+ * There is deliberately NO user-facing link to METHOD_FORM_URL. Offering one
+ * sent visitors on the contact page to Method's blog, which is worse than
+ * showing them nothing. Do not reintroduce a link, an "open in new tab"
+ * affordance, or a redirect to this URL until Method supplies a working
+ * replacement and it has been verified end to end in a browser.
  *
- * To confirm which failure mode is in play:
- *   curl -sSI "https://reservememorials.method.ws/apps/Public.aspx" \
- *     | grep -iE "x-frame-options|content-security-policy|set-cookie"
+ * The iframe below loads the same dead URL and therefore cannot render a form
+ * either. It is retained only so the fix is a one-line URL swap once Method
+ * provides the correct embed; the phone and email fallbacks above it are what
+ * actually carry leads in the meantime.
  */
 const LOAD_TIMEOUT_MS = 8000;
 
@@ -106,8 +101,8 @@ function FormUnavailable() {
         The form didn’t load
       </h3>
       <p className="mx-auto max-w-md text-sm text-muted-foreground">
-        Something is preventing it from appearing here. You can open the form
-        directly, or reach us by phone or email and we’ll take it from there.
+        Something is preventing it from appearing here. Reach us by phone or
+        email and we’ll take it from there.
       </p>
     </div>
   );
@@ -117,17 +112,10 @@ function FormFallback() {
   return (
     <div className="flex flex-col gap-3 border-b border-border/60 bg-muted/30 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
       <p className="text-xs text-muted-foreground">
-        Trouble with the form below? Open it in a new tab, or contact us
-        directly.
+        Prefer to talk to someone? Call or email us directly.
       </p>
       <div className="flex flex-wrap items-center gap-2">
         <Button asChild size="sm" variant="outline">
-          <a href={METHOD_FORM_URL} target="_blank" rel="noopener noreferrer">
-            <ExternalLink className="mr-1.5 h-3.5 w-3.5" />
-            Open form
-          </a>
-        </Button>
-        <Button asChild size="sm" variant="ghost">
           <a href={`tel:${phoneToTel(MARKETING_CONTACT.phone)}`}>
             <Phone className="mr-1.5 h-3.5 w-3.5" />
             {MARKETING_CONTACT.phone}
